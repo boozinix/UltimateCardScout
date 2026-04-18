@@ -1,93 +1,96 @@
 # Progress Tracker
-Last updated: 2026-04-17 (Phases 0–10 complete)
+Last updated: 2026-04-18
 
-## Phase 0 — Scaffold + Database
-- [x] Expo SDK 54 project scaffold (package.json, app.json, tsconfig, babel, metro, tailwind)
-- [x] NativeWind v4, Reanimated 3, Moti dependencies added
-- [x] Directory structure created
-- [x] Supabase schema (cards, benefits, user_cards, reminders, user_benefit_prefs, subscriptions + RLS)
-- [x] CSV ingest script (scripts/ingest-cards.ts)
-- [x] cards.csv copied from cc-recommender (110 cards)
-- [x] Card images/logos copied (123 images + bank logos + brand logos)
-- [x] .env.example, .gitignore, .claude/CLAUDE.md
+## Phase 0 — Design System
+- [x] Lock all design decisions (name, voice, accent, canvas, nav, components)
+- [x] Merge CardScout + PerksVault token system into `lib/theme.ts`
+- [x] Write phase1 design system HTML reference (`ux/phase1/design-system.html`)
 
-## Phase 1 — Auth + Shell
-- [x] lib/supabase.ts
-- [x] lib/theme.ts
-- [x] lib/subscription.ts + hooks/useSubscription.ts
-- [x] hooks/useBreakpoint.ts
-- [x] app/_layout.tsx (root)
-- [x] app/(auth)/_layout.tsx + login.tsx + check-email.tsx
-- [x] app/onboarding/index.tsx
-- [x] app/(tabs)/_layout.tsx (5-tab navigator)
-- [x] components/Button.tsx
-- [x] components/Typography.tsx
+## Phase 1 — App Scaffold
+- [x] Expo SDK 54 + Expo Router v3 project initialized (`UnifiedApp/`)
+- [x] `lib/theme.ts` — blue `#1B4FD8` primary, gold `#92400E` semantic-only, `#FAFAF9` canvas
+- [x] `app/(tabs)/_layout.tsx` — responsive: desktop sidebar (≥1024px) + mobile 4-tab bottom nav
+- [x] Root `app/index.tsx` → redirect to `/(tabs)/discover`
+- [x] `.env.local` created (gitignored), `.env.example` committed with placeholders
+- [x] `GIT_TRACKER.csv` created and maintained
 
-## Phase 2 — Free: Quiz + Results
-- [x] lib/cardTypes.ts
-- [x] lib/cardDisplay.ts
-- [x] lib/scoring.ts (port of resultsScoring.ts)
-- [x] lib/quiz.ts (port of wizardQuestions.ts)
-- [x] lib/nlp.ts (port of promptToAnswers.ts)
-- [x] app/(tabs)/discover/index.tsx (quiz entry)
-- [x] app/(tabs)/discover/quiz.tsx
-- [x] app/(tabs)/discover/results.tsx
-- [x] components/CardTile.tsx
+## Phase 2 — Card Database & Discovery
+- [x] `data/cards.csv` — master card database (110 cards)
+- [x] `public/cards.csv` — static copy served for web offline/demo fallback
+- [x] `hooks/useCards.ts` — Supabase primary, CSV fallback via papaparse
+- [x] `lib/cardTypes.ts` — Card type definition
+- [x] `lib/scoring.ts` — quiz answer → card scoring engine
+- [x] `lib/quiz.ts` — wizard question definitions
+- [x] `lib/nlp.ts` — natural language prompt → quiz answers
 
-## Phase 3 — Free: Tools + Browser
-- [x] lib/pointValues.ts
-- [x] lib/strategy.ts (port of advancedStrategy.ts)
-- [x] lib/calculators/spendAllocation.ts
-- [x] hooks/useCards.ts
-- [x] app/(tabs)/tools/index.tsx
-- [x] app/(tabs)/tools/browser.tsx
-- [x] app/(tabs)/tools/value-calculator.tsx
-- [x] app/(tabs)/tools/ur-calculator.tsx
-- [x] app/(tabs)/tools/mr-calculator.tsx
-- [x] app/(tabs)/tools/portfolio-expander.tsx
-- [x] app/(tabs)/tools/bonus-sequencer.tsx
-- [x] app/(tabs)/tools/guides/index.tsx
+## Phase 3 — Discover Tab
+- [x] `app/(tabs)/discover/index.tsx` — NL search, quick pills, tools section (no emoji → Lucide)
+- [x] `app/(tabs)/discover/quiz.tsx` — step-by-step wizard with ranked + single-select questions
+- [x] `app/(tabs)/discover/results.tsx` — scored results with CardTile list
+- [x] `components/CardTile.tsx` — expandable card tile, gradient header, apply link
 
-## Phase 4 — Free Portfolio View
-- [x] app/(tabs)/portfolio/index.tsx (3-card limit, Benefits nav for pro)
-- [x] app/(tabs)/portfolio/add-card.tsx (generates reminders on add for pro)
-- [x] components/PaywallModal.tsx
-- [x] utils/formatters.ts
-- [x] utils/haptics.ts
+## Phase 4 — Vault (Portfolio) Tab
+- [x] `app/(tabs)/portfolio/index.tsx` — VaultScreen with add/remove cards, insights shortcut
+- [x] `app/(tabs)/portfolio/add-card.tsx` — Search mode + By URL mode (Pro, calls scrape-card Edge Function)
+- [x] `app/(tabs)/portfolio/benefits.tsx` — per-card benefit list
+- [x] `app/(tabs)/portfolio/benefit-detail/` — individual benefit detail screen
+- [x] `app/(tabs)/portfolio/card-benefits/` — card-level benefits overview
+- [x] `app/(tabs)/portfolio/calendar.tsx` — benefit reminder calendar view
 
-## Phase 5 — Stripe Billing
-- [x] supabase/functions/create-checkout/index.ts (Deno, 14-day trial)
-- [x] supabase/functions/stripe-webhook/index.ts (Deno, handles completed/updated/deleted)
-- [x] PaywallModal wired to createCheckoutSession (Phase 4)
-- [ ] Stripe products + prices — manual setup in Stripe dashboard
+## Phase 5 — Calendar Tab
+- [x] `app/(tabs)/calendar/index.tsx` — re-exports portfolio/calendar
 
-## Phase 6 — Paid Wallet + Reminders
-- [x] utils/generateReminders.ts (date-fns, skips past periods, all frequencies)
-- [x] utils/notifications.ts (expo-notifications, 'cardscout_notif_ids' key)
-- [x] utils/icsExport.ts (web blob + native share, CardScout PRODID)
-- [x] app/(tabs)/portfolio/card-benefits/[userCardId].tsx (per-benefit prefs + reminder days)
-- [x] app/(tabs)/portfolio/benefit-detail/[reminderId].tsx (mark used, snooze 3/7d, undo)
-- [x] app/(tabs)/portfolio/benefits.tsx (full list, pending/used/all filter)
-- [x] app/(tabs)/portfolio/calendar.tsx (multi-dot calendar, paywall gated)
+## Phase 6 — Concierge Tab
+- [x] `app/(tabs)/concierge/index.tsx` — AI chat UI (suggestion pills, message bubbles, Pro tier aware)
+- [ ] Wire concierge to real Edge Function (ask-concierge) — **PENDING**
 
-## Phase 7 — AI Pipeline
-- [x] supabase/functions/scrape-card/index.ts (GPT-4o, pro-gated, HTML strip → JSON)
-- [ ] Wire add-by-URL flow in add-card screen (UI not yet built)
+## Phase 7 — Tools Tab
+- [x] `app/(tabs)/tools/index.tsx` — tools hub
+- [x] `app/(tabs)/tools/value-calculator.tsx` — point value calculator
+- [x] `app/(tabs)/tools/ur-calculator.tsx` — Chase UR calculator
+- [x] `app/(tabs)/tools/mr-calculator.tsx` — Amex MR calculator
+- [x] `app/(tabs)/tools/portfolio-expander.tsx` — gap analysis tool
+- [x] `app/(tabs)/tools/bonus-sequencer.tsx` — signup bonus timeline planner
+- [x] `app/(tabs)/tools/browser.tsx` — card browser with filters
+- [x] `app/(tabs)/tools/guides/` — strategy guides
 
-## Phase 8 — Paid Dashboards
-- [x] components/WealthRing.tsx (SVG donut, animated, legend)
-- [x] app/(tabs)/insights/index.tsx (WealthRing, ROI card, expiring list, card breakdown)
-- [ ] Breakeven tracker (data needs benefit reminders populated first)
+## Phase 8 — Insights Tab (Pro)
+- [x] `app/(tabs)/insights/index.tsx` — insights hub (Pro-gated)
+- [x] `app/(tabs)/insights/breakeven.tsx` — per-card fee vs captured value, progress bars, status badges
 
-## Phase 9 — Analytics + Email
-- [x] lib/analytics.ts (PostHog wrapper, 10 named events)
-- [x] supabase/functions/send-email/index.ts (Resend: welcome, trial_expiring, renewal_failed)
-- [ ] Wire capture() calls at key user actions (quiz, card add, paywall show, etc.)
+## Phase 9 — Analytics
+- [x] `lib/analytics.ts` — PostHog wrapper (no-op if key not set)
+- [x] `quiz.tsx` — `QUIZ_STARTED` on mount, `QUIZ_COMPLETED` on navigate
+- [x] `discover/index.tsx` — `SEARCH_PERFORMED` with query
+- [x] `CardTile.tsx` — `APPLY_TAPPED` with card_name + issuer
+- [x] `PaywallModal.tsx` — `PAYWALL_SHOWN` on visible, `UPGRADE_TAPPED` with plan
+- [x] `portfolio/index.tsx` — `CARD_REMOVED` on mutation success
 
-## Phase 10 — Build + Deploy
-- [x] eas.json (development, preview, production profiles)
-- [x] vercel.json (web export + SPA rewrite)
-- [x] app/(tabs)/settings/index.tsx (full: account, subscription status, notif toggle, ICS export)
-- [ ] Run: eas build --platform ios --profile production
-- [ ] Run: vercel deploy
-- [ ] README.md
+## Phase 10 — Auth & Settings
+- [x] `app/(auth)/login.tsx` — magic link login + guest bypass button
+- [x] `app/(tabs)/settings/index.tsx` — account, billing, subscription management
+- [ ] `app/(auth)/callback.tsx` — magic link callback handler — **verify works end-to-end**
+
+## Phase 11 — Supabase Backend (requires real project)
+- [ ] Create Supabase project, run `supabase/schema.sql`
+- [ ] Seed card catalog: `npm run ingest` with real service role key
+- [ ] Deploy Edge Functions: `scrape-card`, `create-checkout`, `stripe-webhook`, `send-email`
+- [ ] Wire `EXPO_PUBLIC_SUPABASE_URL` + `EXPO_PUBLIC_SUPABASE_ANON_KEY` in `.env.local`
+
+## Phase 12 — Payments (requires Stripe)
+- [ ] Create Stripe products: $6.99/mo + $49/yr with 14-day trial
+- [ ] Set `STRIPE_SECRET_KEY` + `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`
+- [ ] Test checkout flow end-to-end
+- [ ] Verify `stripe-webhook` Edge Function processes subscription events
+
+## Phase 13 — AI Features (requires OpenAI)
+- [ ] Set `OPENAI_API_KEY` in Supabase Edge Function secrets
+- [ ] Test `scrape-card` benefit extraction with real card URLs
+- [ ] Wire concierge to `ask-concierge` Edge Function (or build it)
+
+## Phase 14 — Production
+- [ ] EAS Build — iOS TestFlight, Android internal track
+- [ ] Vercel deployment for web
+- [ ] PostHog project key → `EXPO_PUBLIC_POSTHOG_KEY`
+- [ ] Resend API key → `RESEND_API_KEY`
+- [ ] App Store / Play Store submission
