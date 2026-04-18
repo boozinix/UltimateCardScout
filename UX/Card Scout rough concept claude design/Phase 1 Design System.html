@@ -1,0 +1,1462 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=1440"/>
+<title>Card Scout × PerksVault — Phase 1 Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ───────── TOKENS ───────── */
+:root {
+  /* Light */
+  --bg:#F7F6F3;
+  --surface:#FFFFFF;
+  --surface-raised:#F0EFEB;
+  --surface-sunken:#EEECE6;
+  --text:#1A1917;
+  --text-2:#6B6864;
+  --text-muted:#A09D99;
+  --border:#E4E2DC;
+  --border-strong:#CFCCC3;
+
+  --accent:#1B4FD8;
+  --accent-weak:#E8EEFE;
+  --accent-strong:#1340B3;
+
+  --gold:#92400E;         /* earned-value semantic */
+  --gold-weak:#FEF3C7;
+  --gold-mid:#D97706;
+
+  --success:#166534;
+  --success-bg:#DCFCE7;
+  --warn:#B45309;
+  --warn-bg:#FEF3C7;
+  --urgent:#C2410C;
+  --urgent-bg:#FFF1EE;
+  --danger:#B91C1C;
+
+  /* Category */
+  --c-travel:#1D4ED8; --c-travel-bg:#DBEAFE;
+  --c-dining:#B45309; --c-dining-bg:#FEF3C7;
+  --c-ent:#6D28D9;    --c-ent-bg:#F3E8FF;
+  --c-fit:#166534;    --c-fit-bg:#DCFCE7;
+  --c-hotel:#BE123C;  --c-hotel-bg:#FFF1F2;
+  --c-shop:#C2410C;   --c-shop-bg:#FFF7ED;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,.10);
+
+  --r-xs:4px; --r-sm:6px; --r-md:8px; --r-lg:12px; --r-xl:16px; --r-2xl:20px; --r-full:9999px;
+
+  --serif:'Instrument Serif', ui-serif, Georgia, serif;
+  --sans:'Manrope','Inter', system-ui, sans-serif;
+  --sans-body:'Inter', system-ui, sans-serif;
+  --mono:'Geist Mono', ui-monospace, monospace;
+}
+[data-theme="dark"] {
+  --bg:#111318;
+  --surface:#1A1E27;
+  --surface-raised:#232A37;
+  --surface-sunken:#0D1016;
+  --text:#ECEAE4;
+  --text-2:#9A9896;
+  --text-muted:#6E6C69;
+  --border:#2A3040;
+  --border-strong:#3B4356;
+
+  --accent:#4F7FFF;
+  --accent-weak:rgba(79,127,255,.14);
+  --accent-strong:#7A9DFF;
+
+  --gold:#D97706;
+  --gold-weak:rgba(217,119,6,.14);
+  --gold-mid:#F59E0B;
+
+  --success:#4ADE80; --success-bg:rgba(74,222,128,.12);
+  --warn:#FBBF24;    --warn-bg:rgba(251,191,36,.12);
+  --urgent:#FB923C;  --urgent-bg:rgba(251,146,60,.12);
+
+  --c-travel:#7A9DFF; --c-travel-bg:rgba(122,157,255,.14);
+  --c-dining:#F59E0B; --c-dining-bg:rgba(245,158,11,.14);
+  --c-ent:#A78BFA;    --c-ent-bg:rgba(167,139,250,.14);
+  --c-fit:#4ADE80;    --c-fit-bg:rgba(74,222,128,.14);
+  --c-hotel:#F472B6;  --c-hotel-bg:rgba(244,114,182,.14);
+  --c-shop:#FB923C;   --c-shop-bg:rgba(251,146,60,.14);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.35);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.45);
+  --shadow-lg: 0 16px 40px rgba(0,0,0,.55);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--sans-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .2s,color .2s}
+a{color:var(--accent);text-decoration:none}
+
+/* ───────── PAGE CHROME ───────── */
+.page-chrome{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--border);padding:14px 40px;display:flex;align-items:center;gap:24px;justify-content:space-between}
+.chrome-l{display:flex;align-items:center;gap:14px}
+.logo-mark{width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,var(--accent) 0%,var(--gold) 140%);display:grid;place-items:center;color:#fff;font-family:var(--serif);font-style:italic;font-size:18px;line-height:1}
+.chrome-title{font-family:var(--sans);font-weight:700;letter-spacing:-.015em;font-size:15px}
+.chrome-sub{font-size:12px;color:var(--text-2)}
+.chrome-r{display:flex;align-items:center;gap:10px}
+.pill-group{display:flex;background:var(--surface-raised);border-radius:var(--r-full);padding:3px;border:1px solid var(--border)}
+.pill-group button{border:0;background:transparent;color:var(--text-2);padding:6px 14px;border-radius:var(--r-full);font:500 12px/1 var(--sans);letter-spacing:.02em;cursor:pointer}
+.pill-group button.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm)}
+.theme-toggle{border:1px solid var(--border);background:var(--surface);border-radius:var(--r-full);padding:6px 12px;font:500 12px/1 var(--sans);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+
+/* ───────── LAYOUT ───────── */
+main{max-width:1380px;margin:0 auto;padding:32px 40px 80px}
+section.block{margin-top:64px;scroll-margin-top:80px}
+section.block:first-of-type{margin-top:24px}
+
+.block-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;gap:24px}
+.eyebrow{font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+h2.block-title{font-family:var(--serif);font-style:italic;font-weight:400;font-size:42px;line-height:1;margin:6px 0 0;letter-spacing:-.02em;color:var(--text)}
+.block-sub{color:var(--text-2);font-size:14px;max-width:560px;text-align:right}
+
+/* ───────── S0: HEADER / INDEX ───────── */
+.hero{display:grid;grid-template-columns:1.3fr 1fr;gap:48px;padding:16px 0 32px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.hero-l .eyebrow{margin-bottom:18px}
+.hero-l h1{font-family:var(--serif);font-weight:400;font-size:88px;line-height:.95;letter-spacing:-.025em;margin:0}
+.hero-l h1 em{font-style:italic;color:var(--accent)}
+.hero-l p{font-size:17px;line-height:1.55;color:var(--text-2);max-width:48ch;margin:24px 0 0}
+.hero-meta{display:flex;gap:24px;margin-top:32px;font-size:12px;color:var(--text-2);flex-wrap:wrap}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.hero-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.toc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:22px}
+.toc .eyebrow{margin-bottom:14px}
+.toc ol{list-style:none;padding:0;margin:0;counter-reset:toc}
+.toc li{counter-increment:toc;display:flex;gap:14px;padding:10px 0;border-bottom:1px dashed var(--border);font-size:14px;color:var(--text)}
+.toc li:last-child{border-bottom:0}
+.toc li::before{content:counter(toc,decimal-leading-zero);font-family:var(--mono);font-size:11px;color:var(--text-muted);width:24px;flex-shrink:0;padding-top:2px}
+.toc li a{color:var(--text)}
+.toc li small{color:var(--text-muted);font-size:12px;display:block}
+
+/* ───────── TOKENS GRID ───────── */
+.token-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.swatch{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden}
+.swatch .chip{height:64px;border-bottom:1px solid var(--border)}
+.swatch .meta{padding:10px 12px}
+.swatch .name{font-family:var(--sans);font-weight:600;font-size:12px;color:var(--text);letter-spacing:-.01em}
+.swatch .hex{font-family:var(--mono);font-size:10px;color:var(--text-muted);margin-top:2px}
+
+.token-group{margin-bottom:20px}
+.token-group h3{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.02em;color:var(--text-2);margin:0 0 10px;text-transform:uppercase}
+
+/* Category block */
+.cat-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.cat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;display:flex;flex-direction:column;gap:6px}
+.cat .pill{align-self:flex-start;font:600 10px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:var(--r-full)}
+.cat .label{font-weight:600;font-size:13px}
+.cat .hexes{font-family:var(--mono);font-size:10px;color:var(--text-muted);display:flex;gap:8px}
+
+/* Gradient strip */
+.grad-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.grad{height:72px;border-radius:var(--r-lg);border:1px solid var(--border);padding:12px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.grad .name{font:600 11px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+.grad .hex{font-family:var(--mono);font-size:9px;opacity:.7}
+.g-amex-plat{background:linear-gradient(135deg,#2D2D2D 0%,#5A5A5A 50%,#3A3A3A 100%)}
+.g-chase{background:linear-gradient(135deg,#0F2B5B 0%,#1D4ED8 100%)}
+.g-amex-gold{background:linear-gradient(135deg,#92400E 0%,#D97706 50%,#FCD34D 100%);color:#3a2507}
+.g-venture{background:linear-gradient(135deg,#1E293B 0%,#334155 100%)}
+.g-default{background:linear-gradient(135deg,#374151 0%,#6B7280 100%)}
+
+/* Radii / shadows row */
+.prims{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:20px}
+.prim{background:var(--surface);border:1px solid var(--border);padding:16px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.prim .box{width:60px;height:60px;background:var(--surface-raised);border:1px solid var(--border-strong)}
+.prim small{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
+.prim .name{font:600 11px/1 var(--sans);color:var(--text);letter-spacing:.04em;text-transform:uppercase}
+
+.shadows{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.shadow-card{background:var(--surface);border-radius:var(--r-lg);padding:24px;display:flex;flex-direction:column;gap:4px}
+.shadow-sm{box-shadow:var(--shadow-sm)}
+.shadow-md{box-shadow:var(--shadow-md)}
+.shadow-lg{box-shadow:var(--shadow-lg)}
+.shadow-card .name{font:600 12px/1 var(--sans);letter-spacing:.04em;text-transform:uppercase}
+.shadow-card code{font-family:var(--mono);font-size:10px;color:var(--text-muted)}
+
+/* ───────── TYPE SCALE ───────── */
+.type-table{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.type-row{display:grid;grid-template-columns:220px 1fr 200px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border);gap:24px}
+.type-row:last-child{border-bottom:0}
+.type-row .meta .name{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:-.01em}
+.type-row .meta small{font-family:var(--mono);font-size:10px;color:var(--text-muted);display:block;margin-top:3px}
+.type-row .specs{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-align:right;line-height:1.8}
+.display-lg{font-family:var(--serif);font-style:italic;font-size:64px;line-height:1;letter-spacing:-.025em}
+.display-md{font-family:var(--serif);font-style:italic;font-size:44px;line-height:1.02;letter-spacing:-.02em}
+.display-sm{font-family:var(--serif);font-style:italic;font-size:32px;line-height:1.05;letter-spacing:-.015em}
+.h1-sans{font-family:var(--sans);font-weight:800;font-size:34px;line-height:1.1;letter-spacing:-.025em}
+.h2-sans{font-family:var(--sans);font-weight:700;font-size:22px;line-height:1.2;letter-spacing:-.015em}
+.h3-sans{font-family:var(--sans);font-weight:700;font-size:17px;line-height:1.25;letter-spacing:-.01em}
+.body-lg{font-family:var(--sans-body);font-weight:400;font-size:17px;line-height:1.6}
+.body-md{font-family:var(--sans-body);font-weight:400;font-size:15px;line-height:1.6}
+.body-sm{font-family:var(--sans-body);font-weight:400;font-size:13px;line-height:1.55;color:var(--text-2)}
+.label-upper{font-family:var(--sans);font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.num-hero{font-family:var(--mono);font-weight:500;font-size:36px;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.num-md{font-family:var(--mono);font-weight:500;font-size:18px;font-variant-numeric:tabular-nums}
+
+/* ───────── COMPONENTS ───────── */
+.cmp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.cmp-wide{grid-column:1/-1}
+.cmp{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px}
+.cmp > h3{font:700 12px/1 var(--sans);color:var(--text-2);letter-spacing:.14em;text-transform:uppercase;margin:0 0 18px}
+.cmp .cmp-stack{display:flex;flex-direction:column;gap:14px}
+.cmp .cmp-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+
+/* Buttons */
+.btn{border:1px solid transparent;border-radius:var(--r-sm);padding:10px 16px;font:600 13px/1 var(--sans);letter-spacing:-.005em;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:all .12s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-strong)}
+.btn-ghost{background:var(--surface);color:var(--text);border-color:var(--border-strong)}
+.btn-ghost:hover{background:var(--surface-raised)}
+.btn-subtle{background:var(--surface-raised);color:var(--text);border-color:transparent}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-link{background:transparent;color:var(--accent);padding:10px 4px}
+.btn-link:hover{text-decoration:underline}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{filter:brightness(1.08)}
+.btn-sm{padding:6px 12px;font-size:12px}
+.btn-lg{padding:14px 22px;font-size:14px}
+.btn svg{width:14px;height:14px;stroke-width:2}
+
+/* Inputs */
+.input{width:100%;background:var(--surface);border:1px solid var(--border-strong);border-radius:var(--r-sm);padding:11px 14px;font:400 14px/1.2 var(--sans-body);color:var(--text)}
+.input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)}
+.input-wrap{display:flex;flex-direction:column;gap:6px}
+.input-wrap .input-label{font:500 11px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--text-2)}
+.input-wrap .input-help{font-size:11px;color:var(--text-muted)}
+
+/* Chips / Pills */
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip-base{border:1px solid var(--border-strong);background:var(--surface);padding:7px 14px;border-radius:var(--r-full);font:500 12px/1 var(--sans);color:var(--text);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip-base.on{background:var(--accent);color:#fff;border-color:var(--accent)}
+.chip-cat{padding:4px 10px;font:500 10px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:var(--r-full);border:0}
+.chip-travel{background:var(--c-travel-bg);color:var(--c-travel)}
+.chip-dining{background:var(--c-dining-bg);color:var(--c-dining)}
+.chip-ent{background:var(--c-ent-bg);color:var(--c-ent)}
+.chip-fit{background:var(--c-fit-bg);color:var(--c-fit)}
+.chip-hotel{background:var(--c-hotel-bg);color:var(--c-hotel)}
+.chip-shop{background:var(--c-shop-bg);color:var(--c-shop)}
+
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:4px;font:600 10px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:var(--r-full)}
+.badge-success{background:var(--success-bg);color:var(--success)}
+.badge-warn{background:var(--warn-bg);color:var(--warn)}
+.badge-urgent{background:var(--urgent-bg);color:var(--urgent)}
+.badge-gold{background:var(--gold-weak);color:var(--gold)}
+.badge-new{background:var(--accent-weak);color:var(--accent)}
+
+/* Result card — v4.0 list-item style (NEW — replaces 3-col) */
+.result-list{display:flex;flex-direction:column;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.result-row{display:grid;grid-template-columns:4px 64px 1fr auto auto;align-items:center;gap:20px;padding:18px 20px;border-bottom:1px solid var(--border);position:relative;transition:background .15s}
+.result-row:last-child{border-bottom:0}
+.result-row:hover{background:var(--surface-raised)}
+.result-row.is-top{background:var(--accent-weak)}
+.result-row .rank-accent{width:4px;height:44px;border-radius:2px;background:var(--border-strong)}
+.result-row.is-top .rank-accent{background:var(--accent)}
+.result-row.is-urgent .rank-accent{background:var(--urgent)}
+.result-row .card-img{width:64px;height:40px;border-radius:var(--r-sm);overflow:hidden}
+.result-row .card-img.g-chase{background:linear-gradient(135deg,#0F2B5B 0%,#1D4ED8 100%)}
+.result-row .card-img.g-amex-plat{background:linear-gradient(135deg,#2D2D2D 0%,#5A5A5A 50%,#3A3A3A 100%)}
+.result-row .card-img.g-amex-gold{background:linear-gradient(135deg,#92400E 0%,#D97706 50%,#FCD34D 100%)}
+.result-row .card-img.g-venture{background:linear-gradient(135deg,#1E293B 0%,#334155 100%)}
+.result-row .name{font:700 15px/1.2 var(--sans);letter-spacing:-.01em}
+.result-row .issuer{font:400 12px/1 var(--sans-body);color:var(--text-2);margin-top:4px}
+.result-row .best-for{display:inline-flex;align-items:center;gap:4px;font:500 10px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-weak);padding:3px 8px;border-radius:var(--r-full);margin-top:6px;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
+.result-row > div:nth-child(3){min-width:0}
+.result-row .val{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:var(--text-2)}
+.result-row .val .hero-val{font-size:16px;color:var(--text);font-weight:500;display:block}
+.result-row .val .fee{font-size:11px;color:var(--text-muted);margin-top:2px}
+.result-row .arrow{width:28px;height:28px;border-radius:var(--r-full);background:var(--surface-raised);display:grid;place-items:center;color:var(--text-2)}
+.result-row.is-top .arrow{background:var(--accent);color:#fff}
+
+/* Expanded detail row for top match */
+.result-expanded{background:var(--accent-weak);padding:0 20px 20px 108px;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;border-bottom:1px solid var(--border)}
+.result-expanded .pros{font-size:13px}
+.result-expanded .pros h4{font:700 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2);margin:0 0 10px}
+.result-expanded .pros ul{margin:0;padding:0;list-style:none}
+.result-expanded .pros li{display:flex;gap:8px;padding:4px 0;color:var(--text)}
+.result-expanded .pros li::before{content:'';display:block;width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:8px;flex-shrink:0}
+.result-expanded .cta-col{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+
+/* Wallet card */
+.wallet-card{width:100%;aspect-ratio:1.586/1;border-radius:var(--r-xl);padding:16px 18px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow-md);container-type:inline-size}
+.wallet-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.wallet-card .top > div:first-child{min-width:0;flex:1}
+.wallet-card .name{font-family:var(--serif);font-style:italic;font-size:20px;line-height:1;letter-spacing:-.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wallet-card .issuer{font:400 9px/1.2 var(--sans-body);color:rgba(255,255,255,.6);margin-top:5px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wallet-card .chip-inline{background:rgba(255,255,255,.15);color:#fff;font:600 9px/1 var(--sans);letter-spacing:.1em;padding:4px 8px;border-radius:var(--r-full);text-transform:uppercase;white-space:nowrap;flex-shrink:0}
+.wallet-card .last-four{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:rgba(255,255,255,.7)}
+.wallet-card .fee{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.55)}
+.wallet-row{display:flex;align-items:flex-end;justify-content:space-between}
+
+/* Wealth ring */
+.ring-wrap{display:flex;flex-direction:column;align-items:center;gap:16px}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-center{position:relative;display:grid;place-items:center}
+.ring-center-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ring-center-inner .lbl{font:500 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2)}
+.ring-center-inner .val{font-family:var(--mono);font-weight:500;font-size:26px;letter-spacing:-.03em;color:var(--text);font-variant-numeric:tabular-nums}
+.ring-center-inner .gold-accent{color:var(--gold)}
+.ring-center-inner .sub{font:400 10px/1 var(--sans-body);color:var(--text-muted)}
+.ring-legend{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 18px;font-size:11px;padding:0 12px}
+.ring-legend .lg-item{display:flex;align-items:center;gap:8px}
+.ring-legend .dot{width:7px;height:7px;border-radius:50%}
+.ring-legend .lg-label{color:var(--text-2);flex:1}
+.ring-legend .lg-val{font-family:var(--mono);color:var(--text);font-variant-numeric:tabular-nums}
+
+/* Benefit row (Vault) */
+.benefit-row{display:grid;grid-template-columns:3px 1fr auto;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.benefit-row .accent{width:3px;align-self:stretch}
+.benefit-row.is-urgent .accent{background:var(--urgent)}
+.benefit-row.is-warn .accent{background:var(--warn)}
+.benefit-row.is-ok .accent{background:var(--border-strong)}
+.benefit-row .body{padding:12px 0}
+.benefit-row .eyebrow-r{font:500 10px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-2)}
+.benefit-row .title{font-family:var(--serif);font-style:italic;font-size:18px;line-height:1.2;margin:4px 0}
+.benefit-row .meta{font-size:11px;color:var(--text-muted)}
+.benefit-row .right{padding-right:16px;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.benefit-row .val{font-family:var(--mono);font-size:15px;color:var(--gold);font-weight:500}
+
+/* Curator / quote blocks */
+.curator-dark{background:#1C1917;color:#fff;border-radius:var(--r-xl);padding:26px;border:1px solid #1C1917;display:flex;flex-direction:column}
+.curator-dark .eyebrow-c{font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:12px}
+.curator-dark h4{font-family:var(--serif);font-style:italic;font-weight:400;font-size:22px;line-height:1.2;margin:0 0 10px;color:#fff;text-transform:none}
+.curator-dark p{font-size:13px;color:rgba(255,255,255,.65);margin:0 0 18px;line-height:1.55}
+.curator-dark .btn{margin-top:auto;align-self:stretch;justify-content:center}
+.curator-dark .btn-gold{width:100%;justify-content:center}
+
+.curator-note{background:var(--gold-weak);border:1px solid var(--warn-bg);border-radius:var(--r-lg);padding:16px 18px;display:flex;gap:12px}
+.curator-note .star{color:var(--gold);flex-shrink:0;padding-top:2px}
+.curator-note .body .eyebrow-n{font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.curator-note .body p{font-size:13px;color:var(--gold);margin:0;line-height:1.55;font-weight:500}
+[data-theme="dark"] .curator-note{background:var(--gold-weak);border-color:var(--gold-weak)}
+[data-theme="dark"] .curator-note .body p{color:var(--gold-mid)}
+[data-theme="dark"] .curator-note .body .eyebrow-n{color:var(--gold-mid)}
+
+.quote-block{display:flex;gap:20px;padding:18px 0;border-left:2px solid var(--gold);padding-left:22px}
+.quote-block blockquote{margin:0;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:var(--text);letter-spacing:-.005em}
+.quote-block cite{font:500 10px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--text-muted);display:block;margin-top:12px;font-style:normal}
+
+/* Paywall modal preview */
+.paywall{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:32px;text-align:center;max-width:420px;margin:0 auto;box-shadow:var(--shadow-lg)}
+.paywall .badge-gold{margin-bottom:20px}
+.paywall h3{font-family:var(--serif);font-style:italic;font-weight:400;font-size:30px;line-height:1.1;margin:0 0 10px;letter-spacing:-.01em;text-transform:none}
+.paywall p.sub{font-size:13px;color:var(--text-2);margin:0 0 24px;line-height:1.5}
+.paywall .perks{display:flex;flex-direction:column;gap:12px;text-align:left;margin-bottom:28px}
+.paywall .perks li{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--text);list-style:none}
+.paywall .perks svg{color:var(--accent);width:16px;height:16px;stroke-width:2;flex-shrink:0}
+.paywall .btn-primary{width:100%;padding:14px;font-size:14px;justify-content:center;margin-bottom:10px}
+.paywall small{font-size:11px;color:var(--text-muted)}
+
+/* ───────── SURFACES ───────── */
+.surfaces{display:grid;grid-template-columns:1.6fr 360px 280px;gap:28px;align-items:start}
+.surface-caption{font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.surface-caption small{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0}
+
+/* Desktop shell */
+.s-desktop{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:16/10.5}
+.browser-chrome{background:var(--surface-raised);border-bottom:1px solid var(--border);padding:10px 14px;display:flex;gap:10px;align-items:center}
+.bc-dots{display:flex;gap:6px}
+.bc-dots span{width:10px;height:10px;border-radius:50%;background:var(--border-strong)}
+.bc-bar{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-full);padding:4px 10px;font-family:var(--mono);font-size:10px;color:var(--text-muted)}
+.s-desktop-body{display:grid;grid-template-columns:180px 1fr;height:100%}
+.sidebar{background:var(--surface-raised);border-right:1px solid var(--border);padding:18px 14px;display:flex;flex-direction:column;gap:4px}
+.sidebar .brand{display:flex;align-items:center;gap:8px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.sidebar .brand .mark{width:20px;height:20px;border-radius:5px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#fff;font-family:var(--serif);font-style:italic;display:grid;place-items:center;font-size:13px}
+.sidebar .brand .bname{font:700 12px/1 var(--sans);letter-spacing:-.01em}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:var(--r-sm);font:500 12px/1 var(--sans);color:var(--text-2);cursor:pointer;position:relative}
+.nav-item svg{width:14px;height:14px;stroke-width:1.75;flex-shrink:0}
+.nav-item.on{background:var(--surface);color:var(--text);box-shadow:var(--shadow-sm);font-weight:600}
+.nav-item .lock{margin-left:auto;color:var(--text-muted);width:10px;height:10px}
+.nav-group-label{font:500 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);padding:14px 10px 6px}
+.sidebar .spacer{flex:1}
+.sidebar .user{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface)}
+.sidebar .user .avatar{width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font:700 11px/1 var(--sans)}
+.sidebar .user .u-name{font:600 11px/1 var(--sans)}
+.sidebar .user .u-tier{font-size:9px;color:var(--text-muted);margin-top:2px}
+.main-area{padding:24px 28px;overflow:hidden}
+.ma-eyebrow{font:500 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin-bottom:8px}
+.ma-hero{font-family:var(--serif);font-style:italic;font-size:36px;line-height:1.02;letter-spacing:-.025em;margin:0}
+.ma-hero em{color:var(--accent);font-style:italic}
+.ma-sub{font-size:11px;color:var(--text-2);margin:8px 0 18px}
+.ma-grid{display:grid;grid-template-columns:1.1fr 1.2fr 1fr;gap:10px}
+.ma-card{background:var(--surface-raised);border-radius:var(--r-md);padding:12px}
+.ma-card-title{font:500 9px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin-bottom:8px}
+
+/* Mobile web — bottom sheet */
+.s-mweb{background:var(--surface);border:1px solid var(--border);border-radius:24px;overflow:hidden;box-shadow:var(--shadow-md);aspect-ratio:9/16;max-width:360px;margin:0 auto}
+.mobile-header{padding:14px 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--surface)}
+.mh-l{display:flex;align-items:center;gap:8px}
+.mh-l .mark{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,var(--accent),var(--gold));color:#fff;font-family:var(--serif);font-style:italic;display:grid;place-items:center;font-size:14px}
+.mh-name{font:700 13px/1 var(--sans);letter-spacing:-.01em}
+.mh-name small{display:block;font:500 8px/1 var(--sans);letter-spacing:.14em;color:var(--text-muted);margin-top:3px;text-transform:uppercase}
+.mh-r{display:flex;gap:10px;color:var(--text-2)}
+.mh-r svg{width:16px;height:16px;stroke-width:1.75}
+.mweb-body{padding:18px 16px;height:calc(100% - 110px);overflow:hidden;display:flex;flex-direction:column;gap:14px}
+.mweb-hero{font-family:var(--serif);font-style:italic;font-size:28px;line-height:1;letter-spacing:-.02em;margin:6px 0 0}
+.mweb-hero em{color:var(--accent)}
+.mweb-body .ma-eyebrow{margin-bottom:0}
+.mweb-foot{position:absolute;bottom:0;left:0;right:0;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-top:1px solid var(--border);padding:10px 0 18px;display:flex;justify-content:space-around}
+[data-theme="dark"] .mweb-foot{background:rgba(26,30,39,.88)}
+.tab-btn{display:flex;flex-direction:column;align-items:center;gap:4px;font:500 9px/1 var(--sans);color:var(--text-muted);letter-spacing:.08em;text-transform:uppercase;cursor:pointer;position:relative}
+.tab-btn svg{width:18px;height:18px;stroke-width:1.75}
+.tab-btn.on{color:var(--accent)}
+.tab-btn .lock-dot{position:absolute;top:-2px;right:-6px;width:10px;height:10px;border-radius:50%;background:var(--surface);display:grid;place-items:center}
+.tab-btn .lock-dot svg{width:7px;height:7px;color:var(--text-muted);stroke-width:2.5}
+
+.s-mweb{position:relative}
+
+/* Mobile app frame — phone bezel */
+.s-mapp{background:#111;border-radius:36px;padding:10px;box-shadow:var(--shadow-lg);position:relative;aspect-ratio:9/19.5;max-width:240px;margin:0 auto}
+.s-mapp .screen{background:var(--bg);border-radius:28px;height:100%;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.s-mapp .notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:74px;height:20px;background:#111;border-radius:14px;z-index:10}
+.s-mapp .status-bar{padding:14px 18px 6px;display:flex;justify-content:space-between;font:600 9px/1 var(--sans);color:var(--text);position:relative;z-index:5;padding-top:16px}
+.s-mapp .mobile-header{padding:6px 14px 10px;border-bottom:0}
+.s-mapp .mh-l .mark{width:18px;height:18px;font-size:11px}
+.s-mapp .mh-name{font-size:11px}
+.s-mapp .mh-name small{font-size:7px}
+.s-mapp-body{flex:1;padding:12px 14px;display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.s-mapp-body .mweb-hero{font-size:22px}
+.s-mapp-body .ma-eyebrow{font-size:8px;margin-bottom:0}
+.s-mapp-nav{border-top:1px solid var(--border);padding:6px 0 14px;display:flex;justify-content:space-around;background:var(--surface)}
+.s-mapp-nav .tab-btn{font-size:7px;gap:2px}
+.s-mapp-nav .tab-btn svg{width:14px;height:14px}
+
+/* ───────── HERO SCREENS ───────── */
+.hero-screens{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.hero-screen{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden}
+.hero-screen h3{margin:0;padding:14px 20px;font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.hero-screen h3 small{font-family:var(--mono);font-size:10px;color:var(--text-muted);text-transform:none;letter-spacing:0;font-weight:400}
+.hero-screen .body{padding:28px}
+
+/* Discover home */
+.discover-home{display:flex;flex-direction:column;gap:28px}
+.dh-hero h1{font-family:var(--serif);font-weight:400;font-size:52px;line-height:.98;letter-spacing:-.025em;margin:4px 0 0}
+.dh-hero h1 em{font-style:italic;color:var(--accent)}
+.dh-hero p.sub{font-size:14px;color:var(--text-2);margin:12px 0 0}
+.dh-paths{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dh-path{background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;gap:8px}
+.dh-path:hover{border-color:var(--accent);background:var(--surface)}
+.dh-path .icon{width:32px;height:32px;border-radius:var(--r-md);background:var(--accent-weak);color:var(--accent);display:grid;place-items:center}
+.dh-path .icon svg{width:16px;height:16px;stroke-width:1.75}
+.dh-path.p-vault .icon{background:var(--gold-weak);color:var(--gold)}
+.dh-path.p-browse .icon{background:var(--c-ent-bg);color:var(--c-ent)}
+.dh-path h4{font:700 14px/1.2 var(--sans);margin:4px 0 0;letter-spacing:-.01em}
+.dh-path p{font-size:12px;color:var(--text-2);margin:0;line-height:1.5}
+.dh-path .cta{font:600 12px/1 var(--sans);color:var(--accent);display:inline-flex;align-items:center;gap:4px;margin-top:4px}
+.dh-path.p-vault .cta{color:var(--gold)}
+.dh-path.p-browse .cta{color:var(--c-ent)}
+.dh-search{display:flex;gap:8px}
+.dh-search .input{flex:1}
+.trust-bar{display:flex;gap:20px;font-size:11px;color:var(--text-2);justify-content:center;flex-wrap:wrap;padding:10px 0;border-top:1px dashed var(--border);border-bottom:1px dashed var(--border)}
+.trust-bar span{display:inline-flex;align-items:center;gap:6px}
+.trust-bar .dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.dh-section-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.dh-section-h h3{font-family:var(--sans);font-weight:700;font-size:17px;margin:0;letter-spacing:-.01em}
+
+/* Vault dashboard (paid surface) */
+.vault-dash{display:flex;flex-direction:column;gap:24px}
+.vd-hero{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.vd-hero h1{font-family:var(--serif);font-style:italic;font-weight:400;font-size:48px;line-height:1;letter-spacing:-.025em;margin:6px 0 0}
+.vd-bento{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.vd-bento-wide{grid-column:1/-1}
+.vd-box{background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px}
+.vd-box h4{font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);margin:0 0 14px}
+.vd-stat-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.vd-stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:10px;text-align:center}
+.vd-stat .v{font-family:var(--mono);font-size:16px;color:var(--text);font-variant-numeric:tabular-nums}
+.vd-stat .l{font:500 9px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:4px}
+.vd-wallets{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+/* ───────── REMEDIATION ADDENDUM ───────── */
+.remed-list{display:flex;flex-direction:column;gap:16px}
+.remed-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;display:grid;grid-template-columns:60px 1fr;gap:24px;align-items:start}
+.remed-item .idx{font-family:var(--serif);font-style:italic;font-size:56px;line-height:.8;color:var(--accent);letter-spacing:-.04em}
+.remed-body h3{font:700 18px/1.2 var(--sans);margin:0 0 6px;letter-spacing:-.015em}
+.remed-body .meta{font:500 10px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--urgent);margin-bottom:12px}
+.remed-body .meta.sev-mid{color:var(--warn)}
+.remed-body .meta.sev-low{color:var(--text-2)}
+.remed-body p{margin:0 0 14px;font-size:14px;color:var(--text-2);line-height:1.55;max-width:72ch}
+.remed-body .ba{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.remed-body .ba .panel{background:var(--surface-raised);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;font-size:12px}
+.remed-body .ba .panel .lbl{font:700 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:3px 8px;border-radius:var(--r-full)}
+.remed-body .ba .before .lbl{background:var(--urgent-bg);color:var(--urgent)}
+.remed-body .ba .after .lbl{background:var(--success-bg);color:var(--success)}
+.remed-body .ba code{font-family:var(--mono);font-size:11px;background:transparent;color:var(--text);display:block;white-space:pre-wrap;line-height:1.7}
+.remed-body .ba .tokens{font-family:var(--mono);font-size:11px;color:var(--text-2);line-height:1.8}
+.remed-body .ba .tokens span.k{color:var(--accent)}
+.remed-body .ba .tokens span.gold{color:var(--gold)}
+.remed-body .ba .tokens span.urg{color:var(--urgent)}
+
+/* Footer / sign off */
+.signoff{margin-top:80px;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:32px;color:var(--text-2);font-size:12px}
+.signoff .mini-mark{font-family:var(--serif);font-style:italic;font-size:32px;color:var(--text);line-height:1}
+</style>
+</head>
+<body>
+
+<!-- ───────── PAGE CHROME ───────── -->
+<header class="page-chrome">
+  <div class="chrome-l">
+    <div class="logo-mark">CS</div>
+    <div>
+      <div class="chrome-title">Card Scout × Vault</div>
+      <div class="chrome-sub">Phase 1 — Merged design system reference · v0.1</div>
+    </div>
+  </div>
+  <div class="chrome-r">
+    <div class="pill-group" id="surface-toggle">
+      <button class="on" data-s="all">All surfaces</button>
+      <button data-s="desktop">Desktop</button>
+      <button data-s="mweb">Mobile web</button>
+      <button data-s="mapp">Mobile app</button>
+    </div>
+    <button class="theme-toggle" id="theme-toggle">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <span id="theme-label">Light</span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ───────── HERO ───────── -->
+<div class="hero">
+  <div class="hero-l">
+    <div class="eyebrow">Phase 1 · Design system reference · april 2026</div>
+    <h1>One system.<br/><em>Three surfaces.</em><br/>Free and paid.</h1>
+    <p>The merged Card Scout × Vault design system. Blue is the brand. Gold is reserved for captured value. Instrument Serif carries the hero moments; Manrope and Inter do the heavy lifting; Geist Mono handles every number. Everything below renders identically on desktop web, mobile web, and the mobile app — same tokens, same type, same components.</p>
+    <div class="hero-meta">
+      <span><span class="dot"></span>Tokens · light + dark</span>
+      <span><span class="dot"></span>Type scale</span>
+      <span><span class="dot"></span>21 components</span>
+      <span><span class="dot"></span>3 surface shells</span>
+      <span><span class="dot"></span>7 remediation items</span>
+    </div>
+  </div>
+  <aside class="toc">
+    <div class="eyebrow">Contents</div>
+    <ol>
+      <li><a href="#tokens">Tokens<small>Colors, radii, shadows, gradients</small></a></li>
+      <li><a href="#type">Type scale<small>Four families, nine roles</small></a></li>
+      <li><a href="#components">Components<small>Buttons, inputs, tiles, ring, paywall</small></a></li>
+      <li><a href="#surfaces">Three surfaces<small>Desktop · mobile web · mobile app</small></a></li>
+      <li><a href="#heroes">Hero screens<small>Discover home · Vault dashboard</small></a></li>
+      <li><a href="#remed">Remediation addendum<small>7 fixes for the live app</small></a></li>
+    </ol>
+  </aside>
+</div>
+
+<!-- ───────── 1 · TOKENS ───────── -->
+<section class="block" id="tokens">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">01 · Tokens</div>
+      <h2 class="block-title">The palette, in two modes.</h2>
+    </div>
+    <p class="block-sub">Blue <code style="font-family:var(--mono);font-size:12px">#1B4FD8</code> is the sole brand accent. Gold <code style="font-family:var(--mono);font-size:12px">#92400E</code> retires to a semantic — earned value, ownership, captured returns. Six category colors. Five card-brand gradients. Two dark-mode lifts for hero contrast. Toggle Light/Dark above to see everything reflow.</p>
+  </div>
+
+  <div class="token-group">
+    <h3>Neutral surfaces</h3>
+    <div class="token-grid">
+      <div class="swatch"><div class="chip" style="background:var(--bg)"></div><div class="meta"><div class="name">bg</div><div class="hex" id="hex-bg">#F7F6F3</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--surface);border-bottom:1px solid var(--border)"></div><div class="meta"><div class="name">surface</div><div class="hex" id="hex-surface">#FFFFFF</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--surface-raised)"></div><div class="meta"><div class="name">surface-raised</div><div class="hex" id="hex-sr">#F0EFEB</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--text)"></div><div class="meta"><div class="name">text</div><div class="hex" id="hex-text">#1A1917</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--text-2)"></div><div class="meta"><div class="name">text-2</div><div class="hex" id="hex-text2">#6B6864</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--border)"></div><div class="meta"><div class="name">border</div><div class="hex" id="hex-border">#E4E2DC</div></div></div>
+    </div>
+  </div>
+
+  <div class="token-group">
+    <h3>Accents — blue (brand) · gold (earned value)</h3>
+    <div class="token-grid">
+      <div class="swatch"><div class="chip" style="background:var(--accent)"></div><div class="meta"><div class="name">accent</div><div class="hex" id="hex-accent">#1B4FD8</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--accent-weak)"></div><div class="meta"><div class="name">accent-weak</div><div class="hex" id="hex-aw">#E8EEFE</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--accent-strong)"></div><div class="meta"><div class="name">accent-strong</div><div class="hex" id="hex-as">#1340B3</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--gold)"></div><div class="meta"><div class="name">gold</div><div class="hex" id="hex-gold">#92400E</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--gold-weak)"></div><div class="meta"><div class="name">gold-weak</div><div class="hex" id="hex-gw">#FEF3C7</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--gold-mid)"></div><div class="meta"><div class="name">gold-mid</div><div class="hex" id="hex-gm">#D97706</div></div></div>
+    </div>
+  </div>
+
+  <div class="token-group">
+    <h3>Semantic</h3>
+    <div class="token-grid">
+      <div class="swatch"><div class="chip" style="background:var(--success)"></div><div class="meta"><div class="name">success</div><div class="hex">#166534</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--success-bg)"></div><div class="meta"><div class="name">success-bg</div><div class="hex">#DCFCE7</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--warn)"></div><div class="meta"><div class="name">warn</div><div class="hex">#B45309</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--warn-bg)"></div><div class="meta"><div class="name">warn-bg</div><div class="hex">#FEF3C7</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--urgent)"></div><div class="meta"><div class="name">urgent</div><div class="hex">#C2410C</div></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--urgent-bg)"></div><div class="meta"><div class="name">urgent-bg</div><div class="hex">#FFF1EE</div></div></div>
+    </div>
+  </div>
+
+  <div class="token-group">
+    <h3>Categories — six</h3>
+    <div class="cat-grid">
+      <div class="cat"><span class="pill chip-travel">Travel</span><span class="label">Travel</span><span class="hexes"><span>text #1D4ED8</span><span>bg #DBEAFE</span></span></div>
+      <div class="cat"><span class="pill chip-dining">Dining</span><span class="label">Dining</span><span class="hexes"><span>#B45309</span><span>#FEF3C7</span></span></div>
+      <div class="cat"><span class="pill chip-ent">Ent</span><span class="label">Entertainment</span><span class="hexes"><span>#6D28D9</span><span>#F3E8FF</span></span></div>
+      <div class="cat"><span class="pill chip-fit">Fitness</span><span class="label">Fitness</span><span class="hexes"><span>#166534</span><span>#DCFCE7</span></span></div>
+      <div class="cat"><span class="pill chip-hotel">Hotel</span><span class="label">Hotel</span><span class="hexes"><span>#BE123C</span><span>#FFF1F2</span></span></div>
+      <div class="cat"><span class="pill chip-shop">Shop</span><span class="label">Shopping</span><span class="hexes"><span>#C2410C</span><span>#FFF7ED</span></span></div>
+    </div>
+  </div>
+
+  <div class="token-group">
+    <h3>Card brand gradients — for wallet tiles</h3>
+    <div class="grad-strip">
+      <div class="grad g-amex-plat"><div class="name">Amex Platinum</div><div class="hex">#2D2D2D → #5A5A5A → #3A3A3A</div></div>
+      <div class="grad g-chase"><div class="name">Chase Sapphire</div><div class="hex">#0F2B5B → #1D4ED8</div></div>
+      <div class="grad g-amex-gold"><div class="name">Amex Gold</div><div class="hex">#92400E → #D97706 → #FCD34D</div></div>
+      <div class="grad g-venture"><div class="name">Venture X</div><div class="hex">#1E293B → #334155</div></div>
+      <div class="grad g-default"><div class="name">Default</div><div class="hex">#374151 → #6B7280</div></div>
+    </div>
+  </div>
+
+  <div class="token-group">
+    <h3>Radii &amp; shadows</h3>
+    <div class="prims">
+      <div class="prim"><div class="box" style="border-radius:4px"></div><span class="name">xs</span><small>4px</small></div>
+      <div class="prim"><div class="box" style="border-radius:6px"></div><span class="name">sm</span><small>6px</small></div>
+      <div class="prim"><div class="box" style="border-radius:8px"></div><span class="name">md · default</span><small>8px</small></div>
+      <div class="prim"><div class="box" style="border-radius:12px"></div><span class="name">lg · cards</span><small>12px</small></div>
+      <div class="prim"><div class="box" style="border-radius:16px"></div><span class="name">xl · wallet</span><small>16px</small></div>
+    </div>
+    <div class="shadows">
+      <div class="shadow-card shadow-sm"><div class="name">Shadow sm</div><code>0 1px 2px rgba(0,0,0,.05), 0 1px 3px rgba(0,0,0,.04)</code></div>
+      <div class="shadow-card shadow-md"><div class="name">Shadow md · default</div><code>0 4px 12px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04)</code></div>
+      <div class="shadow-card shadow-lg"><div class="name">Shadow lg · overlays</div><code>0 16px 40px rgba(0,0,0,.10)</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── 2 · TYPE ───────── -->
+<section class="block" id="type">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">02 · Type scale</div>
+      <h2 class="block-title">Four families, nine roles.</h2>
+    </div>
+    <p class="block-sub">Instrument Serif italic is the one moment of brand voice — hero headings on Home, wizard results, Vault dashboard, Benefit Detail. Manrope carries every other heading. Inter is the body. Geist Mono handles dollars, points, rates — any digit you want to line up in a column.</p>
+  </div>
+  <div class="type-table">
+    <div class="type-row"><div class="meta"><div class="name">display-lg</div><small>Instrument Serif italic</small></div><div class="display-lg">A legacy of refined accumulation.</div><div class="specs">64px / .95<br/>letter -0.025em<br/>weight 400<br/>hero H1 only</div></div>
+    <div class="type-row"><div class="meta"><div class="name">display-md</div><small>Instrument Serif italic</small></div><div class="display-md">Tell us how you spend.</div><div class="specs">44px / 1.02<br/>-0.02em / 400<br/>mobile hero</div></div>
+    <div class="type-row"><div class="meta"><div class="name">display-sm</div><small>Instrument Serif italic</small></div><div class="display-sm">Your top match is ready.</div><div class="specs">32px / 1.05<br/>-0.015em / 400<br/>section titles</div></div>
+    <div class="type-row"><div class="meta"><div class="name">h1-sans</div><small>Manrope 800</small></div><div class="h1-sans">Best Credit Cards for Tax Payments 2026</div><div class="specs">34px / 1.1<br/>-0.025em / 800<br/>Learn guides</div></div>
+    <div class="type-row"><div class="meta"><div class="name">h2-sans</div><small>Manrope 700</small></div><div class="h2-sans">Why we ranked these</div><div class="specs">22px / 1.2<br/>-0.015em / 700</div></div>
+    <div class="type-row"><div class="meta"><div class="name">h3-sans</div><small>Manrope 700</small></div><div class="h3-sans">Your top matches</div><div class="specs">17px / 1.25<br/>700</div></div>
+    <div class="type-row"><div class="meta"><div class="name">body-lg</div><small>Inter 400</small></div><div class="body-lg">Paying the IRS with a credit card goes through a processor and costs 1.82%–1.98%. This guide shows when it's worth it.</div><div class="specs">17px / 1.6<br/>400 · long-form</div></div>
+    <div class="type-row"><div class="meta"><div class="name">body-md</div><small>Inter 400</small></div><div class="body-md">Default body. 15 pixels. Comfortable line-height. Everything below hero headings and above captions.</div><div class="specs">15px / 1.6<br/>400 · default</div></div>
+    <div class="type-row"><div class="meta"><div class="name">label-upper</div><small>Manrope 500</small></div><div class="label-upper">Member dashboard · Good afternoon</div><div class="specs">11px / 1<br/>+0.14em / 500<br/>uppercase</div></div>
+    <div class="type-row"><div class="meta"><div class="name">num-hero</div><small>Geist Mono 500 · tabular</small></div><div class="num-hero">$9,840 · +18.75%</div><div class="specs">36px / 1<br/>-0.04em / 500<br/>tabular-nums</div></div>
+    <div class="type-row"><div class="meta"><div class="name">num-md</div><small>Geist Mono 500 · tabular</small></div><div class="num-md">60,000 pts ≈ $750 · $95/yr</div><div class="specs">18px / tabular<br/>results rows</div></div>
+  </div>
+</section>
+
+<!-- ───────── 3 · COMPONENTS ───────── -->
+<section class="block" id="components">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">03 · Core components</div>
+      <h2 class="block-title">Twenty-one pieces.</h2>
+    </div>
+    <p class="block-sub">Everything the merged app needs, grouped by shape. The result tile replaces the old 3-column card grid — <strong>item S5 from the remediation list, applied here</strong>. Category chips encode taxonomy, left-border accents encode rank and urgency — <strong>S4</strong>.</p>
+  </div>
+
+  <div class="cmp-grid">
+
+    <!-- Buttons -->
+    <div class="cmp">
+      <h3>Buttons</h3>
+      <div class="cmp-stack">
+        <div class="cmp-row">
+          <button class="btn btn-primary">Find my card</button>
+          <button class="btn btn-primary btn-sm">Apply now</button>
+          <button class="btn btn-primary btn-lg">Execute strategy</button>
+        </div>
+        <div class="cmp-row">
+          <button class="btn btn-ghost">Compare</button>
+          <button class="btn btn-subtle">Skip this card</button>
+          <button class="btn btn-link">View details ↗</button>
+        </div>
+        <div class="cmp-row">
+          <button class="btn btn-gold">Upgrade to Vault</button>
+          <button class="btn btn-danger">Remove card</button>
+          <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>Add to Vault</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div class="cmp">
+      <h3>Inputs</h3>
+      <div class="cmp-stack">
+        <div class="input-wrap"><span class="input-label">Spend budget</span><input class="input" placeholder="e.g. 24,000"/><span class="input-help">Annual spend you can commit to this card plan.</span></div>
+        <div class="input-wrap"><span class="input-label">Search cards</span><input class="input" placeholder="Search by card name, issuer, or feature…" value=""/></div>
+        <div class="input-wrap"><span class="input-label">Focused</span><input class="input" style="border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-weak)" value="Chase Sapphire Preferred"/></div>
+      </div>
+    </div>
+
+    <!-- Chips filter -->
+    <div class="cmp">
+      <h3>Filter chips · Category pills · Badges</h3>
+      <div class="cmp-stack">
+        <div class="chips">
+          <button class="chip-base on">All</button>
+          <button class="chip-base">Travel rewards</button>
+          <button class="chip-base">Cashback</button>
+          <button class="chip-base">No annual fee</button>
+          <button class="chip-base">Airline miles</button>
+          <button class="chip-base">Hotel points</button>
+        </div>
+        <div class="chips">
+          <span class="chip-cat chip-travel">Travel</span>
+          <span class="chip-cat chip-dining">Dining</span>
+          <span class="chip-cat chip-ent">Entertainment</span>
+          <span class="chip-cat chip-fit">Fitness</span>
+          <span class="chip-cat chip-hotel">Hotel</span>
+          <span class="chip-cat chip-shop">Shopping</span>
+        </div>
+        <div class="chips">
+          <span class="badge badge-success">Used · $15</span>
+          <span class="badge badge-warn">Expires 18d</span>
+          <span class="badge badge-urgent">Expires 3d</span>
+          <span class="badge badge-gold">Captured $842</span>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wealth ring (small demo) -->
+    <div class="cmp">
+      <h3>Wealth ring · Portfolio health</h3>
+      <div class="ring-wrap">
+        <div class="ring-center" style="width:180px;height:180px">
+          <svg width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="76" fill="none" stroke="var(--border)" stroke-width="16"/>
+            <circle cx="90" cy="90" r="76" fill="none" stroke="var(--c-travel)" stroke-width="16" stroke-dasharray="190 477" stroke-dashoffset="0"/>
+            <circle cx="90" cy="90" r="76" fill="none" stroke="var(--c-dining)" stroke-width="16" stroke-dasharray="110 477" stroke-dashoffset="-195"/>
+            <circle cx="90" cy="90" r="76" fill="none" stroke="var(--c-fit)" stroke-width="16" stroke-dasharray="90 477" stroke-dashoffset="-309"/>
+            <circle cx="90" cy="90" r="76" fill="none" stroke="var(--c-ent)" stroke-width="16" stroke-dasharray="50 477" stroke-dashoffset="-403"/>
+          </svg>
+          <div class="ring-center-inner">
+            <span class="lbl">Captured</span>
+            <span class="val gold-accent">$9,840</span>
+            <span class="sub">per year · 74% of max</span>
+          </div>
+        </div>
+        <div class="ring-legend">
+          <div class="lg-item"><span class="dot" style="background:var(--c-travel)"></span><span class="lg-label">Travel</span><span class="lg-val">$4,120</span></div>
+          <div class="lg-item"><span class="dot" style="background:var(--c-dining)"></span><span class="lg-label">Dining</span><span class="lg-val">$2,340</span></div>
+          <div class="lg-item"><span class="dot" style="background:var(--c-fit)"></span><span class="lg-label">Fitness</span><span class="lg-val">$1,950</span></div>
+          <div class="lg-item"><span class="dot" style="background:var(--c-ent)"></span><span class="lg-label">Entertainment</span><span class="lg-val">$1,080</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wallet card -->
+    <div class="cmp">
+      <h3>Wallet cards</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="wallet-card g-amex-plat">
+          <div class="top"><div><div class="name">Amex Platinum</div><div class="issuer">American Express</div></div><div class="chip-inline">9 benefits</div></div>
+          <div class="wallet-row"><span class="last-four">•••• 1007</span><span class="fee">$695/yr</span></div>
+        </div>
+        <div class="wallet-card g-chase">
+          <div class="top"><div><div class="name">Sapphire Reserve</div><div class="issuer">Chase</div></div><div class="chip-inline">5 benefits</div></div>
+          <div class="wallet-row"><span class="last-four">•••• 4521</span><span class="fee">$550/yr</span></div>
+        </div>
+        <div class="wallet-card g-amex-gold" style="color:#3a2507">
+          <div class="top"><div><div class="name" style="color:#3a2507">Amex Gold</div><div class="issuer" style="color:rgba(58,37,7,.6)">American Express</div></div><div class="chip-inline" style="background:rgba(58,37,7,.15);color:#3a2507">4 benefits</div></div>
+          <div class="wallet-row"><span class="last-four" style="color:rgba(58,37,7,.7)">•••• 8832</span><span class="fee" style="color:rgba(58,37,7,.55)">$250/yr</span></div>
+        </div>
+        <div class="wallet-card g-venture">
+          <div class="top"><div><div class="name">Venture X</div><div class="issuer">Capital One</div></div><div class="chip-inline">6 benefits</div></div>
+          <div class="wallet-row"><span class="last-four">•••• 3391</span><span class="fee">$395/yr</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result list (v4.0 list-item style — replaces 3-col) -->
+    <div class="cmp cmp-wide">
+      <h3>Result tile · V4.0 list-item style <span style="margin-left:8px;font-weight:400;text-transform:none;letter-spacing:0;color:var(--accent)">fixes S5</span></h3>
+      <div class="result-list">
+        <div class="result-row is-top">
+          <span class="rank-accent"></span>
+          <span class="card-img g-chase"></span>
+          <div><div class="name">Chase Sapphire Preferred</div><div class="issuer">Chase · Visa Signature</div><span class="best-for">Top match · Travel beginners</span></div>
+          <div class="val"><span class="hero-val">60,000 pts ≈ $750</span><span class="fee">$95/yr · first year waived</span></div>
+          <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+        </div>
+        <div class="result-expanded">
+          <div class="pros">
+            <h4>Why this card</h4>
+            <ul>
+              <li>2× on travel &amp; dining covers your two biggest categories</li>
+              <li>Signup bonus of 60,000 pts is worth ~$750 in travel after 3 mo / $4k spend</li>
+              <li>Points transfer 1:1 to Hyatt, United, Southwest — you already fly United</li>
+              <li>$50 annual hotel credit offsets more than half the fee</li>
+            </ul>
+          </div>
+          <div class="cta-col">
+            <button class="btn btn-primary btn-lg" style="justify-content:center">Apply at Chase ↗</button>
+            <button class="btn btn-ghost" style="justify-content:center">Add to comparison</button>
+            <button class="btn btn-link" style="justify-content:center">Explain the math</button>
+          </div>
+        </div>
+        <div class="result-row">
+          <span class="rank-accent"></span>
+          <span class="card-img g-amex-gold"></span>
+          <div><div class="name">Amex Gold Card</div><div class="issuer">American Express</div><span class="best-for" style="color:var(--c-dining);background:var(--c-dining-bg)">Runner-up · Dining &amp; groceries</span></div>
+          <div class="val"><span class="hero-val">60,000 pts ≈ $600</span><span class="fee">$250/yr</span></div>
+          <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+        </div>
+        <div class="result-row is-urgent">
+          <span class="rank-accent"></span>
+          <span class="card-img g-venture"></span>
+          <div><div class="name">Capital One Venture X</div><div class="issuer">Capital One</div><span class="best-for" style="color:var(--urgent);background:var(--urgent-bg)">Skip · 5/24 rule would deny</span></div>
+          <div class="val"><span class="hero-val">75,000 mi ≈ $750</span><span class="fee">$395/yr</span></div>
+          <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+        </div>
+        <div class="result-row">
+          <span class="rank-accent"></span>
+          <span class="card-img g-default"></span>
+          <div><div class="name">Chase Freedom Unlimited</div><div class="issuer">Chase · Visa</div><span class="best-for" style="color:var(--c-ent);background:var(--c-ent-bg)">Alt · No-fee everyday spend</span></div>
+          <div class="val"><span class="hero-val">1.5% cashback</span><span class="fee">No fee</span></div>
+          <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefit rows -->
+    <div class="cmp">
+      <h3>Benefit rows · Vault</h3>
+      <div class="cmp-stack">
+        <div class="benefit-row is-urgent">
+          <span class="accent"></span>
+          <div class="body" style="padding-left:12px">
+            <div class="eyebrow-r">Amex Platinum · •••• 1007</div>
+            <div class="title">Uber Cash credit</div>
+            <div class="meta">Monthly · resets Nov 1</div>
+          </div>
+          <div class="right"><span class="val">$15</span><span class="badge badge-urgent">Expires 3d</span></div>
+        </div>
+        <div class="benefit-row is-warn">
+          <span class="accent"></span>
+          <div class="body" style="padding-left:12px">
+            <div class="eyebrow-r">Chase Sapphire · •••• 4521</div>
+            <div class="title">DoorDash credit</div>
+            <div class="meta">Monthly · resets Nov 1</div>
+          </div>
+          <div class="right"><span class="val">$5</span><span class="badge badge-warn">Expires 18d</span></div>
+        </div>
+        <div class="benefit-row is-ok">
+          <span class="accent"></span>
+          <div class="body" style="padding-left:12px">
+            <div class="eyebrow-r">Amex Gold · •••• 8832</div>
+            <div class="title">Dining credit</div>
+            <div class="meta">Monthly · resets Nov 1</div>
+          </div>
+          <div class="right"><span class="val">$10</span><span class="badge badge-success">Used</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Curator dark / note -->
+    <div class="cmp">
+      <h3>Curator cards</h3>
+      <div class="cmp-stack">
+        <div class="curator-dark">
+          <div class="eyebrow-c">The curator's insight</div>
+          <h4>The discipline of redemption: act before the window closes.</h4>
+          <p>34% of annual credits go unredeemed across all tracked portfolios. Your next expiry is approaching — review your benefits and execute.</p>
+          <button class="btn btn-gold">Execute strategy</button>
+        </div>
+        <div class="curator-note">
+          <div class="star">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.09 6.26L20 9.27l-5 4.87L16.18 21 12 17.77 7.82 21 9 14.14l-5-4.87 5.91-1.01z"/></svg>
+          </div>
+          <div class="body">
+            <div class="eyebrow-n">Curator's insight</div>
+            <p>You're leaving $842 on the table this quarter. Mark three benefits as used and you'll hit your $10k capture goal two months early.</p>
+          </div>
+        </div>
+        <div class="quote-block">
+          <blockquote>"True wealth is the ability to move through the world with grace."<cite>— House view, Vault concierge</cite></blockquote>
+        </div>
+      </div>
+    </div>
+
+    <!-- Paywall -->
+    <div class="cmp">
+      <h3>Paywall modal · Free → Vault</h3>
+      <div class="paywall">
+        <span class="badge badge-gold"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg> Vault · Pro</span>
+        <h3>Unlock every dollar</h3>
+        <p class="sub">Upgrade to Vault to track unlimited cards, never miss a benefit, and capture every credit that's rightfully yours.</p>
+        <ul class="perks">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Unlimited cards</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13 21a2 2 0 0 1-4 0"/></svg>Push + email reminders</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 15v4a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Calendar export (ICS)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9z"/></svg>AI concierge — full access</li>
+        </ul>
+        <button class="btn btn-primary">Upgrade to Vault · $4/mo</button>
+        <small>Cancel anytime · Billed monthly · 14-day refund</small>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ───────── 4 · SURFACES ───────── -->
+<section class="block" id="surfaces">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">04 · Three surfaces</div>
+      <h2 class="block-title">One system, three ways.</h2>
+    </div>
+    <p class="block-sub">The same app chrome reflows across three contexts. Desktop gets a 180px sticky sidebar with the four destinations and a user chip. Mobile web collapses to a blurred bottom tab bar. Mobile app is native — same tab bar, status bar, safe-area-inset handled. Vault is always visible with a lock glyph for free users.</p>
+  </div>
+
+  <div class="surfaces">
+
+    <!-- Desktop -->
+    <div class="surface-block">
+      <div class="surface-caption">Desktop web<small>≥ 1024px · 180px sidebar · main column</small></div>
+      <div class="s-desktop">
+        <div class="browser-chrome">
+          <div class="bc-dots"><span></span><span></span><span></span></div>
+          <div class="bc-bar">cardscout.app/vault</div>
+        </div>
+        <div class="s-desktop-body">
+          <aside class="sidebar">
+            <div class="brand"><div class="mark">CS</div><div><div class="bname">Card Scout</div></div></div>
+            <div class="nav-group-label">Free &amp; paid</div>
+            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Discover</div>
+            <div class="nav-item on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Vault</div>
+            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendar<svg class="lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Concierge</div>
+            <div class="nav-group-label">Learn</div>
+            <div class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4z"/></svg>Guides</div>
+            <div class="spacer"></div>
+            <div class="user"><div class="avatar">Z</div><div><div class="u-name">Zubair</div><div class="u-tier">Vault member</div></div></div>
+          </aside>
+          <div class="main-area">
+            <div class="ma-eyebrow">Member dashboard · good afternoon</div>
+            <h1 class="ma-hero">A legacy of <em>refined accumulation.</em></h1>
+            <div class="ma-sub">2 benefits expiring soon · 3 cards tracked</div>
+            <div class="ma-grid">
+              <div class="ma-card">
+                <div class="ma-card-title">Portfolio health</div>
+                <div class="ring-center" style="width:110px;height:110px;margin:0 auto">
+                  <svg width="110" height="110" viewBox="0 0 110 110">
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="var(--border)" stroke-width="10"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="var(--c-travel)" stroke-width="10" stroke-dasharray="115 289" stroke-dashoffset="0"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="var(--c-dining)" stroke-width="10" stroke-dasharray="67 289" stroke-dashoffset="-118"/>
+                    <circle cx="55" cy="55" r="46" fill="none" stroke="var(--c-fit)" stroke-width="10" stroke-dasharray="55 289" stroke-dashoffset="-188"/>
+                  </svg>
+                  <div class="ring-center-inner">
+                    <span class="lbl" style="font-size:7px">Captured</span>
+                    <span class="val gold-accent" style="font-size:15px">$9,840</span>
+                  </div>
+                </div>
+              </div>
+              <div class="ma-card">
+                <div class="ma-card-title">Expiring soon</div>
+                <div class="benefit-row is-urgent" style="margin-bottom:6px">
+                  <span class="accent"></span>
+                  <div class="body" style="padding:6px 0 6px 8px">
+                    <div class="eyebrow-r" style="font-size:8px">Amex Platinum</div>
+                    <div class="title" style="font-size:12px;margin:2px 0">Uber Cash</div>
+                  </div>
+                  <div class="right" style="padding-right:10px;gap:2px"><span class="val" style="font-size:11px">$15</span><span class="badge badge-urgent" style="font-size:7px;padding:2px 5px">3d</span></div>
+                </div>
+                <div class="benefit-row is-warn">
+                  <span class="accent"></span>
+                  <div class="body" style="padding:6px 0 6px 8px">
+                    <div class="eyebrow-r" style="font-size:8px">Chase Sapphire</div>
+                    <div class="title" style="font-size:12px;margin:2px 0">DoorDash</div>
+                  </div>
+                  <div class="right" style="padding-right:10px;gap:2px"><span class="val" style="font-size:11px">$5</span><span class="badge badge-warn" style="font-size:7px;padding:2px 5px">18d</span></div>
+                </div>
+              </div>
+              <div class="curator-dark" style="padding:14px">
+                <div class="eyebrow-c" style="font-size:7px;margin-bottom:6px">Curator</div>
+                <h4 style="font-size:13px;line-height:1.2">Act before the window closes.</h4>
+                <p style="font-size:10px;margin-bottom:10px">$842 on the table this quarter.</p>
+                <button class="btn btn-gold btn-sm" style="font-size:10px;padding:6px 10px;width:100%;justify-content:center">Execute</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile web -->
+    <div class="surface-block">
+      <div class="surface-caption">Mobile web<small>&lt; 1024px · bottom tab bar</small></div>
+      <div class="s-mweb">
+        <div class="mobile-header">
+          <div class="mh-l"><div class="mark">CS</div><div class="mh-name">Card Scout<small>Vault</small></div></div>
+          <div class="mh-r">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13 21a2 2 0 0 1-4 0"/></svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4"/></svg>
+          </div>
+        </div>
+        <div class="mweb-body">
+          <div class="ma-eyebrow" style="font-size:9px">Member dashboard</div>
+          <h1 class="mweb-hero">A legacy of <em>refined accumulation.</em></h1>
+          <div style="display:flex;justify-content:center;padding:6px 0">
+            <div class="ring-center" style="width:130px;height:130px">
+              <svg width="130" height="130" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--border)" stroke-width="12"/>
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--c-travel)" stroke-width="12" stroke-dasharray="135 339" stroke-dashoffset="0"/>
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--c-dining)" stroke-width="12" stroke-dasharray="79 339" stroke-dashoffset="-138"/>
+                <circle cx="65" cy="65" r="54" fill="none" stroke="var(--c-fit)" stroke-width="12" stroke-dasharray="65 339" stroke-dashoffset="-220"/>
+              </svg>
+              <div class="ring-center-inner"><span class="lbl">Captured</span><span class="val gold-accent" style="font-size:20px">$9,840</span><span class="sub">74% of max</span></div>
+            </div>
+          </div>
+          <div class="benefit-row is-urgent">
+            <span class="accent"></span>
+            <div class="body" style="padding-left:10px">
+              <div class="eyebrow-r" style="font-size:9px">Amex Plat</div>
+              <div class="title" style="font-size:14px;margin:3px 0">Uber Cash</div>
+            </div>
+            <div class="right" style="padding-right:12px;gap:3px"><span class="val" style="font-size:13px">$15</span><span class="badge badge-urgent" style="font-size:8px;padding:3px 6px">3d</span></div>
+          </div>
+          <div class="benefit-row is-warn">
+            <span class="accent"></span>
+            <div class="body" style="padding-left:10px">
+              <div class="eyebrow-r" style="font-size:9px">Chase SR</div>
+              <div class="title" style="font-size:14px;margin:3px 0">DoorDash</div>
+            </div>
+            <div class="right" style="padding-right:12px;gap:3px"><span class="val" style="font-size:13px">$5</span><span class="badge badge-warn" style="font-size:8px;padding:3px 6px">18d</span></div>
+          </div>
+        </div>
+        <div class="mweb-foot">
+          <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Discover</div>
+          <div class="tab-btn on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Vault</div>
+          <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Calendar<span class="lock-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div>
+          <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Concierge</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile app -->
+    <div class="surface-block">
+      <div class="surface-caption">Mobile app<small>Expo · iOS + Android</small></div>
+      <div class="s-mapp">
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="status-bar"><span>9:41</span><span>•••• 5G ▮</span></div>
+          <div class="mobile-header">
+            <div class="mh-l"><div class="mark">CS</div><div class="mh-name">Card Scout<small>Vault</small></div></div>
+          </div>
+          <div class="s-mapp-body">
+            <div class="ma-eyebrow">Dashboard</div>
+            <h1 class="mweb-hero">A legacy of <em>refined</em> accumulation.</h1>
+            <div style="display:flex;justify-content:center;padding:4px 0">
+              <div class="ring-center" style="width:100px;height:100px">
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--border)" stroke-width="9"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--c-travel)" stroke-width="9" stroke-dasharray="105 264" stroke-dashoffset="0"/>
+                  <circle cx="50" cy="50" r="42" fill="none" stroke="var(--c-dining)" stroke-width="9" stroke-dasharray="62 264" stroke-dashoffset="-107"/>
+                </svg>
+                <div class="ring-center-inner"><span class="lbl" style="font-size:6px">Captured</span><span class="val gold-accent" style="font-size:14px">$9,840</span></div>
+              </div>
+            </div>
+            <div class="benefit-row is-urgent">
+              <span class="accent"></span>
+              <div class="body" style="padding:6px 0 6px 8px">
+                <div class="eyebrow-r" style="font-size:7px">Amex Plat</div>
+                <div class="title" style="font-size:11px;margin:2px 0">Uber Cash</div>
+              </div>
+              <div class="right" style="padding-right:8px;gap:2px"><span class="val" style="font-size:10px">$15</span><span class="badge badge-urgent" style="font-size:6px;padding:2px 4px">3d</span></div>
+            </div>
+            <div class="benefit-row is-warn">
+              <span class="accent"></span>
+              <div class="body" style="padding:6px 0 6px 8px">
+                <div class="eyebrow-r" style="font-size:7px">Chase SR</div>
+                <div class="title" style="font-size:11px;margin:2px 0">DoorDash</div>
+              </div>
+              <div class="right" style="padding-right:8px;gap:2px"><span class="val" style="font-size:10px">$5</span><span class="badge badge-warn" style="font-size:6px;padding:2px 4px">18d</span></div>
+            </div>
+          </div>
+          <div class="s-mapp-nav">
+            <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>Disc</div>
+            <div class="tab-btn on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>Vault</div>
+            <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Cal</div>
+            <div class="tab-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>AI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ───────── 5 · HERO SCREENS ───────── -->
+<section class="block" id="heroes">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">05 · Hero screens</div>
+      <h2 class="block-title">Two destinations, full-fidelity.</h2>
+    </div>
+    <p class="block-sub">Discover is where free users land — unchanged from CardScout v4.0 intent, refined with the merged tokens. Vault dashboard is the paid destination — the wealth ring is the emotional anchor. Both use Instrument Serif italic on the H1 — <strong>fixes S6</strong>.</p>
+  </div>
+  <div class="hero-screens">
+
+    <!-- Discover home -->
+    <div class="hero-screen">
+      <h3>Discover · Free home <small>desktop web</small></h3>
+      <div class="body">
+        <div class="discover-home">
+          <div class="dh-hero">
+            <div class="eyebrow">100+ cards · updated april 2026</div>
+            <h1>Tell us how you spend.<br/><em>We'll find your best card.</em></h1>
+            <p class="sub">100+ cards. No sponsored results. No sign-up required.</p>
+          </div>
+          <div class="dh-paths">
+            <div class="dh-path">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+              <h4>I'm starting out</h4>
+              <p>Answer 3 questions, get ranked matches tailored to your goals and spending.</p>
+              <span class="cta">Find my card →</span>
+            </div>
+            <div class="dh-path p-vault">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></div>
+              <h4>I have cards already</h4>
+              <p>Track what you've got — see what's missing and what to add next.</p>
+              <span class="cta">Open Vault →</span>
+            </div>
+            <div class="dh-path p-browse">
+              <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/></svg></div>
+              <h4>I know what I'm looking for</h4>
+              <p>Browse and filter 100+ cards by issuer, rewards type, or fee.</p>
+              <span class="cta">Browse all →</span>
+            </div>
+          </div>
+          <div class="dh-search">
+            <input class="input" placeholder="Search by card name, issuer, or feature…"/>
+            <button class="btn btn-primary">Search</button>
+          </div>
+          <div class="trust-bar">
+            <span><span class="dot"></span>100+ cards tracked</span>
+            <span><span class="dot"></span>Updated monthly</span>
+            <span><span class="dot"></span>No sponsored results</span>
+            <span><span class="dot"></span>No sign-up</span>
+            <span><span class="dot"></span>Free forever</span>
+          </div>
+          <div>
+            <div class="dh-section-h"><h3>Best cards right now</h3><a class="btn-link" href="#">Find mine →</a></div>
+            <div class="result-list" style="margin-top:12px">
+              <div class="result-row is-top">
+                <span class="rank-accent"></span>
+                <span class="card-img g-chase"></span>
+                <div><div class="name">Chase Sapphire Preferred</div><div class="issuer">Chase</div><span class="best-for">Best for · Travel beginners</span></div>
+                <div class="val"><span class="hero-val">60,000 pts ≈ $750</span><span class="fee">$95/yr</span></div>
+                <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+              </div>
+              <div class="result-row">
+                <span class="rank-accent"></span>
+                <span class="card-img g-amex-gold"></span>
+                <div><div class="name">Amex Gold Card</div><div class="issuer">American Express</div><span class="best-for" style="color:var(--c-dining);background:var(--c-dining-bg)">Best for · Dining</span></div>
+                <div class="val"><span class="hero-val">60,000 pts ≈ $600</span><span class="fee">$250/yr</span></div>
+                <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+              </div>
+              <div class="result-row">
+                <span class="rank-accent"></span>
+                <span class="card-img g-venture"></span>
+                <div><div class="name">Capital One Venture X</div><div class="issuer">Capital One</div><span class="best-for" style="color:var(--c-travel);background:var(--c-travel-bg)">Best for · Flat-rate travel</span></div>
+                <div class="val"><span class="hero-val">75,000 mi ≈ $750</span><span class="fee">$395/yr</span></div>
+                <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+              </div>
+              <div class="result-row">
+                <span class="rank-accent"></span>
+                <span class="card-img g-default"></span>
+                <div><div class="name">Chase Freedom Unlimited</div><div class="issuer">Chase</div><span class="best-for" style="color:var(--c-ent);background:var(--c-ent-bg)">Best for · No-fee spend</span></div>
+                <div class="val"><span class="hero-val">1.5% cashback</span><span class="fee">No fee</span></div>
+                <span class="arrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vault dashboard -->
+    <div class="hero-screen">
+      <h3>Vault · Paid dashboard <small>desktop web</small></h3>
+      <div class="body">
+        <div class="vault-dash">
+          <div class="vd-hero">
+            <div>
+              <div class="eyebrow">Member dashboard · good afternoon, zubair</div>
+              <h1>A legacy of refined <em style="color:var(--gold)">accumulation.</em></h1>
+              <p class="body-md" style="color:var(--text-2);margin:10px 0 0">2 benefits expiring · 3 cards tracked · $9,840 captured this year</p>
+            </div>
+            <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>Add to Vault</button>
+          </div>
+          <div class="vd-bento">
+            <div class="vd-box">
+              <h4>Portfolio health</h4>
+              <div class="ring-wrap" style="gap:10px">
+                <div class="ring-center" style="width:150px;height:150px">
+                  <svg width="150" height="150" viewBox="0 0 150 150">
+                    <circle cx="75" cy="75" r="62" fill="none" stroke="var(--border)" stroke-width="13"/>
+                    <circle cx="75" cy="75" r="62" fill="none" stroke="var(--c-travel)" stroke-width="13" stroke-dasharray="155 389" stroke-dashoffset="0"/>
+                    <circle cx="75" cy="75" r="62" fill="none" stroke="var(--c-dining)" stroke-width="13" stroke-dasharray="90 389" stroke-dashoffset="-159"/>
+                    <circle cx="75" cy="75" r="62" fill="none" stroke="var(--c-fit)" stroke-width="13" stroke-dasharray="73 389" stroke-dashoffset="-252"/>
+                  </svg>
+                  <div class="ring-center-inner"><span class="lbl">Captured</span><span class="val gold-accent" style="font-size:22px">$9,840</span><span class="sub">74% of max</span></div>
+                </div>
+              </div>
+              <div class="vd-stat-row">
+                <div class="vd-stat"><div class="v">3</div><div class="l">Cards</div></div>
+                <div class="vd-stat"><div class="v">18</div><div class="l">Benefits</div></div>
+              </div>
+            </div>
+            <div class="vd-box">
+              <h4>Expiring soon</h4>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div class="benefit-row is-urgent">
+                  <span class="accent"></span>
+                  <div class="body" style="padding-left:10px">
+                    <div class="eyebrow-r">Amex Platinum</div>
+                    <div class="title" style="font-size:16px">Uber Cash</div>
+                    <div class="meta">Monthly · resets Nov 1</div>
+                  </div>
+                  <div class="right"><span class="val">$15</span><span class="badge badge-urgent">3d</span></div>
+                </div>
+                <div class="benefit-row is-warn">
+                  <span class="accent"></span>
+                  <div class="body" style="padding-left:10px">
+                    <div class="eyebrow-r">Chase Sapphire</div>
+                    <div class="title" style="font-size:16px">DoorDash</div>
+                    <div class="meta">Monthly · resets Nov 1</div>
+                  </div>
+                  <div class="right"><span class="val">$5</span><span class="badge badge-warn">18d</span></div>
+                </div>
+                <div class="benefit-row is-ok">
+                  <span class="accent"></span>
+                  <div class="body" style="padding-left:10px">
+                    <div class="eyebrow-r">Amex Gold</div>
+                    <div class="title" style="font-size:16px">Dining credit</div>
+                    <div class="meta">Monthly · resets Nov 1</div>
+                  </div>
+                  <div class="right"><span class="val">$10</span><span class="badge badge-success">42d</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="vd-bento-wide" style="display:grid;grid-template-columns:1.2fr 1fr;gap:12px">
+              <div class="vd-box">
+                <h4>My wallet</h4>
+                <div class="vd-wallets">
+                  <div class="wallet-card g-amex-plat">
+                    <div class="top"><div><div class="name">Amex Platinum</div><div class="issuer">American Express</div></div></div>
+                    <div class="wallet-row"><span class="last-four">•••• 1007</span><span class="fee">$695/yr</span></div>
+                  </div>
+                  <div class="wallet-card g-chase">
+                    <div class="top"><div><div class="name">Sapphire</div><div class="issuer">Chase</div></div></div>
+                    <div class="wallet-row"><span class="last-four">•••• 4521</span><span class="fee">$550/yr</span></div>
+                  </div>
+                  <div class="wallet-card g-amex-gold" style="color:#3a2507">
+                    <div class="top"><div><div class="name" style="color:#3a2507">Amex Gold</div><div class="issuer" style="color:rgba(58,37,7,.6)">American Express</div></div></div>
+                    <div class="wallet-row"><span class="last-four" style="color:rgba(58,37,7,.7)">•••• 8832</span><span class="fee" style="color:rgba(58,37,7,.55)">$250/yr</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="curator-dark">
+                <div class="eyebrow-c">The curator's insight</div>
+                <h4>Act before the window closes.</h4>
+                <p>You're leaving $842 on the table this quarter. Redeem three benefits and you hit your annual goal two months early.</p>
+                <button class="btn btn-gold">Execute strategy</button>
+              </div>
+            </div>
+          </div>
+          <div class="quote-block">
+            <blockquote>"True wealth is the ability to move through the world with grace, unencumbered by friction."<cite>— House view, Vault concierge</cite></blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ───────── 6 · REMEDIATION ───────── -->
+<section class="block" id="remed">
+  <div class="block-head">
+    <div>
+      <div class="eyebrow">06 · Remediation addendum</div>
+      <h2 class="block-title">Seven fixes for the live app.</h2>
+    </div>
+    <p class="block-sub">Issues pulled directly from your screenshots of the running CardScout web app. Each has a specific diff against token values, a shipping severity, and a one-line intent for why it matters. Ordered by impact: fix S1 and S2 first for the biggest quality-perception lift.</p>
+  </div>
+
+  <div class="remed-list">
+
+    <div class="remed-item">
+      <div class="idx">01</div>
+      <div class="remed-body">
+        <div class="meta">severity · high</div>
+        <h3>Three different dark modes are shipping</h3>
+        <p>Homepage dark ≈ slate-blue, Tax guide dark ≈ near-black, wizard result dark ≈ blue-tinted. REDESIGN_TRACKER specified <code style="font-family:var(--mono);font-size:12px">#111318</code> — it never appears. Unify on one canvas; collapse the others.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens"><span class="urg">Home: --bg: #0E1320</span><br/><span class="urg">Learn: --bg: #0A0F1C</span><br/><span class="urg">Wizard: --bg: #13182A</span></div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="k">--bg: #111318</span><br/><span class="k">--surface: #1A1E27</span><br/><span class="k">--surface-raised: #232A37</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">02</div>
+      <div class="remed-body">
+        <div class="meta">severity · high</div>
+        <h3>Emoji in production UI</h3>
+        <p>Card Finder wizard: 💰 Cashback · ✈️ Travel rewards · 🎁 Signup bonus · 🧾 Everyday spending. Signup Bonus Planner: same pattern. Swap to Lucide icons — single biggest perceived-quality lift available in one pass.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens">💰 Cashback<br/>✈️ Travel rewards<br/>🎁 Signup bonus<br/>🧾 Everyday spending</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="k">&lt;Coins/&gt;</span> Cashback<br/><span class="k">&lt;Plane/&gt;</span> Travel rewards<br/><span class="k">&lt;Gift/&gt;</span> Signup bonus<br/><span class="k">&lt;Wallet/&gt;</span> Everyday spending</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">03</div>
+      <div class="remed-body">
+        <div class="meta sev-mid">severity · medium</div>
+        <h3>Dark-mode hero blue fails WCAG contrast</h3>
+        <p>"We'll find your best card" renders <code style="font-family:var(--mono);font-size:12px">#1B4FD8</code> on <code style="font-family:var(--mono);font-size:12px">#0E1320</code> — contrast ratio ≈ 3.8, below AA 4.5. REDESIGN_TRACKER already specified a dark-mode lift; wire it up.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens"><span class="urg">[data-theme="dark"]</span><br/>--accent: <span class="urg">#1B4FD8</span><br/>contrast 3.8 · fail</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="k">[data-theme="dark"]</span><br/>--accent: <span class="k">#4F7FFF</span><br/>contrast 6.2 · AA pass</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">04</div>
+      <div class="remed-body">
+        <div class="meta sev-mid">severity · medium</div>
+        <h3>Left-border accents are semantically confused</h3>
+        <p>Chase = blue, Venture X = red, Amex Gold = green, Discover = orange. Reads as "color per card" but isn't a system — it creates random color noise. Recast left-border as <strong>rank + urgency</strong>; move issuer color into the card artwork where it belongs.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens"><span class="urg">border-left: per-issuer</span><br/>Chase → blue · AmEx → green<br/>Cap One → red · Disc → orange</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="k">border-left: per-rank</span><br/>Top match → accent<br/>Runner-up → border<br/><span class="urg">Urgent / warning → urgent</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">05</div>
+      <div class="remed-body">
+        <div class="meta">severity · high</div>
+        <h3>Results page still ships 3-column, not v4.0 list-item</h3>
+        <p>Current: 3 product cards side-by-side, 3 "Apply Now" CTAs visible at once — reads ad-like and buries the recommendation. v4.0 spec called for list-item with inline expand on the top match, collapsed rows for alternates. See §3 above for the new component.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens"><span class="urg">grid-template-columns:</span><br/><span class="urg">  repeat(3, 1fr)</span><br/>3 × Apply Now buttons<br/>density: ad-like</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="k">display: flex; flex-dir: column</span><br/>Top match → expanded + CTA<br/>Alternates → collapsed rows<br/>density: editorial</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">06</div>
+      <div class="remed-body">
+        <div class="meta sev-low">severity · low · style consistency</div>
+        <h3>Instrument Serif inconsistent across H1s</h3>
+        <p>Home hero uses it ✓. Tax Payments guide H1 uses Manrope bold ✗. Card Planner "Which of these sounds like you?" uses Manrope bold ✗. <strong>Decision (made):</strong> Instrument Serif italic on all <em>destination</em> H1s (Home, wizard results, Vault dashboard, Benefit Detail). Learn/guide articles stay on Manrope — editorial long-form reads better sans.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens">Home H1: <span class="k">Instrument italic</span> ✓<br/>Wizard H1: <span class="urg">Manrope 800</span> ✗<br/>Results H1: <span class="urg">Manrope 800</span> ✗</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens">Home H1: <span class="k">Instrument italic</span><br/>Wizard H1: <span class="k">Instrument italic</span><br/>Results H1: <span class="k">Instrument italic</span><br/>Guides H1: <span class="k">Manrope 800</span> (keep)</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="remed-item">
+      <div class="idx">07</div>
+      <div class="remed-body">
+        <div class="meta sev-low">severity · low · semantic</div>
+        <h3>Calculator already borrows PerksVault gold</h3>
+        <p>The "Airport Lounges" heading on the Premium Card Calculator uses a brown-gold identical to PerksVault's <code style="font-family:var(--mono);font-size:12px">#92400E</code>. The two apps are already borrowing from each other. We formalize it: <strong>gold is the "earned value" semantic</strong> — used in ring chart, captured totals, Vault locks, never as a page accent.</p>
+        <div class="ba">
+          <div class="panel before"><span class="lbl">Before</span><div class="tokens"><span class="gold">#92400E</span> used ad-hoc<br/>Airport Lounges heading<br/>some calculator states<br/>no system</div></div>
+          <div class="panel after"><span class="lbl">After</span><div class="tokens"><span class="gold">--gold: #92400E</span><br/>Role: earned value<br/>Ring arc · captured $<br/>Vault lock glyph · "Captured $842"</div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="signoff">
+  <div>
+    <div class="mini-mark">Card Scout × Vault</div>
+    <div style="margin-top:8px">Phase 1 · Design system reference · v0.1 · April 2026</div>
+  </div>
+  <div style="text-align:right;max-width:420px">
+    Next: Phase 2 delivers the Discover home and Vault dashboard as clickable prototypes, wired to real card data. Phase 3 brings the remaining Vault surfaces (Calendar, Benefit Detail, Add-to-Vault wizard) and the Concierge AI shell.
+  </div>
+</div>
+
+</main>
+
+<script>
+// Theme toggle
+const root = document.documentElement;
+const label = document.getElementById('theme-label');
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  label.textContent = next === 'dark' ? 'Dark' : 'Light';
+  localStorage.setItem('ds-theme', next);
+  updateHexes();
+});
+// Persist
+const savedTheme = localStorage.getItem('ds-theme');
+if (savedTheme) { root.dataset.theme = savedTheme; label.textContent = savedTheme === 'dark' ? 'Dark' : 'Light'; }
+
+function updateHexes() {
+  const dark = root.dataset.theme === 'dark';
+  const hexes = {
+    'hex-bg': dark ? '#111318' : '#F7F6F3',
+    'hex-surface': dark ? '#1A1E27' : '#FFFFFF',
+    'hex-sr': dark ? '#232A37' : '#F0EFEB',
+    'hex-text': dark ? '#ECEAE4' : '#1A1917',
+    'hex-text2': dark ? '#9A9896' : '#6B6864',
+    'hex-border': dark ? '#2A3040' : '#E4E2DC',
+    'hex-accent': dark ? '#4F7FFF' : '#1B4FD8',
+    'hex-aw': dark ? 'rgba(79,127,255,.14)' : '#E8EEFE',
+    'hex-as': dark ? '#7A9DFF' : '#1340B3',
+    'hex-gold': dark ? '#D97706' : '#92400E',
+    'hex-gw': dark ? 'rgba(217,119,6,.14)' : '#FEF3C7',
+    'hex-gm': dark ? '#F59E0B' : '#D97706',
+  };
+  for (const [id, v] of Object.entries(hexes)) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = v;
+  }
+}
+updateHexes();
+
+// Surface filter (cosmetic)
+document.querySelectorAll('#surface-toggle button').forEach(b => {
+  b.addEventListener('click', () => {
+    document.querySelectorAll('#surface-toggle button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>

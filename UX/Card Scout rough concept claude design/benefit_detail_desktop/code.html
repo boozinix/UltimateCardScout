@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e0fbe0",
+                    "outline-variant": "#babab0",
+                    "primary-fixed": "#d9e3f9",
+                    "primary": "#555f71",
+                    "on-secondary-container": "#445367",
+                    "tertiary-container": "#e0fbe0",
+                    "surface": "#fffcf7",
+                    "secondary-container": "#d4e4fc",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "surface-dim": "#e4e3d7",
+                    "secondary": "#57657a",
+                    "on-tertiary-container": "#4a614d",
+                    "outline": "#818178",
+                    "inverse-on-surface": "#9e9d98",
+                    "on-primary-fixed": "#364051",
+                    "on-background": "#383831",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "inverse-primary": "#dee8ff",
+                    "secondary-fixed": "#d4e4fc",
+                    "surface-tint": "#555f71",
+                    "background": "#fffcf7",
+                    "surface-variant": "#eae8de",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "primary-dim": "#495365",
+                    "surface-container": "#f6f4ec",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "inverse-surface": "#0e0e0c",
+                    "error-container": "#fe8983",
+                    "on-primary-container": "#485264",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "surface-bright": "#fffcf7",
+                    "tertiary-dim": "#475e4a",
+                    "surface-container-low": "#fcf9f3",
+                    "on-surface-variant": "#65655c",
+                    "secondary-dim": "#4b596e",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#eae8de",
+                    "primary-container": "#d9e3f9",
+                    "on-surface": "#383831",
+                    "error": "#a64542",
+                    "on-error-container": "#752121",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#536a55",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary": "#f6f7ff",
+                    "on-tertiary-fixed": "#384f3c",
+                    "error-dim": "#4e0309"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fffcf7;
+            color: #383831;
+            font-family: 'Inter', sans-serif;
+        }
+        .serif-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-12 px-6 z-50">
+<div class="mb-12 px-4">
+<h1 class="text-2xl font-serif text-[#555f71] dark:text-stone-200 tracking-tighter">Rewards Tracker</h1>
+<p class="font-['Noto_Serif'] text-sm tracking-tight text-stone-500 italic">The Editorial Curator</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors py-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-[#555f71] font-bold border-l-2 border-[#555f71] pl-4 dark:text-white dark:border-stone-200 py-3 rounded-r-xl bg-stone-100/50" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">My Cards</span>
+</a>
+<a class="flex items-center gap-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors py-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Calendar</span>
+</a>
+<a class="flex items-center gap-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors py-3 rounded-xl hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Concierge</span>
+</a>
+</nav>
+<div class="mt-auto px-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a kind expression in soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHVuD3_gXRYAA4gVZL1NJFOrIOrq96i5mIjrSfQesSQ8ugj5y3Hu8yGsj-80FYgy9A5333d1NQCgA0Oaq2sw5rsN83zp1dyDGN8oqo7RsrB2_WNLOGKTLAr7H2i9gPZtioGlOTCYQKPCSc-uEYNqRtLlXNkk9RMVnBJBwjsSo3Ms2Yo2C8AZZNpKPEFMc_vTgmHGvIHDpthU6fjgm5YiKf_yMNtEKPm7I1lCp3YV57SLVW99dixwnvghIrENgFPvDShQSjEMDJb14"/>
+</div>
+<div>
+<p class="text-sm font-semibold">Julian V.</p>
+<p class="text-xs text-stone-500">Premium Member</p>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-24 z-40 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-md flex items-center justify-between px-12">
+<div class="flex items-center gap-4 bg-surface-container-low px-6 py-2.5 rounded-full w-96">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder-stone-400" placeholder="Search rewards..." type="text"/>
+</div>
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-6">
+<button class="text-stone-400 dark:text-stone-500 hover:text-[#555f71] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-stone-400 dark:text-stone-500 hover:text-[#555f71] dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-2">
+<span class="font-['Noto_Serif'] font-medium text-lg text-[#555f71]">Uber Cash</span>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-32 pb-24 px-12 max-w-7xl mx-auto">
+<!-- Breadcrumb / Back Navigation -->
+<nav class="mb-12">
+<a class="inline-flex items-center text-sm text-secondary gap-2 hover:translate-x-[-4px] transition-transform" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+<span>Back to My Cards</span>
+</a>
+</nav>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Hero Balance Display -->
+<section class="col-span-12 lg:col-span-7 bg-surface-container-low rounded-3xl p-12 relative overflow-hidden">
+<div class="relative z-10">
+<span class="text-xs font-bold uppercase tracking-widest text-secondary opacity-70 mb-4 block">Current Balance</span>
+<h2 class="serif-display text-8xl font-bold text-primary tracking-tighter mb-4">$15.00</h2>
+<p class="text-lg text-on-surface-variant max-w-md leading-relaxed">
+                        Your monthly Uber Cash benefit from American Express® Gold Card.
+                    </p>
+<div class="mt-12 flex items-center gap-8">
+<div>
+<p class="text-xs text-outline font-medium uppercase mb-1">Status</p>
+<span class="inline-flex items-center gap-2 text-tertiary font-semibold">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                                Active
+                            </span>
+</div>
+<div>
+<p class="text-xs text-outline font-medium uppercase mb-1">Valid Until</p>
+<p class="font-semibold">Oct 31, 2023</p>
+</div>
+</div>
+</div>
+<!-- Abstract Aesthetic Element -->
+<div class="absolute -right-20 -bottom-20 w-80 h-80 bg-primary-container/20 rounded-full blur-3xl"></div>
+</section>
+<!-- Actions Card -->
+<section class="col-span-12 lg:col-span-5 flex flex-col gap-6">
+<div class="bg-primary rounded-3xl p-8 text-on-primary flex flex-col justify-between h-full">
+<div>
+<h3 class="serif-display text-2xl mb-4">Quick Actions</h3>
+<p class="text-on-primary/70 text-sm mb-8">Manage your benefit status manually if Uber hasn't reflected your latest trip.</p>
+</div>
+<div class="space-y-4">
+<button class="w-full bg-on-primary text-primary py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:scale-[0.98] transition-transform">
+<span class="material-symbols-outlined" data-icon="check_circle">check_circle</span>
+                            Mark as Used
+                        </button>
+<button class="w-full bg-primary-dim/30 text-on-primary py-4 rounded-xl font-semibold flex items-center justify-center gap-2 hover:bg-primary-dim/50 transition-colors">
+<span class="material-symbols-outlined" data-icon="snooze">snooze</span>
+                            Snooze for 3 Days
+                        </button>
+</div>
+</div>
+</section>
+<!-- Details Section -->
+<section class="col-span-12 lg:col-span-4 bg-surface-container rounded-3xl p-8">
+<h3 class="serif-display text-xl mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="info">info</span>
+                    Linked Account
+                </h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-surface-container-highest flex items-center justify-center">
+<img alt="Uber logo" class="w-8 h-8 object-contain" data-alt="clean minimalist Uber logo icon on a white background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAMCf21DLL_5PYjYh9BZbna9gNAH1zytyPSiUHTmig7Yltcb33z3mwZTU9XYWvSK-rkYRoq9JvprVyrrFFtxpePmOSukXW6Ar0LA7lMEyJYo1EqELHYQ9foeyIEjK9ElYBmztvmmuYjVIQCU2e3T2i8GXWVtnKS17HzmkaBtqQ0YRGCTw5KPuGDKNPIJu6yHkKakCJ0qgHHqh12gmvf7AGJvnSu9vFUg-1eNmNDbu4xhaIvLc9IcoJ0bKSV9xT1V-bRtVz7xynbaA8"/>
+</div>
+<div>
+<p class="font-semibold text-on-surface">Uber Technologies, Inc.</p>
+<p class="text-xs text-outline">Linked since Jan 2023</p>
+</div>
+</div>
+<div class="pt-6 border-t border-outline-variant/20">
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                            This benefit is automatically applied to your Uber account on the 1st of each month. Credits do not roll over to the next month.
+                        </p>
+</div>
+</div>
+</section>
+<!-- Editorial Quote / Concierge Note -->
+<section class="col-span-12 lg:col-span-8">
+<div class="flex gap-8 items-start h-full bg-surface-container-low rounded-3xl p-10">
+<div class="w-0.5 h-full bg-tertiary opacity-30"></div>
+<div>
+<span class="text-xs font-bold text-tertiary uppercase tracking-widest mb-4 block">Concierge Note</span>
+<blockquote class="serif-display text-2xl text-on-surface-variant italic leading-snug mb-6">
+                            "Uber Cash is best utilized for mid-month commutes. We noticed you typically use this benefit within the first 10 days of the month. Consider saving it for your scheduled dinner on the 24th."
+                        </blockquote>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<span class="text-sm font-medium text-secondary">Smart Recommendation Engine</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Notification Settings Card -->
+<section class="col-span-12 bg-surface-container-low rounded-3xl p-8">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
+<div class="flex gap-6 items-center">
+<div class="w-14 h-14 rounded-2xl bg-secondary-container/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="notifications_active">notifications_active</span>
+</div>
+<div>
+<h3 class="serif-display text-xl">Expiration Alerts</h3>
+<p class="text-on-surface-variant text-sm">Get notified 48 hours before your balance expires.</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-3 rounded-xl bg-surface-container-highest font-medium text-sm hover:bg-surface-container-high transition-colors">
+                            Configure
+                        </button>
+<div class="flex items-center gap-2 bg-tertiary-fixed text-on-tertiary-fixed px-4 py-3 rounded-xl">
+<span class="text-sm font-semibold">Enabled</span>
+<span class="material-symbols-outlined text-sm" data-icon="toggle_on" style="font-variation-settings: 'FILL' 1;">toggle_on</span>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Section (Subtle) -->
+<footer class="mt-24 pt-12 border-t border-outline-variant/10 flex justify-between items-center opacity-50">
+<p class="text-xs">© 2023 Rewards Tracker - The Editorial Curator</p>
+<div class="flex gap-6 text-xs uppercase tracking-widest font-bold">
+<a class="hover:text-primary transition-colors" href="#">Terms</a>
+<a class="hover:text-primary transition-colors" href="#">Privacy</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</div>
+</footer>
+</main>
+</body></html>

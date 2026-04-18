@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings — The Curator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d4e4fc",
+                        "tertiary-dim": "#475e4a",
+                        "surface-variant": "#eae8de",
+                        "primary-dim": "#495365",
+                        "on-primary-fixed-variant": "#525c6e",
+                        "on-error-container": "#752121",
+                        "tertiary-container": "#e0fbe0",
+                        "tertiary-fixed-dim": "#d2ecd2",
+                        "outline-variant": "#babab0",
+                        "on-secondary-fixed-variant": "#4e5d71",
+                        "secondary": "#57657a",
+                        "outline": "#818178",
+                        "on-tertiary-container": "#4a614d",
+                        "surface-bright": "#fffcf7",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#9e9d98",
+                        "surface-tint": "#555f71",
+                        "surface-container-low": "#fcf9f3",
+                        "surface-dim": "#e4e3d7",
+                        "primary-fixed-dim": "#cbd5eb",
+                        "secondary-fixed": "#d4e4fc",
+                        "on-background": "#383831",
+                        "surface-container-highest": "#eae8de",
+                        "tertiary": "#536a55",
+                        "primary-fixed": "#d9e3f9",
+                        "on-primary-fixed": "#364051",
+                        "on-tertiary-fixed": "#384f3c",
+                        "inverse-surface": "#0e0e0c",
+                        "on-secondary-container": "#445367",
+                        "inverse-primary": "#dee8ff",
+                        "on-surface": "#383831",
+                        "on-primary": "#f6f7ff",
+                        "surface": "#fffcf7",
+                        "error": "#a64542",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e0fbe0",
+                        "on-error": "#ffffff",
+                        "secondary-dim": "#4b596e",
+                        "error-dim": "#4e0309",
+                        "primary-container": "#d9e3f9",
+                        "secondary-fixed-dim": "#c6d5ee",
+                        "on-secondary-fixed": "#324054",
+                        "primary": "#555f71",
+                        "surface-container": "#f6f4ec",
+                        "error-container": "#fe8983",
+                        "on-tertiary-fixed-variant": "#546c57",
+                        "background": "#fffcf7",
+                        "on-surface-variant": "#65655c",
+                        "surface-container-high": "#f0eee5",
+                        "on-primary-container": "#485264",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<header class="w-full top-0 sticky bg-[#fffcf7] dark:bg-stone-950 z-40">
+<div class="flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User profile portrait" class="w-full h-full object-cover" data-alt="Close-up portrait of a sophisticated man with soft lighting, neutral background, looking calm and professional" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP86_kJgEw3fxMpWx6U9JQVmH0el4kje_Vd63GutXBlTdxt96r4UXSDmPJT_kPQbFZH3m_XoU9JPKIYo1b7ErLB2p4THoV6HUj5Qj2Y3GUEMnHR1RQ6BpmHqCap2T0H3FUYm5_nct_c1cflKjMIZeb8Ry_Y5qp9xBq2n0KQRjNFQjw10CZmpcZj1vLJQfvbndBIealZ6B4SC0aTxA-fq5knrbSf11Mi2iWaYxHYUKhvSg5y7zHRKbexSSr4omezyrCY0gccvKuBS8"/>
+</div>
+<h1 class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</h1>
+</div>
+<button class="text-[#555f71] dark:text-slate-400 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-2xl mx-auto px-6 py-12 space-y-12">
+<section class="space-y-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="space-y-2">
+<h2 class="text-4xl font-headline font-bold tracking-tight text-primary">Preferences</h2>
+<p class="text-on-surface-variant font-body">Manage your profile and digital environment.</p>
+</div>
+</div>
+</section>
+<section class="space-y-1">
+<h3 class="text-xs uppercase tracking-[0.2em] text-outline px-4 mb-4">Account Profile</h3>
+<div class="bg-surface-container-low rounded-xl p-6 flex items-center gap-6">
+<div class="w-20 h-20 rounded-full overflow-hidden shrink-0">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Professional profile photo of a person in a minimalist setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAj01kjVBamJsnNcbhDAfSq2LJp0PRz1xMXWZsF7cz-vdZ9WHhddQqO1uq6gcBltQx58bJFCWBIxLaQVIEkRsqir8SoT_Mz2ClUgI2A0YjlX9N3oKj1IRBfSYuqdofZrsQE4PANEj0uzVHq-fhutWiINPl0In3tycmis9kk3mj8P7FQVKaKPtDFrKrQ_lvklgbBcna5xti0c0773k6_n4C4VpPerV2L55cKPyxaS_0MARjMVRavsqsc9gE3jUd0YggCNmnLNx1P7dk"/>
+</div>
+<div>
+<p class="font-headline text-2xl font-bold text-on-surface">Julian Vane</p>
+<p class="text-on-surface-variant text-sm">Member since October 2023</p>
+<button class="mt-2 text-primary text-sm font-medium hover:underline decoration-2 underline-offset-4">Edit Profile</button>
+</div>
+</div>
+</section>
+<section class="space-y-4">
+<h3 class="text-xs uppercase tracking-[0.2em] text-outline px-4">System Controls</h3>
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm">
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</div>
+<div>
+<p class="font-medium text-on-surface">Notification settings</p>
+<p class="text-xs text-on-surface-variant">Configure alerts and delivery methods</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">chevron_right</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-5"></div>
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+</div>
+<div>
+<p class="font-medium text-on-surface">Export .ICS</p>
+<p class="text-xs text-on-surface-variant">Sync your curated schedule with external calendars</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform">download</span>
+</button>
+<div class="h-px bg-outline-variant/10 mx-5"></div>
+<button class="w-full flex items-center justify-between p-5 text-left hover:bg-surface-container-low transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+</div>
+<div>
+<p class="font-medium text-on-surface">Re-analyze</p>
+<p class="text-xs text-on-surface-variant">Refresh your preference profile for better curation</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:rotate-180 transition-transform">refresh</span>
+</button>
+</div>
+</section>
+<section class="pt-8 border-t border-outline-variant/15">
+<div class="flex flex-col items-center gap-6">
+<button class="w-full max-w-xs py-4 px-6 bg-surface-container-highest text-error font-medium rounded-xl flex items-center justify-center gap-3 hover:bg-error/5 transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                    Sign out
+                </button>
+<p class="text-[10px] uppercase tracking-widest text-outline">The Curator v2.4.0 — Estate Access</p>
+</div>
+</section>
+<div class="relative py-8">
+<div class="flex items-start gap-4">
+<div class="w-0.5 h-16 bg-tertiary"></div>
+<blockquote class="font-headline text-lg italic text-on-surface-variant max-w-md">
+                    "Luxury is the ease of a permanent choice." 
+                </blockquote>
+</div>
+</div>
+</main>
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl z-50 rounded-t-3xl shadow-[0px_-10px_40px_rgba(56,56,49,0.04)] border-t border-[#babab0]/15">
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Portfolio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined" data-icon="card_giftcard">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Benefits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="room_service" style="font-variation-settings: 'FILL' 1;">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase font-bold mt-1">Concierge</span>
+</a>
+</nav>
+</body></html>

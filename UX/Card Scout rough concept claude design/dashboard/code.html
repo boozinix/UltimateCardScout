@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d4e4fc",
+                        "tertiary-dim": "#475e4a",
+                        "surface-variant": "#eae8de",
+                        "primary-dim": "#495365",
+                        "on-primary-fixed-variant": "#525c6e",
+                        "on-error-container": "#752121",
+                        "tertiary-container": "#e0fbe0",
+                        "tertiary-fixed-dim": "#d2ecd2",
+                        "outline-variant": "#babab0",
+                        "on-secondary-fixed-variant": "#4e5d71",
+                        "secondary": "#57657a",
+                        "outline": "#818178",
+                        "on-tertiary-container": "#4a614d",
+                        "surface-bright": "#fffcf7",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#9e9d98",
+                        "surface-tint": "#555f71",
+                        "surface-container-low": "#fcf9f3",
+                        "surface-dim": "#e4e3d7",
+                        "primary-fixed-dim": "#cbd5eb",
+                        "secondary-fixed": "#d4e4fc",
+                        "on-background": "#383831",
+                        "surface-container-highest": "#eae8de",
+                        "tertiary": "#536a55",
+                        "primary-fixed": "#d9e3f9",
+                        "on-primary-fixed": "#364051",
+                        "on-tertiary-fixed": "#384f3c",
+                        "inverse-surface": "#0e0e0c",
+                        "on-secondary-container": "#445367",
+                        "inverse-primary": "#dee8ff",
+                        "on-surface": "#383831",
+                        "on-primary": "#f6f7ff",
+                        "surface": "#fffcf7",
+                        "error": "#a64542",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e0fbe0",
+                        "on-error": "#ffffff",
+                        "secondary-dim": "#4b596e",
+                        "error-dim": "#4e0309",
+                        "primary-container": "#d9e3f9",
+                        "secondary-fixed-dim": "#c6d5ee",
+                        "on-secondary-fixed": "#324054",
+                        "primary": "#555f71",
+                        "surface-container": "#f6f4ec",
+                        "error-container": "#fe8983",
+                        "on-tertiary-fixed-variant": "#546c57",
+                        "background": "#fffcf7",
+                        "on-surface-variant": "#65655c",
+                        "surface-container-high": "#f0eee5",
+                        "on-primary-container": "#485264",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-primary-container selection:text-on-primary-container">
+<!-- Top Navigation -->
+<header class="w-full top-0 sticky z-40 bg-[#fffcf7] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up studio portrait of a sophisticated man with a neutral expression against a soft beige background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2CeeDon3AWHycDn1gTNk_cyZ7lPg9f6Uns-cu2dVSNyALoYEvEFidjQvNqvAgQqzFEYxsHeRFmywQGC7txQKdKD-a0aC0Cpz-z-U6P6vnjmtkjEsyeI9tKbBjJAm-FtQTBgLR4kkIotoDwExlVzd8OrcQT3OAJ-zKvANjorTh8BDaB74QONFvKrG7TFwCYxRqdXHQAyikSYmxZRWkO7CBUKXGe3z4mBkdVh-qxF0wBgDOVGmJdtR5rnPRxYB9K11d0bqqwZuQMUw"/>
+</div>
+<span class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</span>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-[#555f71] font-bold font-label text-sm tracking-wide" href="#">Dashboard</a>
+<a class="text-[#383831]/60 font-label text-sm tracking-wide hover:opacity-80 transition-opacity" href="#">Portfolio</a>
+<a class="text-[#383831]/60 font-label text-sm tracking-wide hover:opacity-80 transition-opacity" href="#">Concierge</a>
+</nav>
+<button class="text-[#555f71] dark:text-slate-400 hover:opacity-80 transition-opacity scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-12 pb-32">
+<!-- Hero Section: Asymmetric Layout -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-24">
+<div class="lg:col-span-7">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-[2px] bg-tertiary"></div>
+<span class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">Wealth Summary</span>
+</div>
+<h1 class="font-serif text-5xl md:text-7xl text-on-surface leading-[1.1] mb-8">
+                    Captured <br/><span class="italic">Wealth</span>
+</h1>
+<p class="font-body text-lg text-on-surface-variant max-w-md leading-relaxed">
+                    Your curations have yielded significant returns. We are tracking optimization pathways across your entire credit portfolio.
+                </p>
+</div>
+<div class="lg:col-span-5 flex justify-center lg:justify-end">
+<div class="relative w-64 h-64 flex items-center justify-center">
+<!-- Progress Circle SVG -->
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-highest" cx="128" cy="128" fill="transparent" r="120" stroke="currentColor" stroke-width="1"></circle>
+<circle class="text-primary" cx="128" cy="128" fill="transparent" r="120" stroke="currentColor" stroke-dasharray="754" stroke-dashoffset="188" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+<span class="font-serif text-4xl text-on-surface">$12,480</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mt-2">Total Rewards</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Expiring Soon: Editorial Cards -->
+<section class="mb-24">
+<div class="flex justify-between items-baseline mb-12">
+<h2 class="font-serif text-3xl text-on-surface">Expiring Soon</h2>
+<a class="font-label text-sm text-primary hover:underline decoration-2 underline-offset-8 transition-all" href="#">View All Alerts</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Alert Card 1 -->
+<div class="group bg-surface-container-low p-8 rounded-xl flex flex-col justify-between aspect-[4/5] hover:bg-surface-container transition-colors">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 text-3xl">flight_takeoff</span>
+<h3 class="font-serif text-2xl text-on-surface mb-4">SkyMiles Gold</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed">45,000 miles will expire in 12 days. Consider a strategic transfer or booking.</p>
+</div>
+<div class="mt-8">
+<div class="text-xs font-label uppercase tracking-widest text-error mb-2">High Priority</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-4/5 h-full bg-error"></div>
+</div>
+</div>
+</div>
+<!-- Alert Card 2 -->
+<div class="group bg-surface-container-low p-8 rounded-xl flex flex-col justify-between aspect-[4/5] hover:bg-surface-container transition-colors">
+<div>
+<span class="material-symbols-outlined text-primary mb-6 text-3xl">hotel</span>
+<h3 class="font-serif text-2xl text-on-surface mb-4">Marriott Bonvoy</h3>
+<p class="font-body text-sm text-on-surface-variant leading-relaxed">Two free night certificates expiring next month. Valued at $600 USD.</p>
+</div>
+<div class="mt-8">
+<div class="text-xs font-label uppercase tracking-widest text-on-surface-variant mb-2">Expires in 28 Days</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-1/3 h-full bg-primary"></div>
+</div>
+</div>
+</div>
+<!-- Alert Card 3: Featured Offer -->
+<div class="relative group bg-secondary p-8 rounded-xl flex flex-col justify-end aspect-[4/5] overflow-hidden">
+<img alt="Luxury Coffee Shop" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 transition-transform duration-700" data-alt="Interior of a high-end minimalist coffee shop with soft natural lighting and warm wood accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDar8B0JeZl_JkMUH0IrfzdeT3WoY6gq6OqrLTnJgLYyGsK1s8LcU-CrkeMsmRM2b8fsx4FLCCpA2QGOs-Anobnin-E1HPW8xUlMRkv_8lBXFZz6tlc3dB7dS8iG1ZLMaioU6DiyzEp2kCsgOwmb_Lr1mG6_7emOzPbPI1B4TEGBZVsPXP41xD7MGPfX7lrAqvCoe7ac6GU_a0ywHlvFcsozJCV4aAf148lxiVSXLkjSmt4mQLW2ZYAuD-Nxd4Mq4zfBAlPYwicars"/>
+<div class="relative z-10">
+<h3 class="font-serif text-2xl text-on-secondary mb-2">Concierge Pick</h3>
+<p class="font-body text-sm text-on-secondary/80 leading-relaxed mb-6">Redeem 10k points for a curated tasting experience in Paris.</p>
+<button class="bg-on-secondary text-secondary px-6 py-3 rounded-xl font-label text-xs uppercase tracking-widest scale-100 hover:scale-[0.98] transition-transform">Explore</button>
+</div>
+</div>
+</div>
+</section>
+<!-- My Wallet: The Grid -->
+<section class="mb-24">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+<div>
+<h2 class="font-serif text-3xl text-on-surface mb-2">My Wallet</h2>
+<p class="font-body text-sm text-on-surface-variant">Management of your primary value vehicles.</p>
+</div>
+<button class="flex items-center gap-3 bg-primary text-on-primary px-8 py-4 rounded-xl font-label text-sm tracking-wide transition-all active:scale-95">
+<span class="material-symbols-outlined text-lg">add</span>
+                    Add New Card
+                </button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Card Item 1 -->
+<div class="bg-surface-container-highest p-6 rounded-xl border-l-4 border-primary">
+<div class="flex justify-between items-start mb-12">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="font-label text-[10px] text-on-surface-variant opacity-60">•••• 9012</span>
+</div>
+<h4 class="font-serif text-lg text-on-surface mb-1">Amex Platinum</h4>
+<p class="font-label text-xs text-primary-dim">84,200 Membership Rewards</p>
+</div>
+<!-- Card Item 2 -->
+<div class="bg-surface-container-highest p-6 rounded-xl">
+<div class="flex justify-between items-start mb-12">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="font-label text-[10px] text-on-surface-variant opacity-60">•••• 4410</span>
+</div>
+<h4 class="font-serif text-lg text-on-surface mb-1">Chase Sapphire</h4>
+<p class="font-label text-xs text-primary-dim">120,500 Ultimate Rewards</p>
+</div>
+<!-- Card Item 3 -->
+<div class="bg-surface-container-highest p-6 rounded-xl">
+<div class="flex justify-between items-start mb-12">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="font-label text-[10px] text-on-surface-variant opacity-60">•••• 0021</span>
+</div>
+<h4 class="font-serif text-lg text-on-surface mb-1">Capital One Venture</h4>
+<p class="font-label text-xs text-primary-dim">12,000 Miles</p>
+</div>
+<!-- Card Item 4: Empty State/Invite -->
+<div class="border-2 border-dashed border-outline-variant/30 p-6 rounded-xl flex flex-col items-center justify-center text-center group cursor-pointer hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-outline-variant mb-2 group-hover:text-primary transition-colors">account_balance</span>
+<span class="font-label text-xs text-on-surface-variant">Connect Bank</span>
+</div>
+</div>
+</section>
+<!-- Signature Quote Component -->
+<section class="max-w-3xl mx-auto py-16 border-y border-outline-variant/10">
+<div class="flex gap-8 items-center">
+<div class="w-[2px] h-24 bg-tertiary flex-shrink-0"></div>
+<blockquote class="font-serif text-2xl md:text-3xl text-on-surface italic leading-relaxed">
+                    "True wealth is the ability to move through the world with grace, unencumbered by the friction of travel."
+                </blockquote>
+</div>
+</section>
+</main>
+<!-- Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl border-t border-[#babab0]/15 shadow-[0px_-10px_40px_rgba(56,56,49,0.04)] z-50 rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Portfolio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Benefits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Concierge</span>
+</a>
+</nav>
+</body></html>

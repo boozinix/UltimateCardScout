@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d4e4fc",
+                    "tertiary-dim": "#475e4a",
+                    "surface-variant": "#eae8de",
+                    "primary-dim": "#495365",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "on-error-container": "#752121",
+                    "tertiary-container": "#e0fbe0",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "outline-variant": "#babab0",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "secondary": "#57657a",
+                    "outline": "#818178",
+                    "on-tertiary-container": "#4a614d",
+                    "surface-bright": "#fffcf7",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#9e9d98",
+                    "surface-tint": "#555f71",
+                    "surface-container-low": "#fcf9f3",
+                    "surface-dim": "#e4e3d7",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "secondary-fixed": "#d4e4fc",
+                    "on-background": "#383831",
+                    "surface-container-highest": "#eae8de",
+                    "tertiary": "#536a55",
+                    "primary-fixed": "#d9e3f9",
+                    "on-primary-fixed": "#364051",
+                    "on-tertiary-fixed": "#384f3c",
+                    "inverse-surface": "#0e0e0c",
+                    "on-secondary-container": "#445367",
+                    "inverse-primary": "#dee8ff",
+                    "on-surface": "#383831",
+                    "on-primary": "#f6f7ff",
+                    "surface": "#fffcf7",
+                    "error": "#a64542",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#e0fbe0",
+                    "on-error": "#ffffff",
+                    "secondary-dim": "#4b596e",
+                    "error-dim": "#4e0309",
+                    "primary-container": "#d9e3f9",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "primary": "#555f71",
+                    "surface-container": "#f6f4ec",
+                    "error-container": "#fe8983",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "background": "#fffcf7",
+                    "on-surface-variant": "#65655c",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary-container": "#485264",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .editorial-shadow {
+            shadow: 0px 20px 40px rgba(56, 56, 49, 0.06);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-40 bg-[#fffcf7] dark:bg-stone-950">
+<div class="flex justify-between items-center px-6 py-4 w-full bg-[#fcf9f3] dark:bg-stone-900">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User profile portrait" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man in a minimalist studio setting with soft natural side lighting and neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXbiKJJKWuvXJUT-BnrVqiTONV4_mgZYSgdvmYLddQzofHZR8nyUnJRZTTgSyutfjIS6xFZBA9XqWdlDY3SITjqUJr2KY03JZcw8o3yJ-p__kfQnsPldwzXo66yAwlPSp0v4RLAuGthpspRf-8U-pitcOfssaQjWJP_uULse81X_XWBhjSjd4v4yssF9C-VtYHuqCkrOC59uiy12QVhpBPqNH0VTBKXf0RObyi88uTjvHwXI5PHNv3Us4ZN1nfZ7zEt7TkZaIsbw0"/>
+</div>
+<h1 class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</h1>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-8">
+<a class="text-[#555f71] font-bold transition-opacity hover:opacity-80" href="#">Portfolio</a>
+<a class="text-[#383831]/60 transition-opacity hover:opacity-80" href="#">Benefits</a>
+<a class="text-[#383831]/60 transition-opacity hover:opacity-80" href="#">Calendar</a>
+<a class="text-[#383831]/60 transition-opacity hover:opacity-80" href="#">Concierge</a>
+</nav>
+<button class="material-symbols-outlined text-[#555f71] dark:text-slate-400 scale-95 duration-200 hover:opacity-80">
+                    notifications
+                </button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 pt-12 pb-32">
+<!-- Editorial Header Section -->
+<section class="mb-16">
+<div class="max-w-2xl">
+<h2 class="font-headline text-5xl font-bold tracking-tight text-on-surface mb-4">Your Portfolio</h2>
+<div class="flex items-start gap-4">
+<div class="w-[2px] h-12 bg-tertiary"></div>
+<p class="text-body-lg text-on-surface-variant leading-relaxed italic font-headline text-xl">
+                        "Luxury is not about abundance. It is about the careful selection of items that provide meaning and ease to your journey."
+                    </p>
+</div>
+</div>
+</section>
+<!-- Card Gallery Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+<!-- Card Item 1: Charcoal Slate -->
+<div class="group relative flex flex-col gap-6">
+<div class="aspect-[1.58/1] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#2c2c2c] to-[#1a1a1a] p-8 flex flex-col justify-between shadow-xl transition-transform duration-300 group-hover:-translate-y-2">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[10px] tracking-[0.2em] uppercase font-medium text-white/50 mb-1">Elite Reserve</span>
+<span class="font-headline italic text-xl text-white">Chase Sapphire</span>
+</div>
+<span class="material-symbols-outlined text-white/40" style="font-variation-settings: 'FILL' 1;">contactless</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-mono text-white/80 tracking-widest">•••• 8821</span>
+<div class="w-12 h-8 rounded bg-white/10 backdrop-blur-md flex items-center justify-center overflow-hidden">
+<div class="w-full h-full bg-gradient-to-r from-slate-400/20 to-slate-200/20"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex justify-between items-baseline">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Sapphire Reserve</h3>
+<span class="text-on-surface-variant font-medium">$550 AF</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-base">room_service</span>
+<span>12 Active Benefits</span>
+</div>
+</div>
+</div>
+<!-- Card Item 2: Deep Navy -->
+<div class="group relative flex flex-col gap-6">
+<div class="aspect-[1.58/1] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#1e293b] to-[#0f172a] p-8 flex flex-col justify-between shadow-xl transition-transform duration-300 group-hover:-translate-y-2">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[10px] tracking-[0.2em] uppercase font-medium text-white/50 mb-1">Global Traveler</span>
+<span class="font-headline italic text-xl text-white">American Express</span>
+</div>
+<span class="material-symbols-outlined text-white/40" style="font-variation-settings: 'FILL' 1;">qr_code</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-mono text-white/80 tracking-widest">•••• 1004</span>
+<div class="w-12 h-8 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm"></div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex justify-between items-baseline">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Platinum Card</h3>
+<span class="text-on-surface-variant font-medium">$695 AF</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-base">explore</span>
+<span>24 Active Benefits</span>
+</div>
+</div>
+</div>
+<!-- Card Item 3: Muted Forest -->
+<div class="group relative flex flex-col gap-6">
+<div class="aspect-[1.58/1] w-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#3d443e] to-[#252b26] p-8 flex flex-col justify-between shadow-xl transition-transform duration-300 group-hover:-translate-y-2">
+<div class="flex justify-between items-start">
+<div class="flex flex-col">
+<span class="text-[10px] tracking-[0.2em] uppercase font-medium text-white/50 mb-1">Venture X</span>
+<span class="font-headline italic text-xl text-white">Capital One</span>
+</div>
+<span class="material-symbols-outlined text-white/40" style="font-variation-settings: 'FILL' 1;">shield_with_heart</span>
+</div>
+<div class="flex justify-between items-end">
+<span class="font-mono text-white/80 tracking-widest">•••• 4419</span>
+<div class="w-10 h-10 rounded-full border-2 border-white/10 flex items-center justify-center">
+<div class="w-6 h-6 bg-white/10 rounded-full blur-sm"></div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 px-1">
+<div class="flex justify-between items-baseline">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Venture X</h3>
+<span class="text-on-surface-variant font-medium">$395 AF</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-sm">
+<span class="material-symbols-outlined text-base">flight_takeoff</span>
+<span>8 Active Benefits</span>
+</div>
+</div>
+</div>
+<!-- Add New Card (Empty State Trigger) -->
+<button class="aspect-[1.58/1] w-full rounded-2xl border-2 border-dashed border-outline-variant/30 flex flex-col items-center justify-center gap-4 hover:bg-surface-container-low transition-colors duration-300">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">add</span>
+</div>
+<span class="font-label text-sm uppercase tracking-widest font-semibold text-primary">Add New Card</span>
+</button>
+</div>
+<!-- Empty State Section (Focused) -->
+<section class="mt-32 py-24 px-6 rounded-3xl bg-surface-container-low text-center flex flex-col items-center border border-outline-variant/10">
+<div class="max-w-md">
+<div class="mb-8 relative inline-block">
+<div class="w-24 h-24 bg-surface-container-highest rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="material-symbols-outlined text-4xl text-outline-variant" style="font-variation-settings: 'FILL' 0;">credit_card_off</span>
+</div>
+<div class="absolute -bottom-2 -right-2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-xl">colors_spark</span>
+</div>
+</div>
+<h3 class="font-headline text-3xl font-bold text-on-surface mb-4">No Archived Cards</h3>
+<p class="text-on-surface-variant mb-10 leading-relaxed">
+                    All your active instruments are displayed in the main gallery. When you retire a card, it will appear here for historical reward tracking.
+                </p>
+<button class="px-8 py-4 bg-primary text-on-primary rounded-xl font-medium tracking-wide transition-transform active:scale-95 hover:bg-primary-dim">
+                    Refresh Library
+                </button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl z-50 rounded-t-3xl border-t border-[#babab0]/15 shadow-[0px_-10px_40px_rgba(56,56,49,0.04)] md:hidden">
+<a class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all scale-90 duration-300" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Portfolio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined mb-1">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Benefits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined mb-1">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 hover:text-[#555f71]" href="#">
+<span class="material-symbols-outlined mb-1">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Concierge</span>
+</a>
+</nav>
+</body></html>

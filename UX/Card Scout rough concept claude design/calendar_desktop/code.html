@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rewards Tracker | Calendar</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e0fbe0",
+                    "outline-variant": "#babab0",
+                    "primary-fixed": "#d9e3f9",
+                    "primary": "#555f71",
+                    "on-secondary-container": "#445367",
+                    "tertiary-container": "#e0fbe0",
+                    "surface": "#fffcf7",
+                    "secondary-container": "#d4e4fc",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "surface-dim": "#e4e3d7",
+                    "secondary": "#57657a",
+                    "on-tertiary-container": "#4a614d",
+                    "outline": "#818178",
+                    "inverse-on-surface": "#9e9d98",
+                    "on-primary-fixed": "#364051",
+                    "on-background": "#383831",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "inverse-primary": "#dee8ff",
+                    "secondary-fixed": "#d4e4fc",
+                    "surface-tint": "#555f71",
+                    "background": "#fffcf7",
+                    "surface-variant": "#eae8de",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "primary-dim": "#495365",
+                    "surface-container": "#f6f4ec",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "inverse-surface": "#0e0e0c",
+                    "error-container": "#fe8983",
+                    "on-primary-container": "#485264",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "surface-bright": "#fffcf7",
+                    "tertiary-dim": "#475e4a",
+                    "surface-container-low": "#fcf9f3",
+                    "on-surface-variant": "#65655c",
+                    "secondary-dim": "#4b596e",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#eae8de",
+                    "primary-container": "#d9e3f9",
+                    "on-surface": "#383831",
+                    "error": "#a64542",
+                    "on-error-container": "#752121",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#536a55",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary": "#f6f7ff",
+                    "on-tertiary-fixed": "#384f3c",
+                    "error-dim": "#4e0309"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Noto Serif', serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-12 px-6 z-50">
+<div class="mb-12">
+<h1 class="text-2xl font-serif text-[#555f71] dark:text-stone-200 tracking-tighter">Rewards Tracker</h1>
+<p class="text-xs uppercase tracking-widest text-outline-variant mt-1">The Editorial Curator</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-4 py-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">My Cards</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-[#555f71] font-bold border-l-2 border-[#555f71] pl-4 dark:text-white dark:border-stone-200 group" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Calendar</span>
+</a>
+<a class="flex items-center gap-4 py-3 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 transition-all duration-300 rounded-xl group" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Concierge</span>
+</a>
+</nav>
+<div class="mt-auto flex items-center gap-3 p-2 bg-surface-container rounded-xl">
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a sophisticated man in a charcoal suit, studio lighting, neutral background, high-end magazine style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBSQal8ODcdf5iSjHU3wRkWqUHw9QodpjY2dfmd3lxItc0TWeSpcpgJoTOyyt7O17h5hTTEcATYdkQUurQXp8pN3foE6_r-rJE8spPtSxHpXq8yCqBZn8Lrol6f2q146wjmaxIQcjqZv1e0G-rtYskGTZGo7Jah4ic2p4wyhHAcFzRqB5khMv1gTzZxxDAaXW4quJEVobeIcR2WEolyUJsIUDJV_00fj3FU5qMuviHfwqgE7NNN2WBE1HuQb0jCCEIb5yczmPJLgs"/>
+<div class="overflow-hidden">
+<p class="text-sm font-semibold truncate">Julian Vance</p>
+<p class="text-xs text-on-surface-variant truncate">Premium Member</p>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="ml-64 flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-24 z-40 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-12 h-full w-full max-w-7xl mx-auto">
+<div class="flex items-center bg-surface-container px-6 py-2.5 rounded-full w-96">
+<span class="material-symbols-outlined text-outline mr-3" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full font-body" placeholder="Search benefits..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-[#555f71] hover:text-[#555f71] transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-stone-400 hover:text-[#555f71] transition-colors p-2">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<section class="mt-24 p-12 flex gap-12 max-w-7xl mx-auto w-full">
+<!-- Calendar Section -->
+<div class="flex-1 space-y-8">
+<div class="flex items-baseline justify-between">
+<div>
+<h2 class="text-5xl serif text-primary tracking-tight">October 2023</h2>
+<p class="text-on-surface-variant font-body mt-2 text-lg">Your curated benefits schedule.</p>
+</div>
+<div class="flex gap-4">
+<button class="p-3 bg-surface-container-low hover:bg-surface-container-highest transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="p-3 bg-surface-container-low hover:bg-surface-container-highest transition-colors rounded-full">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="grid grid-cols-7 gap-px bg-outline-variant/10 rounded-2xl overflow-hidden bg-surface-container-low p-4">
+<!-- Day Headers -->
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Sun</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Mon</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Tue</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Wed</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Thu</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Fri</div>
+<div class="py-4 text-center text-xs font-semibold uppercase tracking-widest text-on-surface-variant">Sat</div>
+<!-- Calendar Cells -->
+<!-- Week 1 -->
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">24</span></div>
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">25</span></div>
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">26</span></div>
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">27</span></div>
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">28</span></div>
+<div class="aspect-square p-4 bg-surface/40 flex flex-col justify-between opacity-30"><span class="text-sm font-medium">29</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">1</span></div>
+<!-- Week 2 -->
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">2</span></div>
+<div class="aspect-square p-4 bg-surface-container-highest flex flex-col justify-between rounded-lg">
+<span class="text-sm font-medium">3</span>
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+</div>
+</div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">4</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">5</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">6</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">7</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">8</span></div>
+<!-- Week 3 (Oct 12 is here) -->
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">9</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">10</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">11</span></div>
+<div class="aspect-square p-4 bg-primary text-on-primary ring-4 ring-primary-container flex flex-col justify-between rounded-xl shadow-2xl">
+<span class="text-sm font-bold">12</span>
+<div class="flex gap-1">
+<div class="w-1.5 h-1.5 rounded-full bg-on-primary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-primary/60"></div>
+</div>
+</div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">13</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">14</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">15</span></div>
+<!-- Week 4 -->
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">16</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">17</span></div>
+<div class="aspect-square p-4 bg-surface-container-highest flex flex-col justify-between rounded-lg">
+<span class="text-sm font-medium">18</span>
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+</div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">19</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">20</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">21</span></div>
+<div class="aspect-square p-4 bg-surface flex flex-col justify-between rounded-lg"><span class="text-sm font-medium">22</span></div>
+</div>
+</div>
+<!-- Detail Panel (Right Side) -->
+<div class="w-96 space-y-6">
+<div class="bg-surface-container-low rounded-3xl p-8 flex flex-col h-full border border-outline-variant/10 shadow-sm">
+<div class="mb-10">
+<p class="text-xs uppercase tracking-[0.2em] text-on-surface-variant font-semibold mb-2">Details</p>
+<h3 class="text-2xl serif leading-tight">Selected Date: Thursday, Oct 12</h3>
+</div>
+<div class="space-y-6 overflow-y-auto no-scrollbar pb-4">
+<!-- Uber Card -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col gap-4 border border-outline-variant/10">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 bg-on-background rounded-xl flex items-center justify-center text-surface">
+<span class="material-symbols-outlined text-3xl" data-icon="directions_car">directions_car</span>
+</div>
+<span class="bg-primary-container text-on-primary-container text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg">Uber Cash Benefit</h4>
+<p class="text-on-surface-variant text-sm mt-1">$15.00 Monthly Credit</p>
+</div>
+<div class="flex gap-3 pt-2">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-xl text-sm font-medium hover:opacity-90 transition-opacity">Mark as Used</button>
+<button class="px-4 bg-surface-container-highest text-on-surface py-3 rounded-xl text-sm font-medium hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined align-middle" data-icon="snooze">snooze</span>
+</button>
+</div>
+</div>
+<!-- DoorDash Card -->
+<div class="bg-surface rounded-2xl p-6 shadow-sm flex flex-col gap-4 border border-outline-variant/10">
+<div class="flex items-start justify-between">
+<div class="w-12 h-12 bg-error rounded-xl flex items-center justify-center text-surface">
+<span class="material-symbols-outlined text-3xl" data-icon="restaurant">restaurant</span>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Unclaimed</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg">DoorDash Credit</h4>
+<p class="text-on-surface-variant text-sm mt-1">$5.00 Monthly Benefit</p>
+</div>
+<div class="flex gap-3 pt-2">
+<button class="flex-1 bg-primary text-on-primary py-3 rounded-xl text-sm font-medium hover:opacity-90 transition-opacity">Mark as Used</button>
+<button class="px-4 bg-surface-container-highest text-on-surface py-3 rounded-xl text-sm font-medium hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined align-middle" data-icon="snooze">snooze</span>
+</button>
+</div>
+</div>
+<!-- Secondary Info -->
+<div class="mt-4 p-6 bg-tertiary-container/30 rounded-2xl border-l-4 border-tertiary">
+<h5 class="serif text-on-tertiary-container font-bold mb-1">Curator's Note</h5>
+<p class="text-sm text-on-tertiary-container/80 leading-relaxed">
+                                Don't forget your Uber credit expires at the end of the month. Perfect for a Friday night out.
+                            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Signature Quote Component -->
+<div class="max-w-7xl mx-auto w-full px-12 pb-24">
+<div class="pl-12 border-l-2 border-tertiary py-6">
+<blockquote class="text-3xl serif text-on-surface-variant leading-relaxed max-w-3xl">
+                    "True luxury is not in the accumulation of rewards, but in the seamless harmony of how they enhance your daily life."
+                </blockquote>
+<cite class="block mt-4 text-sm font-semibold uppercase tracking-widest text-outline">— The Editorial Perspective</cite>
+</div>
+</div>
+</main>
+</body></html>

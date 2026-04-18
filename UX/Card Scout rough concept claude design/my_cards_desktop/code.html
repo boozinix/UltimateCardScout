@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "tertiary-fixed": "#e0fbe0",
+                    "outline-variant": "#babab0",
+                    "primary-fixed": "#d9e3f9",
+                    "primary": "#555f71",
+                    "on-secondary-container": "#445367",
+                    "tertiary-container": "#e0fbe0",
+                    "surface": "#fffcf7",
+                    "secondary-container": "#d4e4fc",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "surface-dim": "#e4e3d7",
+                    "secondary": "#57657a",
+                    "on-tertiary-container": "#4a614d",
+                    "outline": "#818178",
+                    "inverse-on-surface": "#9e9d98",
+                    "on-primary-fixed": "#364051",
+                    "on-background": "#383831",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "inverse-primary": "#dee8ff",
+                    "secondary-fixed": "#d4e4fc",
+                    "surface-tint": "#555f71",
+                    "background": "#fffcf7",
+                    "surface-variant": "#eae8de",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "primary-dim": "#495365",
+                    "surface-container": "#f6f4ec",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "inverse-surface": "#0e0e0c",
+                    "error-container": "#fe8983",
+                    "on-primary-container": "#485264",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "surface-bright": "#fffcf7",
+                    "tertiary-dim": "#475e4a",
+                    "surface-container-low": "#fcf9f3",
+                    "on-surface-variant": "#65655c",
+                    "secondary-dim": "#4b596e",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "on-error": "#ffffff",
+                    "surface-container-highest": "#eae8de",
+                    "primary-container": "#d9e3f9",
+                    "on-surface": "#383831",
+                    "error": "#a64542",
+                    "on-error-container": "#752121",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#536a55",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary": "#f6f7ff",
+                    "on-tertiary-fixed": "#384f3c",
+                    "error-dim": "#4e0309"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        .glass-card {
+            background: rgba(255, 252, 247, 0.8);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-12 px-6 z-50">
+<div class="mb-12">
+<h1 class="text-2xl font-serif text-[#555f71] dark:text-stone-200 tracking-tighter">Rewards Tracker</h1>
+<p class="font-['Noto_Serif'] text-sm tracking-tight text-stone-500 mt-1">The Editorial Curator</p>
+</div>
+<nav class="flex-1 space-y-6">
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Dashboard</span>
+</a>
+<!-- Active State: My Cards -->
+<a class="flex items-center space-x-4 text-[#555f71] font-bold border-l-2 border-[#555f71] pl-4 dark:text-white dark:border-stone-200 transition-all duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">My Cards</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Calendar</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Concierge</span>
+</a>
+</nav>
+<div class="mt-auto pt-8">
+<div class="flex items-center space-x-3 px-4 py-3 rounded-xl hover:bg-stone-100 transition-all cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="portrait of a refined gentleman in a linen suit, soft studio lighting, high-end editorial photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdusu78hbgZVQLMB7obyAEqOnvhOSIOH88RVmJy78Sxs3C_-8PtUUfLKxiwXn8lwIscMdcLOcAJMK1tF7K7JJ_XdACUj0VAc_vscTcMvllTzEp7Vgp-U8A_0PtHlZftZgFLdh9LF2rpcPXKQhCBVic1Todm3EDbgXlB4oIqP1cV_8gfM0CReaje-LpMFW09JvEjGxyilSpfYm0hpMBubWtyV0plbd25RcZtsQVt0M0Gt0E46jADbnQtM2sOMR55V9_oVq_LKBcHo8"/>
+</div>
+<div>
+<p class="text-sm font-semibold text-primary">Julian Vane</p>
+<p class="text-xs text-outline">Premium Member</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="fixed top-0 right-0 left-64 h-24 z-40 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-12 h-full w-full max-w-7xl mx-auto">
+<div class="flex items-center bg-surface-container-highest px-6 py-3 rounded-full w-96">
+<span class="material-symbols-outlined text-outline-variant mr-3" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full placeholder-outline-variant font-body" placeholder="Search benefits..." type="text"/>
+</div>
+<div class="flex items-center space-x-8">
+<div class="flex space-x-6">
+<button class="text-stone-400 hover:text-[#555f71] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-stone-400 hover:text-[#555f71] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-32 pb-24 px-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="mb-16">
+<h2 class="font-headline text-5xl font-bold tracking-tight text-primary mb-4">My Portfolio</h2>
+<p class="font-body text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+                    A curated overview of your premium financial instruments and their associated privileges.
+                </p>
+</div>
+<!-- Bento-style Card Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-10">
+<!-- Card 1: Amex Platinum -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="h-56 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="luxury metal credit card with elegant texture resting on a dark marble surface, soft ambient lighting, premium product photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBKpoCWKEFseA_oZXzRQ5phmHaMtk6tLO6deNSIJeWhH3QDYDC2yEUBgwpkcaKIureGJnBTJWi1DXGosoeTtXRTgQP5aX2EummS5kdBw5w40zNmN8qZ_erOcqhSzRLd4_M_1Lxvzh8ivpan5dzajbN07KFpjBvhV5k-OUJcbxJV7dqjsjWSHln9RhPfAz1ObcKa3V_a1oW9qjAFmfsiGWv-OJS1lKFnFM3tcslPXGeK6DLLbKu3DqwF90HvAS1ZcBuYiGK9j6y5sWQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs tracking-widest uppercase font-label mb-1 opacity-80">American Express</p>
+<h3 class="text-2xl font-headline font-bold">Platinum Card®</h3>
+</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="verified" style="font-variation-settings: 'FILL' 1;">verified</span>
+<span class="text-sm font-medium text-on-surface-variant">12 Active Benefits</span>
+</div>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Metal Card</span>
+</div>
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Membership Rewards</span>
+<span class="font-bold text-primary">142,500 pts</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-1 rounded-full w-3/4"></div>
+</div>
+</div>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary rounded-xl font-medium transition-all duration-200 active:scale-95 group-hover:bg-primary-dim">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Card 2: Sapphire Reserve -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="h-56 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="minimalist dark blue high-end credit card with silver details on a clean textured paper background, architectural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYJK3u1ozrzUrwqGXaH4-8g1g2znJUxDRJiz9cjXm_axqUdk0Oc1x2qmaoL5sX2j_5UDnafbYKNC2V-M8WBSdBd07oSXBDyDxHU84rW3fCWh0DDaoPf16czFYbXVNVHQuE1xpYz3XmrMZ1ok5Ij4Xc3bFmvb4LDXHH5fPRdImqjLZd9TxE78vBs_cdiGp4BGBk0wCUb5LzyW5uOObETuTk1ej-iazEKFIo183wNhVTqL_4PHiMWtxk1OVsyyI-QX-9W4Ey9nSqjsE"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs tracking-widest uppercase font-label mb-1 opacity-80">Chase Sapphire</p>
+<h3 class="text-2xl font-headline font-bold">Reserve®</h3>
+</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="lounge" style="font-variation-settings: 'FILL' 1;">room</span>
+<span class="text-sm font-medium text-on-surface-variant">8 Active Benefits</span>
+</div>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Premium Travel</span>
+</div>
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Ultimate Rewards</span>
+<span class="font-bold text-primary">89,200 pts</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-1 rounded-full w-1/2"></div>
+</div>
+</div>
+<button class="mt-auto w-full py-4 bg-surface-container-highest text-primary rounded-xl font-medium transition-all duration-200 active:scale-95 hover:bg-primary-fixed">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Card 3: Venture X -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-xl overflow-hidden transition-all duration-500 hover:-translate-y-2">
+<div class="h-56 relative overflow-hidden">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="modern tech-focused premium credit card with holographic accents on a minimalist desk setup, soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvuEQwPrdXklwTM5bGt35y8Ueg9e6qJNqWLpa7QPivUPkLHmBcIQZrbeu_6gn8hyzgY8R9-1ZmurKZ-RcvpF_JGFopjfCVwmnFOGv8K6piZG1epCQK8SZCFgqeC-kipg9QKIunhs9tpy08EW_oSJTYM8l4sCMNg-xUQNJdpMvJh-qLEDmlsIUsWYbwfwRFurfJXqKxEnVqyy0pmpAARHnSzV3pD0TDdmVDOTVMLysuFEc4uIwQFE1hnUq6P5Hh8Rt0xemHq_7tdGo"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+<div class="absolute bottom-6 left-6 text-white">
+<p class="text-xs tracking-widest uppercase font-label mb-1 opacity-80">Capital One</p>
+<h3 class="text-2xl font-headline font-bold">Venture X</h3>
+</div>
+</div>
+<div class="p-8 flex-1 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-tertiary" data-icon="flight_takeoff" style="font-variation-settings: 'FILL' 1;">flight_takeoff</span>
+<span class="text-sm font-medium text-on-surface-variant">10 Active Benefits</span>
+</div>
+<span class="text-xs font-label text-outline uppercase tracking-wider">Infinite Card</span>
+</div>
+<div class="space-y-3 mb-8">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Venture Miles</span>
+<span class="font-bold text-primary">210,000 mi</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-primary h-1 rounded-full w-5/6"></div>
+</div>
+</div>
+<button class="mt-auto w-full py-4 bg-surface-container-highest text-primary rounded-xl font-medium transition-all duration-200 active:scale-95 hover:bg-primary-fixed">
+                            View Details
+                        </button>
+</div>
+</div>
+<!-- Add New Card (Empty State) -->
+<button class="group relative flex flex-col items-center justify-center min-h-[500px] border-2 border-dashed border-outline-variant/30 rounded-xl bg-surface-container-low/50 hover:bg-surface-container hover:border-primary/20 transition-all duration-500">
+<div class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-6 transition-transform duration-300 group-hover:scale-110">
+<span class="material-symbols-outlined text-primary text-3xl" data-icon="add">add</span>
+</div>
+<h3 class="font-headline text-xl font-bold text-primary mb-2">Expand Your Portfolio</h3>
+<p class="text-on-surface-variant text-sm max-w-[180px] text-center">Add a new financial instrument to track privileges.</p>
+</button>
+</div>
+<!-- Editorial Quote / Subtle Divider -->
+<div class="mt-24 max-w-4xl mx-auto py-16 text-center border-l-2 border-tertiary pl-12">
+<p class="font-headline text-2xl italic text-primary leading-relaxed">
+                    "Luxury is the ability to ignore the noise and focus on the resonance. In the world of rewards, the greatest benefit is time well spent."
+                </p>
+<p class="mt-4 font-body text-sm uppercase tracking-widest text-outline">The Curator's Note</p>
+</div>
+</div>
+</main>
+</body></html>

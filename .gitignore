@@ -1,0 +1,23 @@
+node_modules/
+.expo/
+dist/
+dist-scripts/
+*.orig.*
+web-build/
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# EAS
+*.p8
+*.p12
+*.mobileprovision
+google-services.json
+GoogleService-Info.plist
+
+# Expo
+android/
+ios/

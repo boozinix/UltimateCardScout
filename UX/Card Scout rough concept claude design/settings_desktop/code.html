@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rewards Tracker - Preferences</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#e0fbe0",
+                        "outline-variant": "#babab0",
+                        "primary-fixed": "#d9e3f9",
+                        "primary": "#555f71",
+                        "on-secondary-container": "#445367",
+                        "tertiary-container": "#e0fbe0",
+                        "surface": "#fffcf7",
+                        "secondary-container": "#d4e4fc",
+                        "on-primary-fixed-variant": "#525c6e",
+                        "surface-dim": "#e4e3d7",
+                        "secondary": "#57657a",
+                        "on-tertiary-container": "#4a614d",
+                        "outline": "#818178",
+                        "inverse-on-surface": "#9e9d98",
+                        "on-primary-fixed": "#364051",
+                        "on-background": "#383831",
+                        "secondary-fixed-dim": "#c6d5ee",
+                        "on-secondary-fixed": "#324054",
+                        "inverse-primary": "#dee8ff",
+                        "secondary-fixed": "#d4e4fc",
+                        "surface-tint": "#555f71",
+                        "background": "#fffcf7",
+                        "surface-variant": "#eae8de",
+                        "on-tertiary-fixed-variant": "#546c57",
+                        "primary-dim": "#495365",
+                        "surface-container": "#f6f4ec",
+                        "primary-fixed-dim": "#cbd5eb",
+                        "inverse-surface": "#0e0e0c",
+                        "error-container": "#fe8983",
+                        "on-primary-container": "#485264",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#4e5d71",
+                        "surface-bright": "#fffcf7",
+                        "tertiary-dim": "#475e4a",
+                        "surface-container-low": "#fcf9f3",
+                        "on-surface-variant": "#65655c",
+                        "secondary-dim": "#4b596e",
+                        "tertiary-fixed-dim": "#d2ecd2",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#eae8de",
+                        "primary-container": "#d9e3f9",
+                        "on-surface": "#383831",
+                        "error": "#a64542",
+                        "on-error-container": "#752121",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#536a55",
+                        "surface-container-high": "#f0eee5",
+                        "on-primary": "#f6f7ff",
+                        "on-tertiary-fixed": "#384f3c",
+                        "error-dim": "#4e0309"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif-font { font-family: 'Noto Serif', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-12 px-6 z-50">
+<div class="mb-12">
+<h1 class="text-2xl font-serif text-[#555f71] dark:text-stone-200 tracking-tighter">Rewards Tracker</h1>
+<p class="text-xs text-stone-400 font-label tracking-widest mt-1">THE EDITORIAL CURATOR</p>
+</div>
+<nav class="flex-1 space-y-4">
+<a class="flex items-center gap-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 py-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 py-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="credit_card">credit_card</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">My Cards</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 py-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Calendar</span>
+</a>
+<a class="flex items-center gap-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors hover:bg-stone-100 dark:hover:bg-stone-800 py-2 rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="support_agent">support_agent</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Concierge</span>
+</a>
+</nav>
+<div class="mt-auto">
+<button class="flex items-center gap-4 text-[#555f71] font-bold border-l-2 border-[#555f71] pl-4 dark:text-white dark:border-stone-200 py-2">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-['Noto_Serif'] text-lg tracking-tight">Preferences</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen bg-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-24 z-40 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-12 h-full w-full max-w-7xl mx-auto">
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full w-96">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full ml-2 font-body" placeholder="Search rewards..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-stone-400 hover:text-[#555f71] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-[#555f71] transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Julian Vane profile" class="object-cover h-full w-full" data-alt="Close-up portrait of a sophisticated middle-aged man with short groomed hair in a minimalist studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyq5Qs7YOYboRXjVBTsK_Cb3HO7Qd1bpei6QcP2isbibvOy1KW4EcIxq9R6DVFYJBP-EDsydvP-gC1vODmwfMlmyG6X7ITVtpOHe2i4_ehjgQtT1GBRxl5BQxl4Mi7jrAtE1tibwAy_ADjmO3j31IJd7IOxBu5XzDGfy-Qa17OJQJ_PjGU_K0TK9TGsGNLR3QERVcCbKfrC-7tvkkSjUWnqgS-7baO9Tv4pueLhM4zmlqjnQl5--Vj8Nmf6Bynb9VnOR4kQimwcnA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="pt-32 pb-24 px-12 max-w-5xl mx-auto">
+<!-- Page Title -->
+<div class="mb-16">
+<h1 class="text-5xl font-headline tracking-tight text-primary mb-4">Preferences</h1>
+<p class="text-body text-on-surface-variant max-w-xl leading-relaxed">Customize your editorial experience and manage how Rewards Tracker analyzes your curated financial data.</p>
+</div>
+<!-- Profile Section -->
+<section class="mb-12">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-0.5 w-8 bg-tertiary"></div>
+<h2 class="text-sm font-label uppercase tracking-[0.2em] text-tertiary">Account Profile</h2>
+</div>
+<div class="bg-surface-container-low rounded-xl p-8 flex items-center justify-between">
+<div class="flex items-center gap-8">
+<div class="relative">
+<div class="h-24 w-24 rounded-full overflow-hidden">
+<img alt="Julian Vane photo" class="object-cover h-full w-full" data-alt="Professional portrait of a man named Julian Vane, calm expression, soft cinematic lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBO-SC_fz-TxAEpTEoNinorbY5deNPMks2-8bkoVtFQNgXSuuLYaZtmJsksGsoEqVjbWP2BcOdYM7LlpGN1hnQUIEtbpON-qOjjTJLzntltcwU37RZvBZLieVHeHsyk8or41PySDTppoYCqm3pMCQBJSk63pv54gSBhD1wiYBNEYUjdeOBKtInf0bd0hFX--sbid2ovH28AcZci6HrXoPK4WN_O4L-nzA-zIAnT3-r7PknaAxPsU8VsWft2jKV422WcyeVtZxgJXzA"/>
+</div>
+<button class="absolute bottom-0 right-0 bg-primary text-on-primary h-8 w-8 rounded-full flex items-center justify-center hover:scale-95 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+<div>
+<h3 class="text-2xl font-headline text-on-surface">Julian Vane</h3>
+<p class="text-on-surface-variant font-body">Elite Tier Member · Since 2022</p>
+</div>
+</div>
+<div class="text-right">
+<span class="inline-block px-4 py-1 rounded-full bg-tertiary-container text-on-tertiary-container text-xs font-semibold tracking-wide mb-2 uppercase">Verified</span>
+<p class="text-sm text-outline">julian.vane@curated.io</p>
+</div>
+</div>
+</section>
+<!-- System Controls Section (Bento Layout) -->
+<section class="mb-12">
+<div class="flex items-center gap-4 mb-8">
+<div class="h-0.5 w-8 bg-tertiary"></div>
+<h2 class="text-sm font-label uppercase tracking-[0.2em] text-tertiary">System Controls</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Notifications Card -->
+<div class="md:col-span-2 bg-surface-container-highest rounded-xl p-8">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h3 class="text-xl font-headline text-on-surface mb-2">Notifications</h3>
+<p class="text-sm text-on-surface-variant">Receive curated alerts for points expiration and elite status updates.</p>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-12 h-6 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/10">
+<span class="text-body">Weekly Rewards Digest</span>
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex items-center justify-between py-3 border-b border-outline-variant/10">
+<span class="text-body">Real-time Analysis Alerts</span>
+<span class="material-symbols-outlined text-tertiary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+</div>
+<!-- Actions Card -->
+<div class="flex flex-col gap-6">
+<button class="flex-1 bg-surface-container-low hover:bg-surface-container-highest transition-colors rounded-xl p-6 flex flex-col items-center justify-center text-center group">
+<span class="material-symbols-outlined text-3xl text-primary mb-3 transition-transform group-hover:scale-110" data-icon="calendar_add_on">calendar_add_on</span>
+<span class="font-headline text-lg">Export .ICS</span>
+<span class="text-xs text-on-surface-variant mt-1">Sync to Calendar</span>
+</button>
+<button class="flex-1 bg-primary text-on-primary hover:opacity-90 transition-opacity rounded-xl p-6 flex flex-col items-center justify-center text-center group">
+<span class="material-symbols-outlined text-3xl mb-3 transition-transform group-hover:rotate-180 duration-500" data-icon="analytics">analytics</span>
+<span class="font-headline text-lg">Re-analyze</span>
+<span class="text-xs text-on-primary-fixed-variant mt-1">Refresh Data Stream</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Danger Zone / Sign Out -->
+<section class="mt-24 pt-12 border-t border-outline-variant/20">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline text-xl text-on-surface">Privacy &amp; Security</h3>
+<p class="text-sm text-on-surface-variant">Review your data protection and active sessions.</p>
+</div>
+<button class="flex items-center gap-2 px-8 py-3 rounded-xl border border-error/30 text-error hover:bg-error-container hover:text-on-error-container transition-all font-medium">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+                        Sign out
+                    </button>
+</div>
+</section>
+<!-- Editorial Quote Break -->
+<div class="mt-32 max-w-2xl">
+<div class="flex items-stretch gap-6">
+<div class="w-0.5 bg-tertiary shrink-0"></div>
+<p class="text-2xl font-headline italic text-on-surface-variant leading-relaxed">
+                        "Luxury is the ease of a permanent choice. Every setting here is designed to respect your time and your intelligence."
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Subtle Background Texture -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.03]">
+<svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+<filter id="noiseFilter">
+<feturbulence basefrequency="0.65" numoctaves="3" stitchtiles="stitch" type="fractalNoise"></feturbulence>
+</filter>
+<rect filter="url(#noiseFilter)" height="100%" width="100%"></rect>
+</svg>
+</div>
+</body></html>

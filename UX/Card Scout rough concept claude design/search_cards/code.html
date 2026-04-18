@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d4e4fc",
+                    "tertiary-dim": "#475e4a",
+                    "surface-variant": "#eae8de",
+                    "primary-dim": "#495365",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "on-error-container": "#752121",
+                    "tertiary-container": "#e0fbe0",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "outline-variant": "#babab0",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "secondary": "#57657a",
+                    "outline": "#818178",
+                    "on-tertiary-container": "#4a614d",
+                    "surface-bright": "#fffcf7",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#9e9d98",
+                    "surface-tint": "#555f71",
+                    "surface-container-low": "#fcf9f3",
+                    "surface-dim": "#e4e3d7",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "secondary-fixed": "#d4e4fc",
+                    "on-background": "#383831",
+                    "surface-container-highest": "#eae8de",
+                    "tertiary": "#536a55",
+                    "primary-fixed": "#d9e3f9",
+                    "on-primary-fixed": "#364051",
+                    "on-tertiary-fixed": "#384f3c",
+                    "inverse-surface": "#0e0e0c",
+                    "on-secondary-container": "#445367",
+                    "inverse-primary": "#dee8ff",
+                    "on-surface": "#383831",
+                    "on-primary": "#f6f7ff",
+                    "surface": "#fffcf7",
+                    "error": "#a64542",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#e0fbe0",
+                    "on-error": "#ffffff",
+                    "secondary-dim": "#4b596e",
+                    "error-dim": "#4e0309",
+                    "primary-container": "#d9e3f9",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "primary": "#555f71",
+                    "surface-container": "#f6f4ec",
+                    "error-container": "#fe8983",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "background": "#fffcf7",
+                    "on-surface-variant": "#65655c",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary-container": "#485264",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .serif-display {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- Top Navigation Anchor -->
+<nav class="w-full top-0 sticky z-40 bg-[#fffcf7] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center overflow-hidden">
+<img alt="User profile portrait" class="w-full h-full object-cover" data-alt="Professional studio portrait of a sophisticated man with a neutral expression against a beige background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2lYL3GSZkOx6sv9pppJfS0zzdyxSupBjSxlh4hNIxhAXnudXjC9Cva5sFzROrG6diF3wDSgFJgzZS2bLwckkw3IJ2RKFqnxgkAyqE6q84nlVf848CBhtbQ8WdynHC0j8T-jpYmxvblndPLNuwIFp8TnKiOFu7EIPi79mIVDLEQWx1WIATgGiIbNRjFoK6t5ULdZvcB_d7dEHGkUtbgMH_E86JdfXcwfmcpF7EtUJwp_Hw92G56GNjW4r-c5K837O3UCoTO01DF7c"/>
+</div>
+<span class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-8 items-center text-sm">
+<a class="text-[#383831]/60 hover:opacity-80 transition-opacity" href="#">Portfolio</a>
+<a class="text-[#383831]/60 hover:opacity-80 transition-opacity" href="#">Benefits</a>
+<a class="text-[#383831]/60 hover:opacity-80 transition-opacity" href="#">Calendar</a>
+<a class="text-[#555f71] font-bold transition-opacity" href="#">Concierge</a>
+</div>
+<button class="text-[#555f71] dark:text-slate-400 hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</nav>
+<main class="max-w-6xl mx-auto px-6 pt-12 md:pt-20">
+<!-- Editorial Header Section -->
+<header class="mb-16">
+<h1 class="serif-display text-5xl md:text-6xl text-on-surface mb-6 tracking-tight">The Card Gallery</h1>
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-8">
+<p class="text-on-surface-variant max-w-md text-lg leading-relaxed">
+                    Curate your financial landscape. Discover and manage premium card benefits tailored to your lifestyle.
+                </p>
+<!-- Search Bar - Minimalist Field -->
+<div class="relative w-full md:w-96 group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline-variant pointer-events-none" data-icon="search">search</span>
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 pl-12 pr-4 focus:ring-1 focus:ring-primary/40 transition-all text-on-surface placeholder:text-outline-variant" placeholder="Search issuers or card names..." type="text"/>
+</div>
+</div>
+</header>
+<!-- Signature Editorial Quote Break -->
+<div class="flex items-center gap-8 mb-16 py-8 border-y border-outline-variant/10">
+<div class="h-12 w-[2px] bg-tertiary"></div>
+<span class="serif-display text-2xl italic text-on-surface-variant">Elevating every transaction into an experience of quiet luxury.</span>
+</div>
+<!-- Featured Section - Asymmetric Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 mb-16">
+<!-- Large Featured Card -->
+<div class="md:col-span-8 group cursor-pointer">
+<div class="bg-surface-container-low rounded-xl p-8 h-full transition-all hover:bg-surface-container-high relative overflow-hidden">
+<div class="flex flex-col h-full justify-between relative z-10">
+<div>
+<span class="text-xs tracking-[0.2em] uppercase font-semibold text-primary mb-4 block">Recommended</span>
+<h2 class="serif-display text-4xl mb-2">Sapphire Reserve</h2>
+<p class="text-on-surface-variant font-medium">Chase Bank</p>
+</div>
+<div class="mt-12 flex justify-between items-end">
+<div>
+<p class="text-[10px] uppercase tracking-widest text-outline mb-1">Annual Fee</p>
+<p class="text-2xl font-light">$550</p>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3 rounded-xl hover:opacity-90 active:scale-95 transition-all text-sm font-medium">View Details</button>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute -right-16 -top-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+</div>
+</div>
+<!-- Side Featured Info -->
+<div class="md:col-span-4 grid grid-rows-2 gap-8">
+<div class="bg-tertiary-container rounded-xl p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-tertiary text-3xl" data-icon="auto_awesome">auto_awesome</span>
+<div>
+<h3 class="font-semibold text-on-tertiary-container text-lg">Value Optimized</h3>
+<p class="text-sm text-on-tertiary-container/80 mt-1">Portfolio yield increased by 12% this month.</p>
+</div>
+</div>
+<div class="bg-secondary-container rounded-xl p-6 flex flex-col justify-between">
+<span class="material-symbols-outlined text-secondary text-3xl" data-icon="account_balance_wallet">account_balance_wallet</span>
+<div>
+<h3 class="font-semibold text-on-secondary-container text-lg">Concierge Access</h3>
+<p class="text-sm text-on-secondary-container/80 mt-1">Unlock exclusive global lounge invitations.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Premium Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+<!-- Card Item 1 -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl bg-surface-container-highest overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Macro photography of a sleek titanium credit card with subtle metallic texture and minimalist typography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASisz6ANIuaR1hlLfUkUT0V7lx3y-DXKDAqYzmFDbNCqH3af4TjtMTlj9n346uHMXdXqeVTJhpWfZzpgi8wx87G1eS8ut52V-OW3wSVCSDF3Upqw29lhd3HK9nw_PktjmxiV_xhCjqFEaCWs0cXlFZMvcx9sGc8raoZNh6htUfC7zLqTXZbzEH0NRfRHfwjuEM0KdWVkeCPJxah2GRwz-fAn-PjmbVRz2x5Zz0nc5QOwRfDvueJuSv1Q8ZsIKFN17XrY0UA-uaCGA"/>
+<div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="flex justify-between items-start pt-2">
+<div>
+<h3 class="font-medium text-lg leading-tight">Platinum Card</h3>
+<p class="text-sm text-on-surface-variant mt-1">American Express</p>
+</div>
+<p class="font-light text-on-surface">$695 <span class="text-[10px] text-outline ml-1">/YR</span></p>
+</div>
+</div>
+<!-- Card Item 2 -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl bg-surface-container-highest overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Abstract image of deep ocean blue textures and soft reflections, evoking premium luxury and depth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJmtaJF1ac6B_8nz_sFEldRGCZ02y_jJYum_VNS6jHY6hneOk5Dq-4mZkScE9Exq053aE8YEWcqOpXSAKMbm2MgQf5JVxk0SaIWhcsi1J7Ni4R2LpgQQ1ycqzKmRCjkp9DRDfX2TgM0nKfmdptTv2_R-8tRS1f1j22LNstCmSUPQhvbXln9oFziJn1bt-bga3aI4SDvB1IWEQExqRFfaJSmUIcOwFctIwve8-MP_Ix2lVyAzkR9wTqQ6W1TyUt6xWPVp4NMbK7eww"/>
+<div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="flex justify-between items-start pt-2">
+<div>
+<h3 class="font-medium text-lg leading-tight">Venture X</h3>
+<p class="text-sm text-on-surface-variant mt-1">Capital One</p>
+</div>
+<p class="font-light text-on-surface">$395 <span class="text-[10px] text-outline ml-1">/YR</span></p>
+</div>
+</div>
+<!-- Card Item 3 -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl bg-surface-container-highest overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern geometric art with gold leaf accents on a matte dark slate background for an elegant financial theme" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPiIYSJ2PobItVeXUYjKYJb3pXjPET1sXluvhi17g7eMQ56T5NTvHW1QAs_sLpO7jEVf0rgQrF2O0hRh7rt087rWtaLiw3rZtm2vu0iJWId6h3R1mqBQhQnAtSF8AP3uho-kkQJPWPH696QdXqyp-3zgAgPjRQnQVoJyIZWqvAHpDE_iC2NxWpzaKTCjGnrtb-A1ADF45C8JsRljSZ6ktj5blG6seNZcKka9FPAtpSRndDTHJp0wZb8608YwUlz8TOy88O8wUEb9c"/>
+<div class="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors"></div>
+</div>
+<div class="flex justify-between items-start pt-2">
+<div>
+<h3 class="font-medium text-lg leading-tight">Altitude Reserve</h3>
+<p class="text-sm text-on-surface-variant mt-1">US Bank</p>
+</div>
+<p class="font-light text-on-surface">$400 <span class="text-[10px] text-outline ml-1">/YR</span></p>
+</div>
+</div>
+<!-- Card Item 4 -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl bg-surface-container-highest overflow-hidden relative">
+<div class="w-full h-full bg-gradient-to-br from-stone-200 to-stone-400 group-hover:opacity-90 transition-opacity"></div>
+</div>
+<div class="flex justify-between items-start pt-2">
+<div>
+<h3 class="font-medium text-lg leading-tight">Marriott Bonvoy Brilliant</h3>
+<p class="text-sm text-on-surface-variant mt-1">American Express</p>
+</div>
+<p class="font-light text-on-surface">$650 <span class="text-[10px] text-outline ml-1">/YR</span></p>
+</div>
+</div>
+<!-- Card Item 5 -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl bg-surface-container-highest overflow-hidden relative">
+<div class="w-full h-full bg-gradient-to-br from-slate-700 to-slate-900 group-hover:opacity-90 transition-opacity"></div>
+</div>
+<div class="flex justify-between items-start pt-2">
+<div>
+<h3 class="font-medium text-lg leading-tight">World of Hyatt</h3>
+<p class="text-sm text-on-surface-variant mt-1">Chase Bank</p>
+</div>
+<p class="font-light text-on-surface">$95 <span class="text-[10px] text-outline ml-1">/YR</span></p>
+</div>
+</div>
+<!-- Card Item 6 - Empty State CTA -->
+<div class="group flex flex-col gap-4">
+<div class="aspect-[1.58/1] w-full rounded-xl border border-dashed border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-colors cursor-pointer">
+<div class="text-center">
+<span class="material-symbols-outlined text-outline-variant text-4xl mb-2" data-icon="add_card">add_card</span>
+<p class="text-xs tracking-widest uppercase font-semibold text-outline-variant">Add Custom Card</p>
+</div>
+</div>
+<div class="pt-2">
+<h3 class="font-medium text-lg leading-tight text-outline-variant">Missing a card?</h3>
+<p class="text-sm text-outline-variant/60 mt-1">Add it manually to track rewards.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl z-50 rounded-t-3xl shadow-[0px_-10px_40px_rgba(56,56,49,0.04)] border-t border-[#babab0]/15 md:hidden">
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Portfolio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="card_giftcard">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Benefits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="room_service" style="font-variation-settings: 'FILL' 1;">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase">Concierge</span>
+</a>
+</nav>
+</body></html>

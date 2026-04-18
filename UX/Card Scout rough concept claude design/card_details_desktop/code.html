@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rewards Tracker - Amex Platinum Details</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-fixed": "#e0fbe0",
+            "outline-variant": "#babab0",
+            "primary-fixed": "#d9e3f9",
+            "primary": "#555f71",
+            "on-secondary-container": "#445367",
+            "tertiary-container": "#e0fbe0",
+            "surface": "#fffcf7",
+            "secondary-container": "#d4e4fc",
+            "on-primary-fixed-variant": "#525c6e",
+            "surface-dim": "#e4e3d7",
+            "secondary": "#57657a",
+            "on-tertiary-container": "#4a614d",
+            "outline": "#818178",
+            "inverse-on-surface": "#9e9d98",
+            "on-primary-fixed": "#364051",
+            "on-background": "#383831",
+            "secondary-fixed-dim": "#c6d5ee",
+            "on-secondary-fixed": "#324054",
+            "inverse-primary": "#dee8ff",
+            "secondary-fixed": "#d4e4fc",
+            "surface-tint": "#555f71",
+            "background": "#fffcf7",
+            "surface-variant": "#eae8de",
+            "on-tertiary-fixed-variant": "#546c57",
+            "primary-dim": "#495365",
+            "surface-container": "#f6f4ec",
+            "primary-fixed-dim": "#cbd5eb",
+            "inverse-surface": "#0e0e0c",
+            "error-container": "#fe8983",
+            "on-primary-container": "#485264",
+            "surface-container-lowest": "#ffffff",
+            "on-secondary": "#ffffff",
+            "on-secondary-fixed-variant": "#4e5d71",
+            "surface-bright": "#fffcf7",
+            "tertiary-dim": "#475e4a",
+            "surface-container-low": "#fcf9f3",
+            "on-surface-variant": "#65655c",
+            "secondary-dim": "#4b596e",
+            "tertiary-fixed-dim": "#d2ecd2",
+            "on-error": "#ffffff",
+            "surface-container-highest": "#eae8de",
+            "primary-container": "#d9e3f9",
+            "on-surface": "#383831",
+            "error": "#a64542",
+            "on-error-container": "#752121",
+            "on-tertiary": "#ffffff",
+            "tertiary": "#536a55",
+            "surface-container-high": "#f0eee5",
+            "on-primary": "#f6f7ff",
+            "on-tertiary-fixed": "#384f3c",
+            "error-dim": "#4e0309"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "fontFamily": {
+            "headline": ["Noto Serif"],
+            "body": ["Inter"],
+            "label": ["Inter"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, rgba(85, 95, 113, 0.05) 0%, rgba(217, 227, 249, 0.1) 100%);
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- SideNavBar -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#fcf9f3] dark:bg-stone-900 flex flex-col py-12 px-6 z-50">
+<div class="mb-12 px-4">
+<h1 class="text-2xl font-headline text-[#555f71] dark:text-stone-200 tracking-tighter">Rewards Tracker</h1>
+<p class="text-sm font-body text-stone-500 mt-1">The Editorial Curator</p>
+</div>
+<nav class="flex flex-col space-y-4 flex-1">
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span class="font-headline text-lg tracking-tight">Dashboard</span>
+</a>
+<!-- Active State for Card Details -->
+<a class="flex items-center space-x-4 text-[#555f71] font-bold border-l-2 border-[#555f71] pl-4 dark:text-white dark:border-stone-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">credit_card</span>
+<span class="font-headline text-lg tracking-tight">My Cards</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">calendar_today</span>
+<span class="font-headline text-lg tracking-tight">Calendar</span>
+</a>
+<a class="flex items-center space-x-4 text-stone-500 hover:text-[#555f71] pl-4 transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">support_agent</span>
+<span class="font-headline text-lg tracking-tight">Concierge</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-8">
+<div class="flex items-center space-x-3 bg-surface-container-highest/30 p-3 rounded-xl">
+<img alt="User profile" class="w-10 h-10 rounded-full object-cover" data-alt="Professional portrait of a curator in a minimalist studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1PfzoX0Kk26PJG29fClcP8KkMVScKZ6vMjgGxfdALFNj8rq8SunjZ-GXanwEeAh77rd_nDjt9aryf30dKKd0YtjKKZKFcAV1-MV0dBsBENum9vaoQ_pjIKNUGvJy8WIGkb8fVbQaafXmH8c1tg9RemEI6r79OeiYX84S_Nd2HsL5Gi_X6rX4Gq6C-aMx7-Xasy-WTIRLQE_0APHWL7Mz02yPsdrQYMzY1s3jwMUiizOg7VqqK0m3ElxgJk3bk_ucDd8WtTBfBVm0"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Julian Thorne</p>
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest">Premium Tier</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-24 z-40 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-12 h-full w-full max-w-7xl mx-auto">
+<div class="flex-1 max-w-md">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-high border-none rounded-xl py-2 pl-10 pr-4 focus:ring-1 focus:ring-primary/40 text-sm placeholder:text-outline-variant" placeholder="Search rewards..." type="text"/>
+</div>
+</div>
+<div class="flex items-center space-x-8">
+<button class="text-stone-400 hover:text-[#555f71] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-stone-400 hover:text-[#555f71] transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant/20">
+<img alt="User profile avatar" data-alt="Portrait of a sophisticated male user in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxsFSfc3um-OV6TNCy9LRNjbs1yflokZEqEms1zdX22xUdVH2uUGLRt1LzefxpsWO0qoWiQNcJcqN9P9LKQFnM6diN1gCXdnoO6bcIe-nHacPeSGlL-M_i9RWQlloYjOD0T5_o2OG15pflFkyradL1PLPrHoz0QOQHRI1KIkbSnaG2ddvzLdezOaNkewVGLC1kgAXHlwH9nrs--OIYlF2pRechVkM-Gj2yxUc_DlZqYryvQFrmvGxkbeRJZEDq_fhFA1GfGmn7qsU"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-24 min-h-screen">
+<div class="max-w-7xl mx-auto px-12 py-12">
+<!-- Hero Section -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-24">
+<div class="lg:col-span-7">
+<div class="inline-flex items-center space-x-2 text-primary font-medium tracking-widest text-xs uppercase mb-6">
+<span class="w-8 h-[1px] bg-primary"></span>
+<span>The Platinum Standard</span>
+</div>
+<h2 class="text-6xl font-headline text-on-surface mb-6 leading-tight">Amex Platinum</h2>
+<p class="text-xl font-headline italic text-on-surface-variant max-w-lg leading-relaxed border-l-2 border-tertiary pl-6">
+            "An editorial life deserves a card that understands the art of travel and the nuance of fine dining."
+          </p>
+<div class="mt-10">
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-medium tracking-wide hover:bg-primary-dim transition-all active:scale-95">
+              Add to My Wallet
+            </button>
+</div>
+</div>
+<div class="lg:col-span-5 relative">
+<div class="aspect-[1.58/1] rounded-2xl overflow-hidden shadow-2xl relative z-10">
+<img alt="Amex Platinum Card" class="w-full h-full object-cover" data-alt="Close up detail of a premium metallic credit card with elegant texture resting on a dark marble surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGevvqjk1Pg3bLhqfaGkjo3vp_bp1H0utk4kCnkYqxiewEgcbKMy5KL1Jyod87S0NRhQeZEEGmYy26sgwZCbk0qY9nDOBbMyYIC3PDbaBzELFAWrXqD7A4tUTOc7h42uxI8CCQTM1aQGSEI5iyad6lZKNBiENCgu66ovVBjIeb8GJYfVJuxGoHMjLY4r5RpLhD775ueIObgvJb4QzOROSjmMjmldIbleLbc21w5gvKNEProhI-csBrEFK4pxpfCMg5q7w47iCZ9H8"/>
+</div>
+<!-- Decorative Background Shift -->
+<div class="absolute -top-12 -right-12 w-64 h-64 bg-primary-container/20 rounded-full blur-3xl -z-0"></div>
+<div class="absolute -bottom-8 -left-8 w-48 h-48 bg-tertiary-container/20 rounded-full blur-3xl -z-0"></div>
+</div>
+</section>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+<!-- Benefits Grid -->
+<div class="lg:col-span-2 space-y-16">
+<div>
+<h3 class="text-3xl font-headline text-on-surface mb-8">Curated Benefits</h3>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Monthly -->
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Monthly</span>
+<span class="material-symbols-outlined text-primary">calendar_view_month</span>
+</div>
+<div class="space-y-4">
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Uber Credits</p>
+<p class="text-xs text-on-surface-variant">$15 Monthly + Bonus</p>
+</div>
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Digital Media</p>
+<p class="text-xs text-on-surface-variant">$20 Statement Credit</p>
+</div>
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Walmart+</p>
+<p class="text-xs text-on-surface-variant">Monthly Membership</p>
+</div>
+</div>
+</div>
+<!-- Quarterly -->
+<div class="bg-surface-container-high p-8 rounded-xl space-y-6">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Quarterly</span>
+<span class="material-symbols-outlined text-primary">analytics</span>
+</div>
+<div class="space-y-4">
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Saks Fifth Ave</p>
+<p class="text-xs text-on-surface-variant">$50 Curated Wardrobe</p>
+</div>
+<div class="group cursor-pointer opacity-50">
+<p class="text-sm font-semibold text-primary">Equinox Credit</p>
+<p class="text-xs text-on-surface-variant">Quarterly Distribution</p>
+</div>
+</div>
+</div>
+<!-- Annual -->
+<div class="bg-surface-container-low p-8 rounded-xl space-y-6 border border-outline-variant/10">
+<div class="flex items-center justify-between">
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Annual</span>
+<span class="material-symbols-outlined text-primary">event_available</span>
+</div>
+<div class="space-y-4">
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Hotel Credit</p>
+<p class="text-xs text-on-surface-variant">$200 FHR / THC</p>
+</div>
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Airline Fee</p>
+<p class="text-xs text-on-surface-variant">$200 Incidental</p>
+</div>
+<div class="group cursor-pointer">
+<p class="text-sm font-semibold text-primary group-hover:underline">Clear Plus</p>
+<p class="text-xs text-on-surface-variant">$189 Membership</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Editorial Data Section -->
+<div class="bg-surface-container-highest p-12 rounded-xl">
+<div class="flex items-start justify-between mb-8">
+<h4 class="text-2xl font-headline">Point Optimization</h4>
+<span class="text-xs text-primary font-bold uppercase tracking-tighter">Analysis by Curator</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center">
+<p class="text-3xl font-headline text-primary">5x</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mt-2">Airfare</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-headline text-primary">5x</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mt-2">Hotels</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-headline text-primary">1x</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mt-2">Other</p>
+</div>
+<div class="text-center">
+<p class="text-3xl font-headline text-primary">80k</p>
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mt-2">Sign-up</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Specification Form -->
+<aside class="space-y-8">
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/5">
+<h3 class="text-xl font-headline mb-6">Card Specification</h3>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant block">Last 4 Digits</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 focus:ring-1 focus:ring-primary/40 text-lg font-mono tracking-widest" maxlength="4" placeholder="####" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant block">Open Date</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 focus:ring-1 focus:ring-primary/40 text-sm font-body" type="month"/>
+</div>
+<div class="space-y-2">
+<label class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant block">Primary Use Case</label>
+<select class="w-full bg-surface-container-highest border-none rounded-xl py-4 px-4 focus:ring-1 focus:ring-primary/40 text-sm font-body">
+<option>Luxury Travel</option>
+<option>Dining &amp; Lifestyle</option>
+<option>Business Expenditure</option>
+</select>
+</div>
+<button class="w-full border-2 border-primary text-primary py-4 rounded-xl font-medium tracking-wide hover:bg-primary-fixed transition-all active:scale-95" type="submit">
+                Save Specifications
+              </button>
+</form>
+</div>
+<div class="relative group h-64 rounded-xl overflow-hidden">
+<img alt="Lounge Access" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Interior of a luxury airport lounge with velvet chairs and warm ambient lighting through large windows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1sg3I_kNET6yo9g53Dp1rPmLy8Anlmr8MdYEhYl6TDuEPB5ZbXcxHNx2WkF1k-oym2btHMMaxLjuAWMb2A0Ejhbhyo_FA7mwUaQz-7Q8xnC6uBFA0VwYAg0217gNdi33lv25tHeCvQqQt4aNtuAU7t3SJ3XwhGJjJ-w2FsUEa-tlVqMgZWAy3oF4e1122jZ3IXpe9xEfIPugT3OHbjQz-sQf68ECwqp9tettRFKzEtooP8fpisSzML8e2Ya3qvA5e-YtDxBi4bwQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-6">
+<p class="text-white font-headline text-lg">Lounge Access</p>
+<p class="text-white/70 text-xs mt-1">Explore over 1,400+ curated spaces worldwide.</p>
+</div>
+</div>
+</aside>
+</div>
+</div>
+</main>
+<!-- Global Footer Branding (Subtle) -->
+<footer class="ml-64 py-12 px-12 border-t border-outline-variant/10 text-center">
+<p class="text-[10px] font-bold uppercase tracking-widest text-outline-variant">Designed by The Editorial Curator © 2024</p>
+</footer>
+</body></html>

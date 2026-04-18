@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#d4e4fc",
+                        "tertiary-dim": "#475e4a",
+                        "surface-variant": "#eae8de",
+                        "primary-dim": "#495365",
+                        "on-primary-fixed-variant": "#525c6e",
+                        "on-error-container": "#752121",
+                        "tertiary-container": "#e0fbe0",
+                        "tertiary-fixed-dim": "#d2ecd2",
+                        "outline-variant": "#babab0",
+                        "on-secondary-fixed-variant": "#4e5d71",
+                        "secondary": "#57657a",
+                        "outline": "#818178",
+                        "on-tertiary-container": "#4a614d",
+                        "surface-bright": "#fffcf7",
+                        "on-secondary": "#ffffff",
+                        "inverse-on-surface": "#9e9d98",
+                        "surface-tint": "#555f71",
+                        "surface-container-low": "#fcf9f3",
+                        "surface-dim": "#e4e3d7",
+                        "primary-fixed-dim": "#cbd5eb",
+                        "secondary-fixed": "#d4e4fc",
+                        "on-background": "#383831",
+                        "surface-container-highest": "#eae8de",
+                        "tertiary": "#536a55",
+                        "primary-fixed": "#d9e3f9",
+                        "on-primary-fixed": "#364051",
+                        "on-tertiary-fixed": "#384f3c",
+                        "inverse-surface": "#0e0e0c",
+                        "on-secondary-container": "#445367",
+                        "inverse-primary": "#dee8ff",
+                        "on-surface": "#383831",
+                        "on-primary": "#f6f7ff",
+                        "surface": "#fffcf7",
+                        "error": "#a64542",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e0fbe0",
+                        "on-error": "#ffffff",
+                        "secondary-dim": "#4b596e",
+                        "error-dim": "#4e0309",
+                        "primary-container": "#d9e3f9",
+                        "secondary-fixed-dim": "#c6d5ee",
+                        "on-secondary-fixed": "#324054",
+                        "primary": "#555f71",
+                        "surface-container": "#f6f4ec",
+                        "error-container": "#fe8983",
+                        "on-tertiary-fixed-variant": "#546c57",
+                        "background": "#fffcf7",
+                        "on-surface-variant": "#65655c",
+                        "surface-container-high": "#f0eee5",
+                        "on-primary-container": "#485264",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top Navigation Bar -->
+<header class="w-full top-0 sticky bg-[#fffcf7] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full z-50">
+<div class="flex items-center gap-3">
+<button class="p-2 hover:opacity-80 transition-opacity scale-95 duration-200">
+<span class="material-symbols-outlined text-primary">arrow_back_ios</span>
+</button>
+<span class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-[#555f71] dark:text-slate-400">notifications</span>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="User Profile" data-alt="Close-up studio portrait of a sophisticated man with a kind expression, soft cinematic lighting, neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDK3u9g4bBcle5-lloWoawpbRGJskmXSwS5Zhlbq4g1sz3bnB1I8qPv-O2_dEbxz5YgheMHB7vSdyNc4Dwm5v7LDro6gB1rxm3b-Nt3rJP2rDjfqPlTTXBcDnWZv16ppuzXKme6IxEk4ZY7-hspkjvLFVKIegfraK9W_xIbRmL5DM05vBQr2Wr4XJ6uh4NAy2OFIeVDWiRDmGzIDO0i8a1DIslokjGpBfdYS7xRrcJDduoZJWH7GjoJo0se69enzPJZtv9IzsRjmV4"/>
+</div>
+</div>
+</header>
+<main class="max-w-screen-xl mx-auto px-6 pt-8 pb-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Card Preview & Identity -->
+<div class="lg:col-span-5 flex flex-col gap-8">
+<section>
+<h1 class="text-4xl md:text-5xl font-headline tracking-tight text-on-surface mb-2">Amex Platinum</h1>
+<p class="text-lg text-on-surface-variant font-body">The ultimate companion for the global traveler.</p>
+</section>
+<!-- Interactive Card Visual -->
+<div class="relative group aspect-[1.58/1] w-full rounded-2xl overflow-hidden bg-[#2d2e32] shadow-2xl transition-transform duration-500 hover:scale-[1.02]">
+<img alt="Premium Credit Card" class="absolute inset-0 w-full h-auto object-cover opacity-80" data-alt="macro photo of a sleek textured metal credit card with elegant silver accents and minimalist design on a dark velvet surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtrlBGjgNey_GPRpYkGnOzggWF2Qsu-Vs8jKApldwLKdigQ3mPuW5hsloL3b2Qp6hoRoghYafRzK_A89Afnyh4Paz13MjO4-Cu4LlBgVKVc9EgqLT0Aa8V6I09Fu9RW6LWEI5n14-OEIrJvkoFwin6ufIg1MiwwuKl9PiD1KwddnT89WdaZEfSiZfrwKZqpcdFUrvrlepVofPrRbEZWncRihTlxdXCRuntBBPlGDyy3-m5CkUS-baxyqDvNrWwZZlQmiT9bZ1Q2rI"/>
+<div class="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-white/10 p-8 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-white/90 text-4xl">contactless</span>
+<div class="italic font-serif text-white/60 text-lg">PLATINUM</div>
+</div>
+<div class="space-y-4">
+<div class="flex gap-4">
+<div class="w-12 h-8 rounded-md bg-white/10 backdrop-blur-md"></div>
+</div>
+<div class="flex justify-between items-end">
+<div class="text-white/90 font-mono tracking-widest text-xl">•••• •••• •••• 1004</div>
+<img alt="Amex Logo" class="h-8 brightness-0 invert opacity-80" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYg4SdeXQtRNvRl44o9TXg8csHtmng2GBg6L_RCpFHdYVCB5WHQq8aOJ9hy1m71KBjR4FATzKjMxgwVLlcu1uKkrK8Hb8CGDm58bryM_eI_G69Sf7JzXB4EQZ_FyFU2Mhe5FBM93OJIhvtMOiGly_MS1GOdPltcVEZePZ3u8O1p0FewOMm-zNUaGyJY-m-Dt73MzXk5kWDBC_SCLdBwqVNXDZxewM0qL6ef1xKbJzYRq5p3qhRA49WPC3g9y1T2qFsR5ScRiObmHI"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Signature Component: Editorial Quote -->
+<div class="pl-6 border-l-2 border-tertiary">
+<p class="font-headline text-2xl italic text-on-surface-variant leading-relaxed">
+                    "True luxury is not about what you spend, but how you experience the moments in between."
+                </p>
+</div>
+</div>
+<!-- Right Column: Benefits & Form -->
+<div class="lg:col-span-7 space-y-12">
+<!-- Grouped Benefits Section -->
+<section class="space-y-8">
+<h2 class="text-2xl font-headline text-on-surface">Curated Benefits</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Monthly -->
+<div class="p-6 rounded-xl bg-surface-container-low transition-all hover:bg-surface-container-highest group">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">calendar_month</span>
+<span class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Monthly</span>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Digital Entertainment Credit ($20)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Uber Cash Credit ($15)</span>
+</li>
+</ul>
+</div>
+<!-- Quarterly -->
+<div class="p-6 rounded-xl bg-surface-container-low transition-all hover:bg-surface-container-highest">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">view_quilt</span>
+<span class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Quarterly</span>
+</div>
+<ul class="space-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Saks Fifth Avenue Credit ($50)</span>
+</li>
+</ul>
+</div>
+<!-- Annual -->
+<div class="p-6 rounded-xl bg-surface-container-low transition-all hover:bg-surface-container-highest md:col-span-2">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">event_available</span>
+<span class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Annual</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Airline Fee Credit ($200)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Hotel Collection Credit ($200)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">CLEAR® Plus Credit ($189)</span>
+</li>
+<li class="flex items-start gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm mt-1">check_circle</span>
+<span class="text-on-surface-variant text-sm">Equinox Credit ($300)</span>
+</li>
+</div>
+</div>
+</div>
+</section>
+<!-- Card Details Form -->
+<section class="p-8 bg-surface-container rounded-2xl space-y-8">
+<h3 class="text-xl font-headline text-on-surface">Card Specification</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="font-label text-xs tracking-widest uppercase text-on-surface-variant block ml-1">Last 4 Digits</label>
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/40 focus:bg-surface-bright transition-all text-on-surface font-mono tracking-widest placeholder:opacity-30" maxlength="4" placeholder="1004" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs tracking-widest uppercase text-on-surface-variant block ml-1">Open Date</label>
+<div class="relative">
+<input class="w-full bg-surface-container-highest border-none rounded-xl px-4 py-3 focus:ring-1 focus:ring-primary/40 focus:bg-surface-bright transition-all text-on-surface font-body appearance-none" type="date"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant/50 pointer-events-none">calendar_today</span>
+</div>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 rounded-xl font-body font-semibold text-lg hover:opacity-90 transition-all flex justify-center items-center gap-3 group">
+                    Add to My Wallet
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</section>
+</div>
+</main>
+<!-- Bottom Navigation Bar (Hidden on Desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl border-t border-[#babab0]/15 shadow-[0px_-10px_40px_rgba(56,56,49,0.04)] flex justify-around items-center pt-3 pb-8 px-4 z-50 rounded-t-3xl">
+<div class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Portfolio</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all scale-90 duration-300">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1 font-bold">Benefits</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Calendar</span>
+</div>
+<div class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300">
+<span class="material-symbols-outlined">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Concierge</span>
+</div>
+</nav>
+</body></html>

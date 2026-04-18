@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Benefit Detail | Uber Cash</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#d4e4fc",
+                    "tertiary-dim": "#475e4a",
+                    "surface-variant": "#eae8de",
+                    "primary-dim": "#495365",
+                    "on-primary-fixed-variant": "#525c6e",
+                    "on-error-container": "#752121",
+                    "tertiary-container": "#e0fbe0",
+                    "tertiary-fixed-dim": "#d2ecd2",
+                    "outline-variant": "#babab0",
+                    "on-secondary-fixed-variant": "#4e5d71",
+                    "secondary": "#57657a",
+                    "outline": "#818178",
+                    "on-tertiary-container": "#4a614d",
+                    "surface-bright": "#fffcf7",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#9e9d98",
+                    "surface-tint": "#555f71",
+                    "surface-container-low": "#fcf9f3",
+                    "surface-dim": "#e4e3d7",
+                    "primary-fixed-dim": "#cbd5eb",
+                    "secondary-fixed": "#d4e4fc",
+                    "on-background": "#383831",
+                    "surface-container-highest": "#eae8de",
+                    "tertiary": "#536a55",
+                    "primary-fixed": "#d9e3f9",
+                    "on-primary-fixed": "#364051",
+                    "on-tertiary-fixed": "#384f3c",
+                    "inverse-surface": "#0e0e0c",
+                    "on-secondary-container": "#445367",
+                    "inverse-primary": "#dee8ff",
+                    "on-surface": "#383831",
+                    "on-primary": "#f6f7ff",
+                    "surface": "#fffcf7",
+                    "error": "#a64542",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed": "#e0fbe0",
+                    "on-error": "#ffffff",
+                    "secondary-dim": "#4b596e",
+                    "error-dim": "#4e0309",
+                    "primary-container": "#d9e3f9",
+                    "secondary-fixed-dim": "#c6d5ee",
+                    "on-secondary-fixed": "#324054",
+                    "primary": "#555f71",
+                    "surface-container": "#f6f4ec",
+                    "error-container": "#fe8983",
+                    "on-tertiary-fixed-variant": "#546c57",
+                    "background": "#fffcf7",
+                    "on-surface-variant": "#65655c",
+                    "surface-container-high": "#f0eee5",
+                    "on-primary-container": "#485264",
+                    "on-tertiary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif-heading { font-family: 'Noto Serif', serif; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky bg-[#fffcf7] dark:bg-stone-950 flex justify-between items-center px-6 py-4 w-full z-40">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest flex items-center justify-center">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man with a friendly expression in a minimalist studio setting with soft natural light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_U2hIdsVlQL-R9rNezhDX9b-e-AI6NkPVA_trqQe7HAm-sEqM4YbhFSpf4drecuuggrn3YMNSIpm2m1jz0LJkF3M9fIa6dt5CaugkG5Lkn-WPOHZkZqYZdNQvU2xrtwTq_KRXWHXj6nhxUOYYsTPuIK8but9FkwXuabDMhxVJlMKZYXDtG45Co0ij4C96ktB_VHx6TrKCc6dH5lo3agbwYX-hmbL0ixu6rkHEP8gxLCmxD4MkhkS85glWENNDjHa6BHkM2TLkoDs"/>
+</div>
+<span class="font-serif italic text-xl text-[#383831] dark:text-stone-200">The Curator</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#555f71] dark:text-slate-400">notifications</span>
+</div>
+</header>
+<main class="max-w-screen-md mx-auto px-6 pt-12">
+<!-- Hero Section: Benefit Title -->
+<div class="mb-16">
+<nav class="mb-8">
+<button class="flex items-center gap-2 text-on-surface-variant hover:opacity-70 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+<span class="text-xs uppercase tracking-widest font-medium">Back to Benefits</span>
+</button>
+</nav>
+<div class="grid grid-cols-1 md:grid-cols-[1fr_auto] items-end gap-6">
+<div>
+<p class="text-tertiary-dim uppercase tracking-[0.2em] text-[10px] font-bold mb-4">Monthly Recurring Benefit</p>
+<h1 class="text-5xl font-headline tracking-tight text-on-surface leading-tight mb-4">Uber Cash Reminder</h1>
+<p class="text-on-surface-variant font-body text-lg max-w-md leading-relaxed">Your monthly credit for rides and eats is ready to be utilized before it expires at month-end.</p>
+</div>
+<div class="bg-surface-container-highest p-8 rounded-xl flex flex-col items-center justify-center min-w-[160px]">
+<span class="text-on-surface-variant text-xs uppercase tracking-widest mb-1">Value</span>
+<span class="text-4xl font-headline text-primary">$15.00</span>
+</div>
+</div>
+</div>
+<!-- Details Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+<!-- Period -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<span class="material-symbols-outlined text-primary mb-6">event_repeat</span>
+<h3 class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Benefit Period</h3>
+<p class="text-xl font-headline">October 2023</p>
+<p class="text-sm text-on-surface-variant mt-2">Expires in 12 days</p>
+</div>
+<!-- Card Owner -->
+<div class="bg-surface-container-low p-8 rounded-xl">
+<span class="material-symbols-outlined text-primary mb-6">credit_card</span>
+<h3 class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Linked Account</h3>
+<p class="text-xl font-headline">Amex Platinum</p>
+<p class="text-sm text-on-surface-variant mt-2">Ending in ···· 1004</p>
+</div>
+<!-- Concierge Note (Full Width) -->
+<div class="md:col-span-2 bg-surface-container p-8 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-tertiary">room_service</span>
+<h3 class="text-xs uppercase tracking-widest text-on-surface-variant">Concierge Note</h3>
+</div>
+<!-- Editorial Quote Component -->
+<div class="flex gap-6 items-start">
+<div class="w-[2px] h-full bg-tertiary flex-shrink-0 self-stretch"></div>
+<p class="text-xl font-headline leading-relaxed text-on-surface italic">
+                            "Uber Cash credits do not roll over. I recommend using this for your commute tomorrow morning or a dinner delivery this weekend to ensure no value is lost."
+                        </p>
+</div>
+</div>
+<!-- Decorative Subtle Shape -->
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-tertiary/5 rounded-full blur-3xl"></div>
+</div>
+</div>
+<!-- Visual Anchor -->
+<div class="w-full h-80 rounded-xl overflow-hidden mb-16 grayscale-[0.3] opacity-90 transition-all hover:grayscale-0">
+<img alt="Uber Aesthetic" class="w-full h-full object-cover" data-alt="Interior of a luxury car at night with city lights blurred through the window, creating a serene and premium urban atmosphere" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9XR1vw7AA0kJv55CoYOD-Je6uF38MpD3UKnswQ74hKD0IufOCZyGD20zcf5K61_aShp_nPQj-kxs4AZX0edeJiDI_KEUTo1vqbTvBLlNhgOx0xUklVysMVWOrMI2oydjcXcfLmLnt2oGJpdIVxPkWzTPZQ656uq38Na6J_YLXgqN3oVxv_xLu-xsxICn3iED0ykY96ZgFFpp_cQ_7TWF1jO2o0gMNqWxwRZb2QB_dYRVmWyNj5IDIM0OAGOWxOklHuuF4oh8c7Hs"/>
+</div>
+<!-- Action Section -->
+<div class="flex flex-col md:flex-row gap-4 mb-24">
+<button class="flex-1 bg-primary text-on-primary py-6 px-8 rounded-xl font-medium text-lg flex items-center justify-center gap-3 hover:opacity-90 active:scale-95 transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                Mark as Used
+            </button>
+<button class="flex-1 bg-surface-container-highest text-on-surface py-6 px-8 rounded-xl font-medium text-lg flex items-center justify-center gap-3 hover:opacity-80 active:scale-95 transition-all">
+<span class="material-symbols-outlined">snooze</span>
+                Snooze for 3 Days
+            </button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center pt-3 pb-8 px-4 bg-[#fffcf7]/80 dark:bg-stone-950/80 backdrop-blur-xl z-50 rounded-t-3xl border-t border-[#babab0]/15 shadow-[0px_-10px_40px_rgba(56,56,49,0.04)]">
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Portfolio</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#555f71] dark:text-slate-300 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="card_giftcard" style="font-variation-settings: 'FILL' 1;">card_giftcard</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1 font-bold">Benefits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Calendar</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#383831]/40 dark:text-stone-500 scale-90 duration-300" href="#">
+<span class="material-symbols-outlined" data-icon="room_service">room_service</span>
+<span class="font-sans text-[10px] tracking-widest uppercase mt-1">Concierge</span>
+</a>
+</nav>
+</body></html>
