@@ -3,6 +3,7 @@ import { View, Text, Pressable, StyleSheet, Modal, ScrollView } from 'react-nati
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { impactMedium } from '@/utils/haptics';
 import { createCheckoutSession } from '@/lib/subscription';
+import { capture, Events } from '@/lib/analytics';
 
 interface PaywallModalProps {
   visible: boolean;
@@ -20,8 +21,13 @@ const PRO_FEATURES = [
 ];
 
 export function PaywallModal({ visible, onClose, feature }: PaywallModalProps) {
+  React.useEffect(() => {
+    if (visible) capture(Events.PAYWALL_SHOWN, { feature });
+  }, [visible]);
+
   const handleUpgrade = async (plan: 'monthly' | 'annual') => {
     await impactMedium();
+    capture(Events.UPGRADE_TAPPED, { plan });
     const url = await createCheckoutSession(plan);
     if (url) {
       const { Linking } = require('react-native');

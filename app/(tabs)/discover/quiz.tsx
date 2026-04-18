@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -6,11 +6,14 @@ import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { wizardQuestions, type WizardOption } from '@/lib/quiz';
 import { impactLight, impactMedium } from '@/utils/haptics';
 import type { Answers } from '@/lib/scoring';
+import { capture, Events } from '@/lib/analytics';
 
 export default function QuizScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [step, setStep] = useState(0);
+
+  useEffect(() => { capture(Events.QUIZ_STARTED); }, []);
   const [answers, setAnswers] = useState<Answers>({});
   // For ranked question: track order of taps
   const [rankedOrder, setRankedOrder] = useState<string[]>([]);
@@ -64,6 +67,7 @@ export default function QuizScreen() {
   };
 
   const goToResults = (finalAnswers: Answers) => {
+    capture(Events.QUIZ_COMPLETED);
     const encoded = encodeURIComponent(JSON.stringify(finalAnswers));
     router.push(`/(tabs)/discover/results?answers=${encoded}`);
   };

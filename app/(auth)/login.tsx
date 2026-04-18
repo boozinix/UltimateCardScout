@@ -94,6 +94,10 @@ export default function LoginScreen() {
           <Text style={styles.finePrint}>No password needed. A one-tap sign-in link will arrive in your inbox.</Text>
         </View>
 
+        <Pressable onPress={() => router.replace('/(tabs)/discover' as any)} style={styles.guestBtn}>
+          <Text style={styles.guestLabel}>Explore without an account →</Text>
+        </Pressable>
+
         <Text style={styles.legal}>By continuing, you agree to our Terms of Service and Privacy Policy.</Text>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -125,4 +129,6 @@ const styles = StyleSheet.create({
   submitLabel: { fontFamily: fontSans.semiBold, fontSize: 12, color: '#FFFFFF', letterSpacing: 1.5 },
   finePrint: { fontFamily: fontSans.regular, fontSize: 12, color: colors.muted, textAlign: 'center', lineHeight: 18 },
   legal: { fontFamily: fontSans.regular, fontSize: 11, color: colors.muted, textAlign: 'center', lineHeight: 16 },
+  guestBtn: { alignItems: 'center', paddingVertical: 16, marginBottom: 16 },
+  guestLabel: { fontFamily: fontSans.medium, fontSize: 13, color: colors.accent },
 });
