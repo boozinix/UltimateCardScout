@@ -268,16 +268,51 @@ RESEND_API_KEY=
 - [x] `contexts/BreakpointContext.tsx` + `components/DevToggle.tsx` (layout dev toggle)
 - [x] `supabase/migrations/001_applications_ledger.sql` (4 new tables)
 - [x] `lib/applicationTypes.ts` (full type system for Application Ledger)
+- [x] `supabase/migrations/002_extra_tables.sql` (7 new tables: points_valuations, card_categories, downgrade_paths, retention_scripts, deal_passport, data_proposals + card_name_override column)
+- [x] `lib/applicationTypes.ts` updated with 7 new types (PointsValuation, CardCategory, DowngradePath, RetentionScript, DealPassportEntry, DataProposal + supporting union types), MAX_HOUSEHOLD_MEMBERS, DEFAULT_MEMBER_NAMES
+- [x] `hooks/useApplications.ts` — full CRUD (useApplications, useApplication, useCreateApplication, useUpdateApplication, useDeleteApplication with optimistic delete) + detectIssuer helper
+- [x] `hooks/useHousehold.ts` — full CRUD (useHousehold, useCreateMember, useUpdateMember, useDeleteMember) + useHouseholdSetupComplete + useMarkHouseholdSetupComplete, cap enforced at 4
+- [x] `hooks/usePointsBalances.ts` — usePointsBalances, useUpdateBalance (upsert), usePortfolioTotal (computed from server CPP → local fallback)
+- [x] `lib/csvParser.ts` — parseChurningCSV with 5 date formats, fuzzy person matching, issuer/status/currency/cardType detection, duplicate detection
+- [x] `supabase/seed-points-valuations.sql` — 15 programs seeded with TPG CPP values
 - [x] Concierge tab removed (files deleted, not just hidden)
 - [x] Card catalog: 115 cards in CSV, 20 priority cards verified
 - [x] Stripe wired end-to-end: checkout ($8/mo, $59/yr), webhook (5 events), entitlement via React Query (5min stale, refetch on focus)
 - [x] Onboarding: 3 screens + skip, persists `hasSeenOnboarding` in AsyncStorage, root layout routes accordingly
 - [x] Sentry error monitoring: `@sentry/react-native`, Expo config plugin, root wrapped in `Sentry.wrap()`, disabled in dev
 - [x] EAS config: development, preview, production profiles ready (blocked on user credentials)
+- [x] Core primitives: Text, Button, Input, Surface, Badge (5 components in `components/primitives/`)
+- [x] Composed components: ListItem, StatCard, ProgressBar, EmptyState, FilterChip, HouseholdSetupModal (6 in `components/composed/`)
+- [x] Intelligence hub rebuilt with live data (summary stats, feature nav, household setup)
+- [x] Application Ledger screens: list (with filters), add (with catalog prefill), detail/edit, CSV import
+- [x] Intelligence `_layout.tsx` Stack navigator for sub-screen routing
+- [x] `lib/issuerRules.ts` — 14 issuer velocity rules + 6 helper functions, RuleResult type
+- [x] `lib/velocityEngine.ts` — computeVelocity() engine, VelocityReport type, summary helpers
+- [x] `app/(tabs)/intelligence/velocity.tsx` — Velocity dashboard screen with household filter, per-issuer cards, pro gate
+- [x] `components/composed/IssuerVelocityCard.tsx` — expandable issuer card with status badge, progress bar, rule detail
+- [x] `__tests__/velocityEngine.test.ts` — 120 unit tests covering all 14 rules + engine + helpers
+- [x] `__tests__/helpers/fixtures.ts` — test fixture factory functions
+- [x] `vitest.config.ts` — Vitest configuration with path aliases
+- [x] Vitest installed (`npm test` / `npm run test:watch`)
+- [x] `components/composed/SpendProgress.tsx` — bonus spend progress with update/mark-complete, compact mode for hub
+- [x] `app/(tabs)/intelligence/portfolio.tsx` — Points Portfolio screen with hero total, per-program rows, add/edit bottom sheets
+- [x] `lib/notifications.ts` — push notification scaffold (30-day + 7-day spend reminders, expo-notifications)
+- [x] Updated `app/(tabs)/intelligence/[id].tsx` — bonus progress now uses SpendProgress component with update/mark-complete actions
+- [x] Updated `app/(tabs)/intelligence/index.tsx` — Active Bonuses section (top 3 urgent) + portfolio total StatCard
+- [x] `supabase/seed-retention-scripts.sql` — 30 curated retention call scripts (7 issuers)
+- [x] `supabase/seed-downgrade-paths.sql` — 22 static downgrade paths
+- [x] `supabase/seed-card-categories.sql` — 60+ category multipliers for 20 cards
+- [x] `hooks/useRetention.ts` — retention scripts, downgrade paths, outcome CRUD hooks
+- [x] `hooks/useCardCategories.ts` — card categories hook + rankCards() optimizer + SPEND_CATEGORIES
+- [x] `components/composed/RetentionCard.tsx` — expandable retention script with copy-to-clipboard
+- [x] `app/(tabs)/intelligence/fee-advisor.tsx` — Annual Fee Advisor (timeline, recommendations, scripts, downgrades, outcome logging)
+- [x] `app/(tabs)/intelligence/spend.tsx` — Spend Optimizer (category → ranked cards by dollar value)
+- [x] Updated `lib/notifications.ts` — added `scheduleFeeReminder()` (30-day + 7-day fee alerts)
+- [x] `expo-clipboard` installed
 
 ---
 
-## Current Phase: Phase 0 — COMPLETE (Agent B1)
+## Current Phase: Phase 5+6 — COMPLETE (Agent B6)
 
 ### Phase 0 Tasks (all done)
 - [x] Replace Concierge tab → deleted entirely, 4 tabs: Discover, Vault, Intelligence, Settings
@@ -295,8 +330,228 @@ RESEND_API_KEY=
 - [x] Build `contexts/ThemeContext.tsx` — light/dark architecture
 - [x] Update `lib/theme.ts` — complete dark token set
 
-### Next Phase: Phase 1a — Ledger Data Layer (Agent B2)
-See `agents/B2_LEDGER_DATA.md` for full task list.
+### Phase 1a — Ledger Data Layer (Agent B2) — COMPLETE (2026-04-19)
+- [x] Migration `002_extra_tables.sql` — 7 new tables + indexes + RLS + read policies
+- [x] `lib/applicationTypes.ts` updated — 7 new interfaces, card_name_override on Application, household constants
+- [x] `hooks/useApplications.ts` — CRUD with React Query, optimistic delete, Supabase client
+- [x] `hooks/useHousehold.ts` — CRUD, cap at 4 enforced, AsyncStorage setup-complete flag
+- [x] `hooks/usePointsBalances.ts` — balances + upsert + portfolio total (server CPP with local fallback)
+- [x] `lib/csvParser.ts` — CSV import parser (5 date formats, fuzzy person match, issuer/currency detection, dupe detection)
+- [x] `supabase/seed-points-valuations.sql` — 15 programs
+
+**Notes for B3:**
+- All hooks use `@tanstack/react-query` with `@/lib/supabase` client — consistent with useCards/useSubscription pattern
+- `detectIssuer()` is exported from `hooks/useApplications.ts` (also used by csvParser)
+- `usePointsBalances` resolves CPP from `points_valuations` table first, falls back to `CURRENCY_CPP` constants
+- `useHousehold` sorts by role then created_at — primary member always first
+- CSV parser takes pre-parsed `Record<string, string>[]` rows (use papaparse to parse raw CSV first, then pass rows to `parseChurningCSV`)
+- Migration has RLS enabled on all 6 new tables with read-only policies for reference data; data_proposals has no public read (admin/service role only)
+- TypeScript compiles clean — zero new errors from B2 files
+
+### Phase 1b — Ledger UI + Core Primitives (Agent B3) — COMPLETE (2026-04-19)
+
+**Primitives (5):**
+- [x] `components/primitives/Text.tsx` — 9 variants (display, heading1-3, body, bodySmall, caption, mono, label), 7 colors, theme-aware
+- [x] `components/primitives/Button.tsx` — 4 variants (primary, secondary, tertiary, destructive), 3 sizes, loading/disabled, left/right icon
+- [x] `components/primitives/Input.tsx` — 5 variants (text, email, number, search, multiline), label, error, helperText, prefix
+- [x] `components/primitives/Surface.tsx` — 3 variants (canvas, card, inset), padding/radius/border props, platform-aware shadow
+- [x] `components/primitives/Badge.tsx` — 6 variants (neutral, success, warning, danger, info, pro), 2 sizes, optional dot
+
+**Composed (6):**
+- [x] `components/composed/ListItem.tsx` — left icon, title/subtitle, right element, default/compact variants
+- [x] `components/composed/StatCard.tsx` — big number + label + trend + optional progress bar
+- [x] `components/composed/ProgressBar.tsx` — auto-color by %, showLabel, configurable height
+- [x] `components/composed/EmptyState.tsx` — icon, title, description, action button
+- [x] `components/composed/FilterChip.tsx` — tappable pill for filters with selected state
+- [x] `components/composed/HouseholdSetupModal.tsx` — first-run modal (just me / me + partner), Schitt's Creek defaults
+
+**Screens (5):**
+- [x] `app/(tabs)/intelligence/index.tsx` — Hub screen rebuilt with live data, summary stats, feature nav with PRO badges, empty state, household setup modal trigger
+- [x] `app/(tabs)/intelligence/ledger.tsx` — Application list with member/status filters, FAB, issuer dot, bonus progress, sort newest first
+- [x] `app/(tabs)/intelligence/add.tsx` — Smart form with catalog search + prefill, household selector, month/year picker, status/bureau/cardType chips, bonus fields
+- [x] `app/(tabs)/intelligence/[id].tsx` — Detail view with card hero, status badge, bonus progress bar, detail rows, edit mode (status/spend/notes), delete with confirm
+- [x] `app/(tabs)/intelligence/csv-import.tsx` — File picker, auto column mapping, preview with error/warning display, batch import, success view
+
+**Infrastructure:**
+- [x] `app/(tabs)/intelligence/_layout.tsx` — Stack navigator for sub-screens
+- [x] `expo-document-picker` installed (for CSV import)
+
+**Notes for B4:**
+- All screens use primitives/composed components — no raw `<View style={{...}}>` with colors
+- Intelligence hub shows live application count + pending bonuses from `useApplications()`
+- Household setup modal appears on first Intelligence tab visit if `householdSetupComplete` flag not set
+- CSV import uses `papaparse` (already a dep) for parsing + `lib/csvParser.ts` for field mapping
+- Web bundle exports clean — all new routes compile and render
+- TypeScript compiles clean — zero new errors from B3 files
+
+### Phase 2 — Velocity Engine (Agent B4) — COMPLETE (2026-04-19)
+
+**Issuer Rules (`lib/issuerRules.ts`):**
+- [x] Rule 1: Chase 5/24 — personal cards from all issuers, biz exemptions per issuer
+- [x] Rule 2: Chase Sapphire 48-Month — cross-product CSP/CSR, bonus_achieved gate
+- [x] Rule 3: Amex 1-in-90 (credit cards) — charge card exempt, biz credit counts
+- [x] Rule 4: Amex 2-in-90 (hard limit) — same exemptions
+- [x] Rule 5: Amex 4/5 Credit Card Limit — only open active non-charge cards
+- [x] Rule 6: Amex Once-Per-Lifetime — family grouping (Gold = Rose Gold, biz ≠ personal)
+- [x] Rule 7: Citi 8-Day — personal only, biz exempt
+- [x] Rule 8: Citi 65-Day — 2 personal max
+- [x] Rule 9: Citi 24-Month Bonus — max(bonus_date, closed_date) + 24
+- [x] Rule 10: Capital One 6-Month — soft warning
+- [x] Rule 11: BofA 2/3/4 — business cards count
+- [x] Rule 12: Discover Once-Per-Lifetime — IT ≠ Miles
+- [x] Rule 13: Barclays 6/24 — all issuers, biz included
+- [x] Rule 14: US Bank 2/30
+- [x] 6 helper functions: getMonthDiff, addMonthsToMonthString, countInLastNMonths, isBusinessCardCounted, isChargeCard, getCardFamily
+- [x] Pattern matching sorted by specificity (longest match first)
+
+**Velocity Engine (`lib/velocityEngine.ts`):**
+- [x] `computeVelocity()` — runs all 14 rules, filters by household member, aggregates results
+- [x] `VelocityReport` type with per-issuer rule results + overall status
+- [x] `optimal_next` recommendation (prioritizes Chase under 5/24)
+- [x] `countByStatus()`, `getPrimaryRule()`, `getIssuerRules()`, `worstStatus()` helpers
+- [x] Performance: 46ms for 120 tests including 50-app scenario (under 50ms target)
+
+**Dashboard Screen (`velocity.tsx`):**
+- [x] Household member filter chips (auto-selects first member)
+- [x] Summary stats row: clear/warning/blocked issuer counts
+- [x] Overall status badge
+- [x] Per-issuer IssuerVelocityCard components (8 issuers)
+- [x] Chase: 5/24 counter with progress bar, Sapphire eligibility
+- [x] Amex: open credit card count, velocity status, lifetime burns
+- [x] Optimal next recommendation section
+- [x] Pro gate overlay (blurred content + "Unlock Pro" CTA → PaywallModal)
+- [x] Empty state when no applications
+
+**IssuerVelocityCard Component:**
+- [x] Issuer-branded dot color (Chase blue, Amex blue, Citi red, etc.)
+- [x] Primary metric display (e.g., "3/5")
+- [x] Status badge (CLEAR/CAUTION/BLOCKED)
+- [x] Expandable detail section with per-rule messages + clear dates
+- [x] Progress bar for count-based rules
+
+**Tests (120 passing):**
+- [x] Chase 5/24: 15 tests (biz exemptions, closed counts, drop-off, denied excluded)
+- [x] Sapphire 48-Month: 8 tests (cross-product, denied eligible, no-bonus eligible)
+- [x] Amex velocity: 12 tests (charge exempt, biz credit counts, 2-in-90 hard limit, credit limit)
+- [x] Amex lifetime: 10 tests (Gold=Rose Gold, biz≠personal, denied eligible, Hilton family separation)
+- [x] Citi: 8 tests (8-day, 65-day, biz exempt, 24-month bonus with closure date)
+- [x] Other issuers: 12 tests (Cap One 6mo, BofA 2/3/4, Discover lifetime, Barclays 6/24, US Bank 2/30)
+- [x] Integration: 5 tests (empty=clear, complex churner, household separation, 20-app history, <50ms perf)
+- [x] Helpers: 10 tests (getMonthDiff, addMonths, countInLastNMonths, isBusinessCardCounted, isChargeCard, getCardFamily, monthToDate)
+- [x] Edge cases: 6 tests (shutdown excluded, pending counts, optimal_next, drop-off math, month wraps)
+- [x] Additional coverage: 14 tests (biz credit velocity, Green charge, multiple Citi products)
+
+**Notes for B5/B6:**
+- `lib/issuerRules.ts` exports all rule functions individually — import what you need
+- `lib/velocityEngine.ts` exports `computeVelocity()` + helper functions — dashboard already wired
+- All rule functions accept optional `referenceMonth` for testability (defaults to current month)
+- `RuleResult.applications_considered` contains app IDs for drill-down features
+- Amex lifetime returns `RuleResult[]` (one per burned family) — handle as array
+- Citi 24-month bonus also returns `RuleResult[]` — one per blocked product
+- `vitest` is a dev dependency; `npm test` runs the full suite, `npm run test:watch` for dev
+- `vitest.config.ts` maps `@/` alias to project root
+- TypeScript compiles clean — zero new errors from B4 files
+
+### Phase 3+4 — Spend Tracker + Portfolio (Agent B5) — COMPLETE (2026-04-19)
+
+**SpendProgress Component (`components/composed/SpendProgress.tsx`):**
+- [x] Full mode: progress bar, dollar amounts, deadline countdown, daily spend needed, status badge
+- [x] Status logic: On pace / Behind pace / Behind / Final stretch / Achieved / Expired
+- [x] "Update Spend" button → bottom sheet modal with number input
+- [x] "Mark Bonus Received" button when spend target met
+- [x] Compact mode: one-line card name + mini progress bar + % + days left (for hub)
+
+**Application Detail Update (`[id].tsx`):**
+- [x] Replaced inline bonus progress with SpendProgress component
+- [x] Update spend → mutates `bonus_spend_progress` via `useUpdateApplication`
+- [x] Mark complete → sets `bonus_achieved: true` + `bonus_achieved_at`
+
+**Points Portfolio Screen (`portfolio.tsx`):**
+- [x] Hero total: large dollar value with TPG attribution
+- [x] Per-program rows: program name, point count, dollar value, CPP rate, % of total
+- [x] Progress bars showing portfolio allocation
+- [x] Tap row → edit balance (bottom sheet)
+- [x] "Add Program" → program selector + balance input (bottom sheet)
+- [x] Household member filter chips
+- [x] Empty state with add action
+
+**Notifications Scaffold (`lib/notifications.ts`):**
+- [x] `scheduleSpendReminders()` — 30-day + 7-day before deadline
+- [x] `cancelSpendReminders()` + `cancelRemindersForApplication()`
+- [x] `requestNotificationPermission()` — asks on first schedule
+- [x] Uses expo-notifications local scheduling (device testing deferred)
+
+**Intelligence Hub Updates (`index.tsx`):**
+- [x] Portfolio total StatCard (only if balances exist)
+- [x] Active Bonuses section: top 3 most urgent by deadline
+- [x] Each bonus: compact SpendProgress (card name + progress bar + days left)
+- [x] Tap bonus → navigates to application detail
+
+**Notes for B6:**
+- `SpendProgress` accepts `compact` prop for hub list vs full detail view
+- Portfolio uses `usePointsBalances()` and `usePortfolioTotal()` from B2 hooks
+- `useUpdateBalance()` does upsert (insert or update) keyed on user+member+currency
+- Notification IDs are returned from `scheduleSpendReminders()` for later cancellation
+- 120 B4 tests still passing — no regressions
+- TypeScript compiles clean for all B5 files
+
+### Phase 5+6 — Fee Advisor + Spend Optimizer (Agent B6) — COMPLETE (2026-04-19)
+
+**Seed Data (3 files):**
+- [x] `supabase/seed-retention-scripts.sql` — 30 curated retention scripts (7 issuers × multiple situations + generic)
+- [x] `supabase/seed-downgrade-paths.sql` — 22 downgrade paths (Chase, Amex, Capital One, Citi, BofA, US Bank, Wells Fargo)
+- [x] `supabase/seed-card-categories.sql` — 60+ category multipliers for 20 priority cards (dining, travel, grocery, flights, hotels, etc.)
+
+**Hooks (2 files):**
+- [x] `hooks/useRetention.ts` — useRetentionScripts (by issuer), useDowngradePaths (by issuer), useRetentionOutcomes (by app), useCreateRetentionOutcome (CRUD), DowngradePathWithNames type, local fallback data
+- [x] `hooks/useCardCategories.ts` — useCardCategories(), rankCards() optimizer logic, SPEND_CATEGORIES constant, CardCategoryWithCard type, RankedCard type, local fallback data
+
+**Components (1 file):**
+- [x] `components/composed/RetentionCard.tsx` — expandable script card, situation badges, "BEST MATCH" auto-highlight, copy-to-clipboard via expo-clipboard, haptic feedback
+
+**Screens (2 files):**
+- [x] `app/(tabs)/intelligence/fee-advisor.tsx` — Annual Fee Advisor:
+  - Cards sorted by fee due date, urgent (≤30 days) highlighted
+  - Tiered recommendation logic: keep / call_retention / consider_downgrade
+  - <12 month override: always "call retention" (closing hurts credit)
+  - Benefit ratio progress bar (captured / annual fee)
+  - Expandable: retention scripts + downgrade paths per card
+  - Retention outcome logging bottom sheet (6 outcome types, amount input, accepted toggle, notes)
+  - 30-day warning banner for upcoming fees
+  - Household member filter
+  - Pro gate overlay (blurred content + "Unlock Pro" CTA)
+  - Empty state for no annual fee cards
+
+- [x] `app/(tabs)/intelligence/spend.tsx` — Spend Optimizer:
+  - Category selection chips (17 spend categories)
+  - Optional dollar amount input
+  - Ranked results: medal icons, multiplier, CPP, dollar value
+  - Rankings by dollar value (multiplier × cpp), not raw earn rate
+  - Cap/quarterly warnings displayed per card
+  - Methodology note (TPG valuations)
+  - Household member filter
+  - Fully locked for free users (not blurred, fully gated)
+
+**Notifications (updated):**
+- [x] `lib/notifications.ts` — added `scheduleFeeReminder()` for 30-day + 7-day annual fee advance alerts
+
+**Dependencies:**
+- [x] `expo-clipboard` installed (for retention script copy feature)
+
+**Notes for B7:**
+- Fee advisor uses `annual_fee_next_due` from Application type — user should set this in the add/edit form
+- Benefit capture estimation is approximate (uses bonus progress as proxy) — full benefit tracking deferred
+- Retention scripts are static from DB per Hard Rule #1 — never AI-generated at runtime
+- Spend optimizer ranks by dollar value (multiplier × cpp) per Hard Rule #3
+- Downgrade paths use the `notes` field with "From → To|Description" format for name parsing (card_id refs are NULL placeholders for local dev)
+- Card categories also use `notes` field for card name parsing (same NULL card_id pattern)
+- Both hooks have local fallback data when Supabase is unreachable
+- 133 B4 tests still passing — zero regressions
+- TypeScript compiles clean for all B6 files (zero new errors)
+
+### Next Phase: Phase 7+8 — Automation + Deals (Agent B7)
+See `agents/B7_AUTOMATION_DEALS.md` for full task list.
+B7 depends on B6 completing (uses tables/seed data created by B6).
 
 ---
 

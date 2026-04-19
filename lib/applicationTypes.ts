@@ -1,7 +1,11 @@
 // ============================================================
 // Application Ledger — TypeScript types
-// Mirrors the Supabase schema in migrations/001_applications_ledger.sql
+// Mirrors the Supabase schema in migrations/001 + 002
 // ============================================================
+
+// Household constants
+export const MAX_HOUSEHOLD_MEMBERS = 4;
+export const DEFAULT_MEMBER_NAMES = ['Johnny', 'Moira', 'David', 'Alexis'] as const;
 
 // All issuers the app knows about
 export type Issuer =
@@ -163,6 +167,7 @@ export interface Application {
   household_member_id: string | null;
   card_catalog_id: string | null;
   card_name: string;
+  card_name_override: string | null;
   last_four: string | null;
   issuer: Issuer;
   card_type: 'personal' | 'business';
@@ -215,6 +220,91 @@ export interface PointsBalance {
   last_updated_at: string | null;
   created_at: string;
   updated_at: string;
+}
+
+// ============================================================
+// New tables from 002_extra_tables.sql
+// ============================================================
+
+export interface PointsValuation {
+  id: string;
+  program: string;
+  cpp: number;
+  source: string | null;
+  updated_at: string;
+}
+
+export interface CardCategory {
+  id: string;
+  card_id: string;
+  category: string;
+  multiplier: number;
+  cap_amount: number | null;
+  cap_period: string | null;
+  expires_date: string | null;
+  notes: string | null;
+}
+
+export interface DowngradePath {
+  id: string;
+  from_card_id: string;
+  to_card_id: string;
+  issuer: string;
+  notes: string | null;
+}
+
+export interface RetentionScript {
+  id: string;
+  issuer: string;
+  situation: string;
+  script_text: string;
+  updated_at: string;
+}
+
+export type DealType = 'transfer_bonus' | 'elevated_signup' | 'limited_offer' | 'community_report';
+
+export interface DealPassportEntry {
+  id: string;
+  deal_type: DealType;
+  title: string;
+  description: string | null;
+  program_from: string | null;
+  program_to: string | null;
+  bonus_pct: number | null;
+  card_id: string | null;
+  expiry_date: string | null;
+  source_url: string | null;
+  active: boolean;
+  created_at: string;
+}
+
+export type ProposalSourceType =
+  | 'doc_scraper'
+  | 'reddit_scraper'
+  | 'issuer_rescrape'
+  | 'email_forward'
+  | 'user_submission'
+  | 'manual';
+
+export type ProposalStatus = 'pending' | 'approved' | 'rejected' | 'auto_applied' | 'auto_apply_pending';
+
+export interface DataProposal {
+  id: string;
+  source_type: ProposalSourceType;
+  source_url: string | null;
+  source_fingerprint: string | null;
+  proposal_type: string;
+  target_table: string | null;
+  target_row_id: string | null;
+  proposed_change: Record<string, unknown>;
+  current_value: Record<string, unknown> | null;
+  confidence_score: number;
+  status: ProposalStatus;
+  reviewer_notes: string | null;
+  reviewed_at: string | null;
+  auto_apply_after: string | null;
+  applied_at: string | null;
+  created_at: string;
 }
 
 // ============================================================

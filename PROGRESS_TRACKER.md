@@ -1,5 +1,5 @@
 # Progress Tracker
-Last updated: 2026-04-19
+Last updated: 2026-04-19 (B6 complete)
 
 ## Phase 0 — Design System
 - [x] Lock all design decisions (name, voice, accent, canvas, nav, components)
@@ -125,49 +125,60 @@ Last updated: 2026-04-19
 - [x] Verify all platforms — web verified (iOS/Android need manual test)
 - [x] EAS Build config ready (blocked on user: eas init, Apple credentials)
 
-### Phase 1a — Ledger Data Layer (Agent B2)
-- [ ] Migration `002_extra_tables.sql` — 7 new tables
-- [ ] Update `lib/applicationTypes.ts` with new types
-- [ ] `hooks/useApplications.ts` — CRUD
-- [ ] `hooks/useHousehold.ts` — household CRUD (cap at 4)
-- [ ] `hooks/usePointsBalances.ts` — portfolio CRUD
-- [ ] `lib/csvParser.ts` — CSV import logic
-- [ ] Seed: points valuations (15 programs)
+### Phase 1a — Ledger Data Layer (Agent B2) ✅ COMPLETE (2026-04-19)
+- [x] Migration `002_extra_tables.sql` — 7 new tables + indexes + RLS
+- [x] Update `lib/applicationTypes.ts` with new types (7 interfaces, constants)
+- [x] `hooks/useApplications.ts` — CRUD + optimistic delete + detectIssuer
+- [x] `hooks/useHousehold.ts` — household CRUD (cap at 4) + setup-complete flag
+- [x] `hooks/usePointsBalances.ts` — portfolio CRUD + server CPP resolution
+- [x] `lib/csvParser.ts` — CSV import logic (5 date formats, fuzzy match, dupe detection)
+- [x] Seed: `seed-points-valuations.sql` (15 programs)
 
-### Phase 1b — Ledger UI + Core Primitives (Agent B3)
-- [ ] Core primitives: Text, Button, Input, Surface, Badge
-- [ ] Composed components: ListItem, StatCard, ProgressBar, EmptyState, FilterChip
-- [ ] Intelligence hub screen (with sub-feature links)
-- [ ] Ledger list screen (with member/status filters)
-- [ ] Add application form (with catalog prefill)
-- [ ] Application detail/edit screen
-- [ ] CSV import screen (column mapping + preview)
-- [ ] Household setup first-run modal
+### Phase 1b — Ledger UI + Core Primitives (Agent B3) ✅ COMPLETE (2026-04-19)
+- [x] Core primitives: Text (9 variants), Button (4 variants), Input (5 variants), Surface (3 variants), Badge (6 variants)
+- [x] Composed components: ListItem, StatCard, ProgressBar, EmptyState, FilterChip, HouseholdSetupModal
+- [x] Intelligence hub screen (live data, summary stats, feature nav, PRO badges)
+- [x] Ledger list screen (member/status filters, FAB, bonus progress)
+- [x] Add application form (catalog search + prefill, month/year picker, all fields)
+- [x] Application detail/edit screen (view/edit toggle, delete with confirm, bonus progress)
+- [x] CSV import screen (file picker, auto column mapping, preview, batch import)
+- [x] Household setup first-run modal (just me / me + partner, Schitt's Creek defaults)
+- [x] Intelligence _layout.tsx (Stack navigator for sub-screens)
+- [x] `expo-document-picker` installed
 
-### Phase 2 — Velocity Engine (Agent B4)
-- [ ] `lib/issuerRules.ts` — 14 issuer rules as TypeScript constants
-- [ ] `lib/velocityEngine.ts` — computation engine
-- [ ] Velocity dashboard screen (per-issuer cards)
-- [ ] `IssuerVelocityCard` component
-- [ ] ~120 Vitest unit tests
-- [ ] Household side-by-side velocity
+### Phase 2 — Velocity Engine (Agent B4) ✅ COMPLETE (2026-04-19)
+- [x] `lib/issuerRules.ts` — 14 issuer rules + 6 helpers, RuleResult type, pattern matching by specificity
+- [x] `lib/velocityEngine.ts` — computeVelocity() engine, VelocityReport, optimal_next, summary helpers
+- [x] `app/(tabs)/intelligence/velocity.tsx` — Velocity dashboard with household filter, per-issuer cards, pro gate
+- [x] `components/composed/IssuerVelocityCard.tsx` — expandable card with issuer dot, status badge, progress bar, rule detail
+- [x] `__tests__/velocityEngine.test.ts` — 120 unit tests (all 14 rules, helpers, integration, performance)
+- [x] `__tests__/helpers/fixtures.ts` — test fixture factory
+- [x] `vitest.config.ts` + `vitest` dev dep — `npm test` / `npm run test:watch`
+- [x] Household-separated velocity (member A apps don't affect member B)
 
-### Phase 3+4 — Spend Tracker + Portfolio (Agent B5)
-- [ ] Bonus spend progress on application detail
-- [ ] SpendProgress component with deadline countdown
-- [ ] Push notification scaffolding (30-day, 7-day)
-- [ ] Points portfolio screen (total + per-program)
-- [ ] Balance entry + CPP-based valuation
-- [ ] Intelligence hub active bonuses section
+### Phase 3+4 — Spend Tracker + Portfolio (Agent B5) ✅ COMPLETE (2026-04-19)
+- [x] `components/composed/SpendProgress.tsx` — full + compact modes, deadline countdown, daily spend, status badge
+- [x] Updated `app/(tabs)/intelligence/[id].tsx` — SpendProgress with update spend + mark complete actions
+- [x] `lib/notifications.ts` — push notification scaffold (30-day + 7-day reminders, expo-notifications)
+- [x] `app/(tabs)/intelligence/portfolio.tsx` — Points Portfolio with hero total, per-program rows, add/edit sheets
+- [x] Updated `app/(tabs)/intelligence/index.tsx` — Active Bonuses (top 3 urgent) + portfolio total StatCard
+- [x] Household filter on portfolio screen
 
-### Phase 5+6 — Fee Advisor + Optimizer (Agent B6, parallel with B5)
-- [ ] Annual fee timeline screen
-- [ ] Fee advisor recommendation logic (keep/call/downgrade/cancel)
-- [ ] Retention scripts table seeded (30 curated scripts)
-- [ ] Downgrade paths seeded
-- [ ] Retention outcome logging flow
-- [ ] Spend optimizer screen (category → ranked cards)
-- [ ] Card categories seeded (20 cards × categories)
+### Phase 5+6 — Fee Advisor + Optimizer (Agent B6) ✅ COMPLETE (2026-04-19)
+- [x] Annual fee timeline screen (`fee-advisor.tsx`) — sorted by due date, 30-day warning, expandable cards
+- [x] Fee advisor recommendation logic (keep/call_retention/consider_downgrade with <12 month override)
+- [x] Retention scripts table seeded (30 curated scripts across 7 issuers)
+- [x] Downgrade paths seeded (22 paths: Chase, Amex, Cap One, Citi, BofA, US Bank, Wells Fargo)
+- [x] Retention outcome logging flow (bottom sheet: 6 outcome types, amount, accepted, notes)
+- [x] RetentionCard component (expandable, copy-to-clipboard, auto "BEST MATCH" highlighting)
+- [x] Spend optimizer screen (`spend.tsx`) — category chips, dollar ranking, cap/expiry warnings
+- [x] Card categories seeded (60+ multipliers for 20 cards × 17 categories)
+- [x] `hooks/useRetention.ts` — scripts, downgrades, outcomes (CRUD) with local fallback
+- [x] `hooks/useCardCategories.ts` — categories, rankCards(), SPEND_CATEGORIES with local fallback
+- [x] Fee notification scaffold (`scheduleFeeReminder()` — 30-day + 7-day alerts)
+- [x] `expo-clipboard` installed for copy feature
+- [x] Pro gate: fee advisor = blurred overlay, spend optimizer = fully locked
+- [x] 133 tests passing — zero regressions
 
 ### Phase 7+8 — Automation + Deals (Agent B7)
 - [ ] Edge Function: `ingest-doc` (weekly DoC scraper)
