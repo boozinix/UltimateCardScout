@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { formatCurrency, formatNumber } from '@/utils/formatters';
+import { capture, Events } from '@/lib/analytics';
 
 const MR_TRANSFER_PARTNERS = [
   { name: 'Air Canada Aeroplan', cpp: 1.5, category: 'Airline' },
@@ -26,6 +27,14 @@ export default function MRCalculatorScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const [points, setPoints] = useState('100000');
+  const [hasFired, setHasFired] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!hasFired && parseInt(points.replace(/,/g, ''), 10) > 0) {
+      capture(Events.CALCULATOR_USED, { calculator_name: 'mr_calculator' });
+      setHasFired(true);
+    }
+  }, [points, hasFired]);
 
   const pointsNum = parseInt(points.replace(/,/g, ''), 10) || 0;
   const portalValue = (pointsNum * PORTAL_CPP) / 100;

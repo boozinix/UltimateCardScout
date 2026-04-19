@@ -46,7 +46,11 @@ export async function isPro(): Promise<boolean> {
   return false;
 }
 
-export const FREE_CARD_LIMIT = 3;
+export const FREE_CARD_LIMIT = 3;          // vault cards (benefit tracking)
+export const FREE_LEDGER_LIMIT = 5;        // application ledger entries
+export const PRICING_MONTHLY_USD = 8.00;
+export const PRICING_ANNUAL_USD  = 59.00;  // TBD — annual pricing not finalized
+export const PRICING_TRIAL_DAYS  = 14;
 
 export async function canAddCard(): Promise<boolean> {
   const pro = await isPro();

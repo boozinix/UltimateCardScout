@@ -1,49 +1,85 @@
 /**
  * Design system tokens — single source of truth.
  * NEVER hardcode hex values in components.
+ * Use useTheme() from contexts/ThemeContext to get the active color set.
+ * The named `colors` export is the LIGHT theme — kept for backward compat.
  */
 
-export const colors = {
-  bg: '#FAFAF9',
-  sidebar: '#F2EFE9',
-  surface: '#FFFFFF',
-  border: '#E2DDD6',
-  text: '#1C1917',
-  muted: '#78716C',
+// ─── LIGHT THEME ────────────────────────────────────────────────────────────
+export const lightColors = {
+  bg:       '#FAFAF9',
+  sidebar:  '#F2EFE9',
+  surface:  '#FFFFFF',
+  border:   '#E2DDD6',
+  text:     '#1C1917',
+  muted:    '#78716C',
 
-  // Primary brand accent — CTAs, nav active state, links
-  accent: '#1B4FD8',
+  accent:   '#1B4FD8',
   accentBg: '#DBEAFE',
 
-  // Semantic "captured value" — wealth ring arcs, "$X captured" displays, vault achievements only
-  gold: '#92400E',
+  // Semantic "captured value" only — wealth ring, "$X captured"
+  gold:   '#92400E',
   goldBg: '#FEF3C7',
 
-  urgent: '#C2410C',
-  urgentBg: '#FFF1EE',
-  warn: '#B45309',
-  warnBg: '#FEF3C7',
-  success: '#166534',
-  successBg: '#DCFCE7',
+  urgent:    '#C2410C', urgentBg:    '#FFF1EE',
+  warn:      '#B45309', warnBg:      '#FEF3C7',
+  success:   '#166534', successBg:   '#DCFCE7',
 
   category: {
-    travel: '#1D4ED8',      travelBg: '#DBEAFE',
-    dining: '#B45309',      diningBg: '#FEF3C7',
+    travel:        '#1D4ED8', travelBg:        '#DBEAFE',
+    dining:        '#B45309', diningBg:        '#FEF3C7',
     entertainment: '#6D28D9', entertainmentBg: '#F3E8FF',
-    fitness: '#166534',     fitnessBg: '#DCFCE7',
-    hotel: '#BE123C',       hotelBg: '#FFF1F2',
-    shopping: '#C2410C',    shoppingBg: '#FFF7ED',
+    fitness:       '#166534', fitnessBg:       '#DCFCE7',
+    hotel:         '#BE123C', hotelBg:         '#FFF1F2',
+    shopping:      '#C2410C', shoppingBg:      '#FFF7ED',
   },
 
   gradients: {
-    amexPlatinum: ['#2D2D2D', '#5A5A5A', '#3A3A3A'] as const,
+    amexPlatinum:  ['#2D2D2D', '#5A5A5A', '#3A3A3A'] as const,
     chaseSapphire: ['#0F2B5B', '#1D4ED8'] as const,
-    amexGold: ['#92400E', '#D97706', '#FCD34D'] as const,
-    capitalVenture: ['#1E293B', '#334155'] as const,
-    default: ['#374151', '#6B7280'] as const,
+    amexGold:      ['#92400E', '#D97706', '#FCD34D'] as const,
+    capitalVenture:['#1E293B', '#334155'] as const,
+    default:       ['#374151', '#6B7280'] as const,
   },
 } as const;
 
+// ─── DARK THEME ─────────────────────────────────────────────────────────────
+export const darkColors = {
+  bg:       '#0F0F0F',
+  sidebar:  '#171717',
+  surface:  '#1C1C1E',
+  border:   '#2C2C2E',
+  text:     '#F5F5F0',
+  muted:    '#8E8E93',
+
+  accent:   '#4F7BFF',
+  accentBg: '#1E2F5C',
+
+  gold:   '#D97706',
+  goldBg: '#1C1200',
+
+  urgent:    '#FF6B47', urgentBg:    '#2C0F00',
+  warn:      '#F59E0B', warnBg:      '#1C1200',
+  success:   '#34D399', successBg:   '#022C22',
+
+  category: {
+    travel:        '#4F7BFF', travelBg:        '#1E2F5C',
+    dining:        '#F59E0B', diningBg:        '#1C1200',
+    entertainment: '#A78BFA', entertainmentBg: '#1E1040',
+    fitness:       '#34D399', fitnessBg:       '#022C22',
+    hotel:         '#FB7185', hotelBg:         '#2C0010',
+    shopping:      '#FF6B47', shoppingBg:      '#2C0F00',
+  },
+
+  // Gradients are the same — card art doesn't change with theme
+  gradients: lightColors.gradients,
+} as const;
+
+// Backward-compat alias — components using `import { colors }` still get light theme.
+// New components: use useTheme().colors instead.
+export const colors = lightColors;
+
+// ─── SHARED TOKENS (theme-independent) ──────────────────────────────────────
 export const spacing = {
   xs: 4, sm: 8, md: 16, lg: 24, xl: 32, '2xl': 48,
   screen: 20,
@@ -56,60 +92,50 @@ export const radius = {
 } as const;
 
 export const fontSerif = {
-  regular: 'PlayfairDisplay_400Regular',
-  medium: 'PlayfairDisplay_500Medium',
-  semiBold: 'PlayfairDisplay_600SemiBold',
-  bold: 'PlayfairDisplay_700Bold',
-  italic: 'PlayfairDisplay_400Regular_Italic',
-  boldItalic: 'PlayfairDisplay_700Bold_Italic',
+  regular:   'PlayfairDisplay_400Regular',
+  medium:    'PlayfairDisplay_500Medium',
+  semiBold:  'PlayfairDisplay_600SemiBold',
+  bold:      'PlayfairDisplay_700Bold',
+  italic:    'PlayfairDisplay_400Regular_Italic',
+  boldItalic:'PlayfairDisplay_700Bold_Italic',
 } as const;
 
 export const fontSans = {
-  light: 'Inter_300Light',
-  regular: 'Inter_400Regular',
-  medium: 'Inter_500Medium',
+  light:    'Inter_300Light',
+  regular:  'Inter_400Regular',
+  medium:   'Inter_500Medium',
   semiBold: 'Inter_600SemiBold',
-  bold: 'Inter_700Bold',
+  bold:     'Inter_700Bold',
 } as const;
 
-export const theme = {
-  colors: {
-    bg: colors.bg,
-    surface: colors.surface,
-    border: colors.border,
-    textPrimary: colors.text,
-    textSecondary: colors.muted,
-    gold: colors.gold,
-    goldBg: colors.goldBg,
-    urgent: colors.urgent,
-    urgentBg: colors.urgentBg,
-    success: colors.success,
-    successBg: colors.successBg,
-    warn: colors.warn,
-    warnBg: colors.warnBg,
-  },
-  gradients: colors.gradients,
-  radius: { card: radius.md, button: radius.sm, chip: radius.sm, full: radius.full },
-  spacing: { screen: spacing.screen, section: spacing.section, card: spacing.card },
-} as const;
+// The type of any colors object (light or dark)
+export type AppColors = typeof lightColors;
 
-export type GradientKey = keyof typeof colors.gradients;
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+export type GradientKey = keyof typeof lightColors.gradients;
 
 export function getGradient(key: string): readonly string[] {
-  const g = colors.gradients as Record<string, readonly string[]>;
-  return g[key] ?? colors.gradients.default;
+  const g = lightColors.gradients as Record<string, readonly string[]>;
+  return g[key] ?? lightColors.gradients.default;
 }
 
-export function getCategoryColors(category: string | null): { color: string; bg: string } {
+export function getCategoryColors(
+  category: string | null,
+  isDark = false,
+): { color: string; bg: string } {
+  const c = isDark ? darkColors.category : lightColors.category;
   const map: Record<string, { color: string; bg: string }> = {
-    travel: { color: colors.category.travel, bg: colors.category.travelBg },
-    dining: { color: colors.category.dining, bg: colors.category.diningBg },
-    entertainment: { color: colors.category.entertainment, bg: colors.category.entertainmentBg },
-    fitness: { color: colors.category.fitness, bg: colors.category.fitnessBg },
-    wellness: { color: colors.category.fitness, bg: colors.category.fitnessBg },
-    hotel: { color: colors.category.hotel, bg: colors.category.hotelBg },
-    shopping: { color: colors.category.shopping, bg: colors.category.shoppingBg },
-    retail: { color: colors.category.shopping, bg: colors.category.shoppingBg },
+    travel:        { color: c.travel,        bg: c.travelBg },
+    dining:        { color: c.dining,        bg: c.diningBg },
+    entertainment: { color: c.entertainment, bg: c.entertainmentBg },
+    fitness:       { color: c.fitness,       bg: c.fitnessBg },
+    wellness:      { color: c.fitness,       bg: c.fitnessBg },
+    hotel:         { color: c.hotel,         bg: c.hotelBg },
+    shopping:      { color: c.shopping,      bg: c.shoppingBg },
+    retail:        { color: c.shopping,      bg: c.shoppingBg },
   };
-  return map[category?.toLowerCase() ?? ''] ?? { color: colors.muted, bg: colors.sidebar };
+  const fallback = isDark
+    ? { color: darkColors.muted,  bg: darkColors.surface }
+    : { color: lightColors.muted, bg: lightColors.sidebar };
+  return map[category?.toLowerCase() ?? ''] ?? fallback;
 }

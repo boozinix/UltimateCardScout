@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, StyleSheet, Pressable, Dimensions, FlatList } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 
 const { width } = Dimensions.get('window');
@@ -9,20 +10,22 @@ const { width } = Dimensions.get('window');
 const SLIDES = [
   {
     icon: '🔍',
-    title: 'Find Your Card',
-    subtitle: 'Answer 3 questions and get ranked recommendations from 110+ credit cards. Free, forever.',
+    title: 'Find the right card',
+    subtitle: 'Answer a few questions and get ranked recommendations from our card catalog.',
   },
   {
-    icon: '📅',
-    title: 'Track Your Benefits',
-    subtitle: 'Never miss a credit or perk. Smart reminders before every benefit expires.',
+    icon: '💰',
+    title: 'Track what you earn',
+    subtitle: 'Know exactly how much value you capture from every card in your wallet.',
   },
   {
-    icon: '📈',
-    title: 'Maximize Your ROI',
-    subtitle: 'See exactly how much value you extract versus what you pay. Know if every card earns its keep.',
+    icon: '⚡',
+    title: 'Optimize every swipe',
+    subtitle: 'Always know which card to pull out, which bonus to chase, and when to act.',
   },
 ];
+
+const ONBOARDING_KEY = 'hasSeenOnboarding';
 
 export default function OnboardingScreen() {
   const router = useRouter();
@@ -30,16 +33,24 @@ export default function OnboardingScreen() {
   const [index, setIndex] = useState(0);
   const ref = useRef<FlatList>(null);
 
+  const completeOnboarding = async () => {
+    await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
+    router.replace('/(auth)/login');
+  };
+
   const goNext = () => {
     if (index < SLIDES.length - 1) {
       ref.current?.scrollToIndex({ index: index + 1 });
       setIndex(index + 1);
     } else {
-      router.replace('/(tabs)/discover');
+      completeOnboarding();
     }
   };
 
-  const skip = () => router.replace('/(tabs)/discover');
+  const skip = async () => {
+    await AsyncStorage.setItem(ONBOARDING_KEY, 'true');
+    router.replace('/(tabs)/discover');
+  };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom + 32 }]}>

@@ -1,5 +1,5 @@
 # Progress Tracker
-Last updated: 2026-04-18
+Last updated: 2026-04-19
 
 ## Phase 0 — Design System
 - [x] Lock all design decisions (name, voice, accent, canvas, nav, components)
@@ -86,7 +86,7 @@ Last updated: 2026-04-18
 ## Phase 13 — AI Features (requires OpenAI)
 - [ ] Set `OPENAI_API_KEY` in Supabase Edge Function secrets
 - [ ] Test `scrape-card` benefit extraction with real card URLs
-- [ ] Wire concierge to `ask-concierge` Edge Function (or build it)
+- [x] Concierge tab — CANCELLED. Removed from product scope (2026-04-19).
 
 ## Phase 14 — Production
 - [ ] EAS Build — iOS TestFlight, Android internal track
@@ -94,3 +94,105 @@ Last updated: 2026-04-18
 - [ ] PostHog project key → `EXPO_PUBLIC_POSTHOG_KEY`
 - [ ] Resend API key → `RESEND_API_KEY`
 - [ ] App Store / Play Store submission
+
+---
+
+## REVISED BUILD PLAN (2026-04-19) — Agent-Based
+
+> Prior phase numbering (15a, 15b, etc.) is superseded. See `agents/AGENT_MASTER_PLAN.md` for full plan.
+> Each phase maps to a build agent (B1-B8) with its own handoff file.
+
+### Pre-Phase Work ✅ COMPLETE (2026-04-19)
+- [x] Concierge tab removed from navigation, replaced with Intelligence tab
+- [x] Intelligence hub placeholder screen
+- [x] ThemeContext (light/dark switching, system preference aware)
+- [x] Dark token set in `lib/theme.ts`
+- [x] PaywallModal updated
+- [x] `supabase/migrations/001_applications_ledger.sql` — 4 tables
+- [x] `lib/applicationTypes.ts` — full type system
+- [x] BreakpointContext + DevToggle
+- [x] All product decisions locked (see `DECISIONS_NEEDED.md`)
+- [x] Agent master plan created with 8 build agents + 5 QA agents
+
+### Phase 0 — Foundation (Agent B1) ✅ COMPLETE (2026-04-19)
+- [x] Wire Stripe end-to-end ($8/mo, 14-day trial)
+- [x] Expand card catalog to 20 cards (115 total, 20 priority verified)
+- [x] Remove Concierge tab cleanly (files deleted)
+- [x] Simple onboarding (3 screens + skip + AsyncStorage persistence)
+- [x] Apple + Google Sign In (code ready, credentials needed)
+- [x] Sentry error monitoring (@sentry/react-native + Expo plugin)
+- [x] PostHog analytics (10 events wired, 3 server-side via webhook)
+- [x] Verify all platforms — web verified (iOS/Android need manual test)
+- [x] EAS Build config ready (blocked on user: eas init, Apple credentials)
+
+### Phase 1a — Ledger Data Layer (Agent B2)
+- [ ] Migration `002_extra_tables.sql` — 7 new tables
+- [ ] Update `lib/applicationTypes.ts` with new types
+- [ ] `hooks/useApplications.ts` — CRUD
+- [ ] `hooks/useHousehold.ts` — household CRUD (cap at 4)
+- [ ] `hooks/usePointsBalances.ts` — portfolio CRUD
+- [ ] `lib/csvParser.ts` — CSV import logic
+- [ ] Seed: points valuations (15 programs)
+
+### Phase 1b — Ledger UI + Core Primitives (Agent B3)
+- [ ] Core primitives: Text, Button, Input, Surface, Badge
+- [ ] Composed components: ListItem, StatCard, ProgressBar, EmptyState, FilterChip
+- [ ] Intelligence hub screen (with sub-feature links)
+- [ ] Ledger list screen (with member/status filters)
+- [ ] Add application form (with catalog prefill)
+- [ ] Application detail/edit screen
+- [ ] CSV import screen (column mapping + preview)
+- [ ] Household setup first-run modal
+
+### Phase 2 — Velocity Engine (Agent B4)
+- [ ] `lib/issuerRules.ts` — 14 issuer rules as TypeScript constants
+- [ ] `lib/velocityEngine.ts` — computation engine
+- [ ] Velocity dashboard screen (per-issuer cards)
+- [ ] `IssuerVelocityCard` component
+- [ ] ~120 Vitest unit tests
+- [ ] Household side-by-side velocity
+
+### Phase 3+4 — Spend Tracker + Portfolio (Agent B5)
+- [ ] Bonus spend progress on application detail
+- [ ] SpendProgress component with deadline countdown
+- [ ] Push notification scaffolding (30-day, 7-day)
+- [ ] Points portfolio screen (total + per-program)
+- [ ] Balance entry + CPP-based valuation
+- [ ] Intelligence hub active bonuses section
+
+### Phase 5+6 — Fee Advisor + Optimizer (Agent B6, parallel with B5)
+- [ ] Annual fee timeline screen
+- [ ] Fee advisor recommendation logic (keep/call/downgrade/cancel)
+- [ ] Retention scripts table seeded (30 curated scripts)
+- [ ] Downgrade paths seeded
+- [ ] Retention outcome logging flow
+- [ ] Spend optimizer screen (category → ranked cards)
+- [ ] Card categories seeded (20 cards × categories)
+
+### Phase 7+8 — Automation + Deals (Agent B7)
+- [ ] Edge Function: `ingest-doc` (weekly DoC scraper)
+- [ ] Edge Function: `ingest-reddit` (daily)
+- [ ] Edge Function: `ingest-email` (email forwarding)
+- [ ] Admin review screen (`/admin/proposals`)
+- [ ] Auto-apply cron (high confidence >0.9)
+- [ ] Weekly summary email
+- [ ] Deal passport screen (personalized feed)
+- [ ] Email import setup screen in Settings
+
+### Phase 9-12 — Polish + Launch (Agent B8)
+- [ ] Onboarding v2 (value-first: card selection → instant value → auth)
+- [ ] Desktop layouts (two-column for all screens)
+- [ ] PaywallModal → centered dialog on desktop
+- [ ] Hover states + keyboard shortcuts
+- [ ] Card art (per-issuer gradients)
+- [ ] Animations (Reanimated 3)
+- [ ] Dark mode toggle (V2)
+- [ ] Accessibility pass
+- [ ] App Store / Play Store submission
+
+---
+
+## Product Decisions Locked (2026-04-19)
+- See `DECISIONS_NEEDED.md` for complete list (all 16 decisions answered)
+- Key: Light theme, 4 tabs (Intelligence), $8/mo, month precision, all guardrails adopted
+- Agent plan: `agents/AGENT_MASTER_PLAN.md`

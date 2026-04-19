@@ -1,18 +1,24 @@
 # Agent Handoff Document
-**Project:** Card Scout Unified App  
-**Date:** 2026-04-18  
-**Repo:** https://github.com/boozinix/UltimateCardScout  
+**Project:** Card Scout Unified App
+**Last updated:** 2026-04-19
+**Repo:** https://github.com/boozinix/UltimateCardScout
 **Working dir:** `/Users/zubairnizami/Projects/Ultimate Card Scout/UnifiedApp/`
+
+---
+
+## READ THIS FIRST — Session Context
+
+This doc is the single source of truth for any new agent session. Read this + `PROGRESS_TRACKER.md` before writing any code. The full strategy discussion is in `CONVERSATION_LOG_2026-04-19.md`.
 
 ---
 
 ## What This Project Is
 
-A unified credit card discovery + benefits tracking mobile/web app.  
-Merges two prior prototypes: **CardScout** (web discovery engine) + **PerksVault** (benefits tracker).  
-Ships as a single Expo SDK 54 codebase to iOS, Android, and web.
+A credit card operating system — merges CardScout (discovery) + PerksVault (benefits tracking) into one Expo SDK 54 app.
 
-The app is **fully coded and locally runnable** but not yet connected to a live backend. All screens render with CSV fallback data. The user tests locally only — no Vercel, no EAS build yet.
+**Product vision:** Replace the churner's spreadsheet. Track every dollar of benefit value. Proactively tell users the optimal move before they miss it.
+
+**cardscout.app (cc-recommender) stays live** — it's the free SEO-driven discovery site. This UnifiedApp is the companion app with paid intelligence features.
 
 ---
 
@@ -23,6 +29,7 @@ cd "/Users/zubairnizami/Projects/Ultimate Card Scout/UnifiedApp"
 npm install --legacy-peer-deps   # lucide-react-native has React 19 peer conflict
 npx expo start --web
 # Open http://localhost:8081
+# DEV TOGGLE: floating pill button bottom-right — tap to cycle AUTO / MOB / DSK layouts
 ```
 
 Cards load from `public/cards.csv` when Supabase is unreachable (always in local demo).
@@ -37,60 +44,111 @@ Cards load from `public/cards.csv` when Supabase is unreachable (always in local
 | Styling | NativeWind v4 + `lib/theme.ts` design tokens |
 | State / Data | React Query (`@tanstack/react-query`) |
 | Backend | Supabase (PostgreSQL + Auth + RLS + Deno Edge Functions) |
-| Auth | Supabase magic link |
-| Payments | Stripe ($6.99/mo or $49/yr, 14-day trial) |
-| AI | OpenAI gpt-4o via Edge Functions (Pro only) |
+| Auth | Supabase magic link + Apple Sign-In + Google Sign-In (to add) |
+| Payments | Stripe ($8/mo or $59/yr, 14-day trial) |
+| AI | OpenAI GPT-4o-mini via Edge Functions (Pro only, cheap calls only) |
 | Analytics | PostHog — no-op wrapper if key not set |
 | Email | Resend |
 | Build | EAS Build (iOS/Android), Vercel (web) |
 
 ---
 
-## Design Tokens (never hardcode these)
+## Product Decisions (LOCKED — do not revisit without user instruction)
 
-All in `lib/theme.ts`:
+| Decision | Choice |
+|---|---|
+| Concierge tab | REMOVED entirely |
+| 4th tab name | "Intelligence" (not Tracker, not Concierge) |
+| cardscout.app | Stays live as free discovery site |
+| Freemium model | Free = discovery + basic vault. Paid = Intelligence features |
+| Paid pricing | **$8/mo**, annual TBD. Can change anytime. |
+| Household tracking | Yes — cap at 4 members, no separate auth. Defaults: Johnny, Moira, David, Alexis (Schitt's Creek placeholders). |
+| Theme | **Light.** Dark is V2. ThemeContext supports both. |
+| App Store timing | Submit AFTER Phase 1 (Application Ledger) + onboarding exist |
+| AI usage | GPT-4o-mini only, server-side only, user-triggered only, cached where possible |
+| Free ledger limit | Unlimited history viewing free. Paid = velocity intelligence + annual fee advisor + alerts |
+| Onboarding | Shows value before asking for account. No household setup during onboarding — do it inside Intelligence tab first-run. |
+| Spreadsheet import | **Both CSV + NL chatbot.** CSV for bulk import, chatbot for ongoing single entries. |
+| Date precision | **Month ('YYYY-MM').** Matches real churner tracking. |
+| Affiliate links | **No.** Raw issuer URLs only. Add affiliate layer later. |
+| Issuer rules | **TypeScript constants** (`lib/issuerRules.ts`). 14 rules. Not DB table. |
+| Guardrail: No Plaid | No bank logins, no credential sharing. Manual data only. |
+| Guardrail: AI quality | AI can parse/extract. User-facing advice must be vetted. Retention scripts are curated static library from DB. |
+| Guardrail: No sponsored rankings | Cards ranked by fit only. |
+| Guardrail: Human-approved writes | Automated ingestion → review queue → user approves weekly. |
+| Guardrail: Separate test DB | Never test against production Supabase. |
+| Home dashboard | **No dedicated tab.** Intelligence hub serves as dashboard. |
+| QA infrastructure | **Not now.** Unit tests at Phase 2. E2E closer to App Store. |
+| Design system | **No dedicated phase.** Build core primitives alongside Phase 1 screens. |
+| Automation pipeline | **After Phase 1.** Not Phase 0.5. |
+| Email forwarding | **Yes, build it.** Bundled with automation (Phase 7). |
+
+---
+
+## Freemium Tier Breakdown
+
+**FREE:**
+- Full card discovery (quiz, NL search, all tools, card browser)
+- Vault up to 3 cards (benefit tracking + reminders)
+- Application history: view up to 5 entries
+- Basic points portfolio (view only)
+
+**PRO ($8/mo or $59/yr):**
+- Unlimited vault
+- Full Application Ledger (unlimited entries)
+- Velocity Dashboard (5/24, all issuer rules, bonus eligibility)
+- Bonus Spend Tracker with deadline alerts
+- Points Portfolio with valuations + alerts
+- Annual Fee Advisor (30-day alerts, retention script, downgrade paths)
+- Deal Passport (transfer bonuses, elevated signups, community reports)
+- Spend Optimizer ("which card right now?")
+- AI natural language card entry (parse-application Edge Function)
+
+---
+
+## Design Tokens (never hardcode)
+
+All in `lib/theme.ts`. Components must use these via `ThemeContext`, not import `colors` directly.
 
 - **Primary accent:** `#1B4FD8` (blue) — buttons, active states, CTAs
-- **Gold:** `#92400E` — **semantic only** for captured value displays (WealthRing arcs, "$X captured")
-- **Canvas:** `#FAFAF9` warm linen
+- **Gold:** `#92400E` — semantic only for captured value displays
+- **Canvas:** `#FAFAF9` warm linen (light mode)
 - **Typography:** Playfair Display (hero H1s), Inter (body), Geist Mono (numeric/tabular)
-- **Status colors:** `colors.success` (green), `colors.warn` (amber), `colors.urgent` (red), `colors.muted` (grey)
+- **Status:** `colors.success` (green), `colors.warn` (amber), `colors.urgent` (red), `colors.muted` (grey)
+
+Dark mode tokens exist in `lib/theme.ts` `dark` object — complete them when building ThemeContext.
 
 ---
 
 ## Navigation Structure
 
 ```
-4 visible tabs (mobile bottom nav / desktop sidebar):
-  Discover    → /(tabs)/discover
-  Vault       → /(tabs)/portfolio
-  Calendar    → /(tabs)/calendar
-  Concierge   → /(tabs)/concierge
+4 visible tabs:
+  Discover      → /(tabs)/discover
+  Vault         → /(tabs)/portfolio
+  Intelligence  → /(tabs)/intelligence   ← new (replaced Concierge)
+  Settings      → /(tabs)/settings       ← moved to tab bar (was hidden)
 
-Hidden tabs (accessible via router.push, no tab bar entry):
-  Tools       → /(tabs)/tools
-  Insights    → /(tabs)/insights
-  Settings    → /(tabs)/settings
+Hidden (router.push only, no tab bar entry):
+  Calendar      → /(tabs)/calendar
+  Tools         → /(tabs)/tools
+  Insights      → /(tabs)/insights       ← may merge into Intelligence later
 ```
 
-Desktop (≥1024px): 240px sidebar with brand block, nav items, insights + settings footer links.  
-Mobile (<1024px): standard bottom tab bar.  
-Breakpoint logic: `hooks/useBreakpoint.ts` — `width >= 1024`.
+**Desktop (≥1024px):** 240px sidebar. **Mobile (<1024px):** bottom tab bar.
 
----
-
-## Free vs Pro Boundary
-
+Intelligence tab sub-screens (build in Phase 15):
 ```
-FREE: quiz, search, results, all tools, card browser, guides, 3-card vault limit
-PRO ($6.99/mo or $49/yr): unlimited vault, reminders, insights dashboards, AI URL extraction
+/(tabs)/intelligence/index.tsx        — hub screen, links to all sub-features
+/(tabs)/intelligence/ledger.tsx       — Application Ledger list
+/(tabs)/intelligence/add.tsx          — Add application (form + NL chatbot)
+/(tabs)/intelligence/[id].tsx         — Application detail/edit
+/(tabs)/intelligence/velocity.tsx     — Velocity Dashboard (5/24 etc.)
+/(tabs)/intelligence/portfolio.tsx    — Points Portfolio
+/(tabs)/intelligence/fee-advisor.tsx  — Annual Fee Calendar + Advisor
+/(tabs)/intelligence/spend.tsx        — Spend Optimizer
+/(tabs)/intelligence/deals.tsx        — Deal Passport
 ```
-
-Gate checks: `hooks/useSubscription.ts` → `useFeatureGate(feature)`.  
-Feature keys: `'wallet'`, `'reminders'`, `'dashboard'`, `'ai_extraction'`.  
-**Never trust client-side alone** — Supabase RLS enforces server-side.
-
-Paywall trigger: after 3rd card add, or tapping locked feature. NOT on app open.
 
 ---
 
@@ -100,63 +158,80 @@ Paywall trigger: after 3rd card add, or tapping locked feature. NOT on app open.
 | File | Purpose |
 |---|---|
 | `app/(tabs)/discover/index.tsx` | NL search, quick pills, tools section |
-| `app/(tabs)/discover/quiz.tsx` | Step wizard (ranked + single-select) |
-| `app/(tabs)/discover/results.tsx` | Scored card results with CardTile |
-| `app/(tabs)/portfolio/index.tsx` | VaultScreen — card list, add/remove, insights link |
-| `app/(tabs)/portfolio/add-card.tsx` | Search mode + By URL AI extraction mode (Pro) |
+| `app/(tabs)/discover/quiz.tsx` | Step wizard |
+| `app/(tabs)/discover/results.tsx` | Scored card results |
+| `app/(tabs)/portfolio/index.tsx` | VaultScreen — card list |
+| `app/(tabs)/portfolio/add-card.tsx` | Search + By URL AI extraction (Pro) |
 | `app/(tabs)/portfolio/benefits.tsx` | Per-card benefit list |
-| `app/(tabs)/calendar/index.tsx` | Re-exports portfolio/calendar |
-| `app/(tabs)/concierge/index.tsx` | AI chat UI — wired to placeholder, needs real Edge Function |
-| `app/(tabs)/tools/` | All calculators, browser, guides |
-| `app/(tabs)/insights/index.tsx` | Insights hub (Pro-gated) |
-| `app/(tabs)/insights/breakeven.tsx` | Per-card breakeven tracker (Pro-gated) |
-| `app/(tabs)/settings/index.tsx` | Account + billing settings |
+| `app/(tabs)/intelligence/index.tsx` | Intelligence hub — Phase 0 placeholder |
+| `app/(tabs)/settings/index.tsx` | Account + billing |
 | `app/(auth)/login.tsx` | Magic link login + guest bypass |
 
 ### Library
 | File | Purpose |
 |---|---|
-| `lib/theme.ts` | All design tokens — colors, spacing, radius, fonts |
-| `lib/supabase.ts` | Supabase client (uses `EXPO_PUBLIC_SUPABASE_*` env vars) |
-| `lib/analytics.ts` | PostHog wrapper + `Events` constants |
-| `lib/scoring.ts` | Quiz answers → card scoring algorithm |
-| `lib/quiz.ts` | Wizard question definitions |
-| `lib/nlp.ts` | Natural language → quiz answers |
-| `lib/cardTypes.ts` | `Card` type definition |
-| `lib/cardDisplay.ts` | Display helpers (fee parsing, feature extraction) |
-| `lib/subscription.ts` | `createCheckoutSession()`, `FREE_CARD_LIMIT` |
-| `lib/pointValues.ts` | Points → USD value estimates |
+| `lib/theme.ts` | All design tokens — light + dark |
+| `lib/applicationTypes.ts` | NEW — Application Ledger TypeScript types |
+| `lib/supabase.ts` | Supabase client |
+| `lib/analytics.ts` | PostHog wrapper |
+| `lib/scoring.ts` | Quiz → card scoring |
+| `lib/cardTypes.ts` | Card type definition |
+| `lib/subscription.ts` | Stripe checkout, FREE_CARD_LIMIT |
+
+### Contexts
+| File | Purpose |
+|---|---|
+| `contexts/BreakpointContext.tsx` | Desktop/mobile override for dev toggle |
+| `contexts/ThemeContext.tsx` | Light/dark theme switching — TO BUILD in Phase 0 |
 
 ### Hooks
 | File | Purpose |
 |---|---|
+| `hooks/useBreakpoint.ts` | `isDesktop` flag — respects forced mode from DevToggle |
 | `hooks/useCards.ts` | Fetch card catalog (Supabase → CSV fallback) |
 | `hooks/useSubscription.ts` | `useFeatureGate()`, subscription status |
-| `hooks/useBreakpoint.ts` | `isDesktop` flag (≥1024px) |
 
 ### Components
 | File | Purpose |
 |---|---|
-| `components/CardTile.tsx` | Expandable card result tile with gradient header |
-| `components/PaywallModal.tsx` | Bottom sheet upgrade modal |
-| `components/WealthRing.tsx` | SVG ring — gold arc = captured, grey = remaining |
-| `components/Button.tsx` | Shared button component |
+| `components/CardTile.tsx` | Expandable card result tile |
+| `components/PaywallModal.tsx` | Upgrade modal |
+| `components/WealthRing.tsx` | SVG ring — benefit value display |
+| `components/Button.tsx` | Shared button |
 | `components/Typography.tsx` | Shared text components |
+| `components/DevToggle.tsx` | NEW — floating dev layout toggle (DEV only) |
 
-### Supabase
+### Database
 | File | Purpose |
 |---|---|
-| `supabase/schema.sql` | Full DB schema — run on fresh Supabase project |
-| `supabase/functions/scrape-card/` | GPT-4o benefit extraction from card URL |
-| `supabase/functions/create-checkout/` | Stripe checkout session creation |
+| `supabase/schema.sql` | Core schema (cards, benefits, user_cards, reminders, subscriptions) |
+| `supabase/migrations/001_applications_ledger.sql` | NEW — household_members, applications, retention_outcomes, points_balances |
+| `supabase/functions/scrape-card/` | GPT-4o benefit extraction from URL |
+| `supabase/functions/create-checkout/` | Stripe checkout |
 | `supabase/functions/stripe-webhook/` | Stripe event processor |
-| `supabase/functions/send-email/` | Resend email sender |
+| `supabase/functions/send-email/` | Resend |
+| `supabase/functions/parse-application/` | TO BUILD — NL → structured application JSON (GPT-4o-mini) |
+
+---
+
+## AI Usage Policy
+
+All AI calls: server-side only (Edge Functions), user-triggered only, cached where possible.
+
+| Feature | Model | When triggered |
+|---|---|---|
+| Natural language card entry | GPT-4o-mini | User submits chatbot message |
+| Benefit URL extraction | GPT-4o | User pastes URL (Pro) |
+| Retention script personalization | GPT-4o-mini | Annual fee advisor screen |
+| "Next application" narrative | GPT-4o-mini | Velocity dashboard, cached |
+
+Cost estimate: < $5/month at 10,000 users. Never call AI on screen load or automatically.
 
 ---
 
 ## Environment Variables
 
-File: `UnifiedApp/.env.local` (gitignored — never commit)  
+File: `UnifiedApp/.env.local` (gitignored)
 Template: `UnifiedApp/.env.example` (committed, placeholders only)
 
 ```
@@ -167,101 +242,67 @@ EXPO_PUBLIC_POSTHOG_KEY=phc_...
 EXPO_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 ```
 
-Server-side only (set in Supabase Edge Function secrets, not `.env.local`):
+Server-side (Supabase Edge Function secrets only):
 ```
 OPENAI_API_KEY=
 STRIPE_SECRET_KEY=
+STRIPE_WEBHOOK_SECRET=
 RESEND_API_KEY=
 ```
 
 ---
 
-## Analytics Events (all wired)
+## What Is Complete
 
-All use `capture(Events.X, props?)` from `lib/analytics.ts`.
-
-| Event | Where fired | Properties |
-|---|---|---|
-| `quiz_started` | quiz.tsx mount | — |
-| `quiz_completed` | quiz.tsx goToResults | — |
-| `search_performed` | discover/index.tsx handleSearch | `{ query }` |
-| `apply_tapped` | CardTile.tsx handleApply | `{ card_name, issuer }` |
-| `card_added` | add-card.tsx success | `{ mode }` |
-| `card_removed` | portfolio/index.tsx mutation success | — |
-| `paywall_shown` | PaywallModal visible=true | `{ feature }` |
-| `upgrade_tapped` | PaywallModal handleUpgrade | `{ plan }` |
-
----
-
-## What Is Complete (AI coding work done)
-
-- [x] Full app scaffold + responsive layout
-- [x] All 4 visible tabs + all hidden tab routes
-- [x] Card discovery: NL search, quiz wizard, scored results
-- [x] Vault: add (search + AI URL), remove, benefit list, benefit detail
-- [x] Calendar tab
-- [x] Concierge UI (shell complete, needs real Edge Function)
-- [x] All tools: value calculator, UR/MR calculators, portfolio expander, bonus sequencer, card browser, guides
-- [x] Insights: hub + breakeven tracker
-- [x] Settings screen
-- [x] Auth: login + guest bypass
+- [x] Full app scaffold + responsive layout (desktop sidebar + mobile tabs)
+- [x] All discovery screens (quiz, NL search, results, CardTile)
+- [x] Vault: add/remove cards, benefit list
+- [x] Tools: all calculators, browser, guides
+- [x] Insights: breakeven tracker
+- [x] Settings screen (now visible as 4th tab)
+- [x] Auth: magic link login + guest bypass + Apple Sign-In + Google Sign-In
 - [x] CSV fallback for offline/demo
-- [x] PostHog analytics wired everywhere
-- [x] PaywallModal + feature gates
-- [x] Supabase schema + all 4 Edge Functions scaffolded
-- [x] README.md
-- [x] PROGRESS_TRACKER.md
-- [x] GIT_TRACKER.csv (save 1 + 2)
+- [x] PostHog analytics — 10 events (app_open, quiz_start, quiz_complete, calculator_used, signup, card_added, paywall_viewed, trial_started, subscription_created, churn)
+- [x] PaywallModal + feature gates ($8/mo pricing)
+- [x] Supabase core schema + 4 Edge Functions scaffolded
+- [x] `contexts/BreakpointContext.tsx` + `components/DevToggle.tsx` (layout dev toggle)
+- [x] `supabase/migrations/001_applications_ledger.sql` (4 new tables)
+- [x] `lib/applicationTypes.ts` (full type system for Application Ledger)
+- [x] Concierge tab removed (files deleted, not just hidden)
+- [x] Card catalog: 115 cards in CSV, 20 priority cards verified
+- [x] Stripe wired end-to-end: checkout ($8/mo, $59/yr), webhook (5 events), entitlement via React Query (5min stale, refetch on focus)
+- [x] Onboarding: 3 screens + skip, persists `hasSeenOnboarding` in AsyncStorage, root layout routes accordingly
+- [x] Sentry error monitoring: `@sentry/react-native`, Expo config plugin, root wrapped in `Sentry.wrap()`, disabled in dev
+- [x] EAS config: development, preview, production profiles ready (blocked on user credentials)
 
 ---
 
-## What Is NOT Done (blocked on user action or future agent)
+## Current Phase: Phase 0 — COMPLETE (Agent B1)
 
-### Blocked on user setup (cannot be done by AI):
-1. **Supabase project** — create at supabase.com → fill `.env.local` → run `schema.sql`
-2. **Stripe products** — create $6.99/mo + $49/yr products, fill `EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY`
-3. **OpenAI API key** — set in Supabase Edge Function secrets as `OPENAI_API_KEY`
-4. **PostHog project** — create at posthog.com, fill `EXPO_PUBLIC_POSTHOG_KEY`
-5. **Resend** — create account, fill `RESEND_API_KEY` in Edge Function secrets
-6. **EAS Build** — `eas build` for iOS TestFlight + Android internal track
-7. **Vercel** — `vercel --prod` for web deployment
+### Phase 0 Tasks (all done)
+- [x] Replace Concierge tab → deleted entirely, 4 tabs: Discover, Vault, Intelligence, Settings
+- [x] Concierge files deleted from disk
+- [x] Expand card catalog — 5 cards added (Ink Cash, Ink Unlimited, Cap1 Savor, Bilt, Altitude Reserve), 20 priority cards verified
+- [x] Stripe end-to-end: $8/mo pricing, checkout Edge Function, webhook (5 event types), React Query entitlement
+- [x] Social login: Apple Sign-In + Google Sign-In + magic link fallback
+- [x] Onboarding: 3 screens, AsyncStorage persistence, root layout routing
+- [x] Sentry: `@sentry/react-native`, Expo plugin, `Sentry.wrap()`, source maps in EAS
+- [x] PostHog: exactly 10 events wired (3 webhook events server-side via PostHog HTTP API)
+- [x] Web platform verified (HTTP 200, no bundle errors)
+- [x] EAS config verified (blocked on user: `eas init`, `appleTeamId`, `ascAppId`)
 
-### Remaining coding work for next agent:
+### Pre-existing (done before B1)
+- [x] Build `contexts/ThemeContext.tsx` — light/dark architecture
+- [x] Update `lib/theme.ts` — complete dark token set
 
-**High priority:**
-- `app/(tabs)/concierge/index.tsx` — wire to a real `ask-concierge` Edge Function (doesn't exist yet). Build the Edge Function in `supabase/functions/ask-concierge/` — it should accept `{ message, conversation_history, user_card_ids? }`, call GPT-4o, and return a response. Pro users get vault-aware context (their cards/benefits injected into system prompt).
-- `app/(auth)/callback.tsx` — verify magic link callback handler exists and works. Check route is registered in `app/(auth)/_layout.tsx`.
-- `app/(tabs)/insights/index.tsx` — add more insight cards beyond breakeven (e.g., monthly ROI chart using WealthRing, upcoming expirations summary, highest-value unused benefits).
-
-**Medium priority:**
-- `scripts/ingest-cards.ts` — verify the CSV → Supabase upsert script works once a real Supabase project exists.
-- Push notifications for benefit reminders — `utils/generateReminders.ts` generates the schedule; need to wire to Expo Notifications + a Supabase cron or scheduled Edge Function.
-- Dark mode — `lib/theme.ts` has a `dark` object but no theme switching UI.
-
-**Low priority / polish:**
-- Onboarding flow — currently users land directly on Discover. A brief 2-3 screen onboarding (what the app does, quiz or search prompt) would improve conversion.
-- Card images — `assets/` has no card art yet. Cards show gradient fallbacks which look fine, but real card art improves trust.
-- `app/(tabs)/tools/guides/` — guide content is scaffolded but may need real editorial content written.
-
----
-
-## Git State
-
-Repo: https://github.com/boozinix/UltimateCardScout  
-Branch: `main`  
-Last commit: `93179dc` — Update GIT_TRACKER with save 2
-
-Saves recorded:
-| # | Hash | Summary |
-|---|---|---|
-| 1 | 4b9bae2 | Initial commit: full UnifiedApp scaffold, phases 0–10 |
-| 2 | a31968f | Phase 7–9: add-by-URL, breakeven, full analytics wiring |
+### Next Phase: Phase 1a — Ledger Data Layer (Agent B2)
+See `agents/B2_LEDGER_DATA.md` for full task list.
 
 ---
 
 ## Voice & Copy Rules (non-negotiable)
 
-Florid concierge voice everywhere. No dial-down.
+Florid concierge voice everywhere.
 
 | Context | Copy |
 |---|---|
@@ -270,16 +311,63 @@ Florid concierge voice everywhere. No dial-down.
 | Empty states | "Your vault awaits. Begin with a card." |
 | Paywall | "Unlock the full intelligence of your portfolio." |
 | Quiz entry | "Let us find your perfect card." |
-| Quiz result H1 | "Your recommendation." (Playfair italic) |
 | Error states | "Something interrupted your session. Return when ready." |
+| Intelligence empty | "Your intelligence suite awaits. Add your first application." |
 
 ---
 
 ## Known Issues / Gotchas
 
-1. **`npm install` requires `--legacy-peer-deps`** — `lucide-react-native` declares React 18 peer dep but project uses React 19. Always use `npm install --legacy-peer-deps`.
-2. **Supabase client throws if URL is empty string** — `.env.local` must have a valid URL format even for placeholder (e.g. `https://placeholder.supabase.co`). Never set it to empty string.
-3. **`public/cards.csv` must stay in sync with `data/cards.csv`** — if card data is updated, run `cp data/cards.csv public/cards.csv` before committing.
-4. **Tools/Insights/Settings are hidden from tab bar** — they use `options={{ href: null }}` in `_layout.tsx`. Navigate to them only via `router.push()`. Do not add them to NAV_ITEMS.
-5. **Desktop sidebar does not highlight active route for nested screens** — `segments[1]` gives the tab segment but nested routes (e.g. `/(tabs)/insights/breakeven`) still show the parent as active. This is acceptable for now.
-6. **Concierge is a UI shell** — the chat sends messages but responses are placeholder strings. Do not tell the user it "works" until wired to a real Edge Function.
+1. **`npm install` requires `--legacy-peer-deps`** — lucide-react-native declares React 18 peer dep, project uses React 19.
+2. **Supabase client throws if URL is empty string** — `.env.local` must have a valid URL format even for placeholder.
+3. **`public/cards.csv` must stay in sync with `data/cards.csv`** — run `cp data/cards.csv public/cards.csv` before committing.
+4. **Tools/Insights are hidden from tab bar** — use `options={{ href: null }}` in `_layout.tsx`. Navigate via `router.push()` only. Settings is now a visible tab.
+5. **Calendar tab is a redirect stub** — `app/(tabs)/calendar/index.tsx` just re-exports portfolio/calendar. Hidden from tab bar. Full calendar build is later.
+6. **Concierge directory deleted** — B1 removed `app/(tabs)/concierge/` entirely.
+7. **Sentry version warning** — `@sentry/react-native@8.8.0` vs expected `~7.2.0`. Works fine, just a compatibility notice.
+8. **Bilt Mastercard has no signup bonus** — intentionally set to 0. This is accurate; Bilt doesn't offer a standard SUB.
+9. **PostHog webhook events need `POSTHOG_API_KEY`** — set as Supabase Edge Function secret for `trial_started`, `subscription_created`, `churn` events.
+10. **Apple/Google Sign-In need credentials** — Apple: Team ID + Service ID in Supabase. Google: OAuth client IDs in `.env.local`. Code is ready.
+
+---
+
+## Agent Architecture
+
+All build and QA work is organized into agents. See `agents/AGENT_MASTER_PLAN.md` for the full orchestration plan.
+
+| Agent | Phase | What |
+|---|---|---|
+| B1 | 0 | Foundation: Stripe, 20 cards, cleanup, onboarding, auth, Sentry, PostHog |
+| B2 | 1a | Ledger data layer: schema, hooks, types, CSV parser |
+| B3 | 1b | Ledger UI: screens, forms, household, core primitives |
+| B4 | 2 | Velocity engine: 14 rules, computation, dashboard, ~120 unit tests |
+| B5 | 3+4 | Bonus spend tracker + points portfolio |
+| B6 | 5+6 | Annual fee advisor + spend optimizer (can parallel with B5) |
+| B7 | 7+8 | Automation pipeline + email forwarding + deal passport |
+| B8 | 9-12 | Onboarding v2, desktop layouts, dark mode, App Store |
+| QA1-5 | Gates | Post-phase testing agents |
+
+Execution: B1 → B2 → B3 → B4 → B5+B6 (parallel) → B7 → B8
+
+---
+
+## Future PostHog Event Ideas (add in later phases)
+
+- `search_performed` — NL search submitted (was in Phase 9 analytics, removed for B1's 10-event spec)
+- `apply_tapped` — user taps apply link on CardTile
+- `card_removed` — user removes card from vault
+- `benefit_marked_used` / `benefit_snoozed` — benefit tracking interactions
+- `onboarding_completed` / `onboarding_skipped` — onboarding flow analytics
+- `ledger_entry_added` — application added to ledger (Phase 1)
+- `velocity_viewed` — velocity dashboard opened (Phase 2)
+- `fee_advisor_viewed` — fee advisor opened (Phase 5)
+
+---
+
+## Git State
+
+Repo: https://github.com/boozinix/UltimateCardScout
+Branch: `main`
+Last commit: `93179dc` — Update GIT_TRACKER with save 2
+
+No new commits since session start — all changes are local, uncommitted.

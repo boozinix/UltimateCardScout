@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { formatCurrency } from '@/utils/formatters';
+import { capture, Events } from '@/lib/analytics';
 
 type CardPreset = {
   id: string;
@@ -91,6 +92,7 @@ export default function ValueCalculatorScreen() {
 
   const handlePresetChange = (preset: CardPreset) => {
     setSelectedPreset(preset);
+    capture(Events.CALCULATOR_USED, { calculator_name: 'value_calculator' });
     const init: Record<string, boolean> = {};
     preset.benefits.forEach((b) => { init[b.label] = b.default; });
     setEnabled(init);

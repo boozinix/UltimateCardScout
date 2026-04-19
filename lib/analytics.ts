@@ -37,16 +37,16 @@ export async function reset() {
   ph?.reset();
 }
 
-// Named events
+// Exactly 10 events — do not add others without updating AGENT_HANDOFF.md
 export const Events = {
-  QUIZ_STARTED: 'quiz_started',
-  QUIZ_COMPLETED: 'quiz_completed',
-  SEARCH_PERFORMED: 'search_performed',
-  APPLY_TAPPED: 'apply_tapped',
+  APP_OPEN: 'app_open',
+  QUIZ_START: 'quiz_start',
+  QUIZ_COMPLETE: 'quiz_complete',
+  CALCULATOR_USED: 'calculator_used',
+  SIGNUP: 'signup',
   CARD_ADDED: 'card_added',
-  CARD_REMOVED: 'card_removed',
-  BENEFIT_MARKED_USED: 'benefit_marked_used',
-  BENEFIT_SNOOZED: 'benefit_snoozed',
-  PAYWALL_SHOWN: 'paywall_shown',
-  UPGRADE_TAPPED: 'upgrade_tapped',
+  PAYWALL_VIEWED: 'paywall_viewed',
+  TRIAL_STARTED: 'trial_started',
+  SUBSCRIPTION_CREATED: 'subscription_created',
+  CHURN: 'churn',
 } as const;

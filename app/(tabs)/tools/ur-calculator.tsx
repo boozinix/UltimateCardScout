@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { formatCurrency, formatNumber } from '@/utils/formatters';
+import { capture, Events } from '@/lib/analytics';
 
 const PORTAL_CPP = 1.5; // CSR: 1.5¢ | CSP: 1.25¢
 const TRANSFER_PARTNERS = [
@@ -24,6 +25,14 @@ export default function URCalculatorScreen() {
   const router = useRouter();
   const [points, setPoints] = useState('50000');
   const [selectedCard, setSelectedCard] = useState<'CSP' | 'CSR'>('CSR');
+  const [hasFired, setHasFired] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!hasFired && parseInt(points.replace(/,/g, ''), 10) > 0) {
+      capture(Events.CALCULATOR_USED, { calculator_name: 'ur_calculator' });
+      setHasFired(true);
+    }
+  }, [points, hasFired]);
 
   const portalCpp = selectedCard === 'CSR' ? 1.5 : 1.25;
   const pointsNum = parseInt(points.replace(/,/g, ''), 10) || 0;

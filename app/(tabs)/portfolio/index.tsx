@@ -12,7 +12,6 @@ import { FREE_CARD_LIMIT } from '@/lib/subscription';
 import { useFeatureGate } from '@/hooks/useSubscription';
 import { PaywallModal } from '@/components/PaywallModal';
 import { impactMedium } from '@/utils/haptics';
-import { capture, Events } from '@/lib/analytics';
 
 type UserCard = {
   id: string;
@@ -64,7 +63,6 @@ export default function VaultScreen() {
       if (error) throw error;
     },
     onSuccess: () => {
-      capture(Events.CARD_REMOVED);
       queryClient.invalidateQueries({ queryKey: ['user_cards'] });
     },
   });

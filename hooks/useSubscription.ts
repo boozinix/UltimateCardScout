@@ -1,29 +1,53 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect } from 'react';
+import { AppState } from 'react-native';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
-import { getSubscription, isPro, type SubscriptionState } from '@/lib/subscription';
+import { getSubscription, type SubscriptionState } from '@/lib/subscription';
+
+const SUB_KEY = ['subscription'] as const;
+const STALE_MS = 5 * 60 * 1000; // 5 minutes
 
 export function useSubscription() {
-  const [state, setState] = useState<SubscriptionState | null>(null);
-  const [isProUser, setIsProUser] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const refresh = useCallback(async () => {
-    setLoading(true);
-    const [sub, pro] = await Promise.all([getSubscription(), isPro()]);
-    setState(sub);
-    setIsProUser(pro);
-    setLoading(false);
-  }, []);
+  const { data: subscription, isLoading } = useQuery<SubscriptionState>({
+    queryKey: SUB_KEY,
+    queryFn: getSubscription,
+    staleTime: STALE_MS,
+    refetchOnWindowFocus: true,
+  });
 
+  // Refetch on app foreground (mobile)
   useEffect(() => {
-    refresh();
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(() => {
-      refresh();
+    const listener = AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        queryClient.invalidateQueries({ queryKey: SUB_KEY });
+      }
     });
-    return () => subscription.unsubscribe();
-  }, [refresh]);
+    return () => listener.remove();
+  }, [queryClient]);
 
-  return { subscription: state, isPro: isProUser, loading, refresh };
+  // Refetch on auth state change
+  useEffect(() => {
+    const { data: { subscription: authSub } } = supabase.auth.onAuthStateChange(() => {
+      queryClient.invalidateQueries({ queryKey: SUB_KEY });
+    });
+    return () => authSub.unsubscribe();
+  }, [queryClient]);
+
+  const isPro = subscription?.plan === 'pro' &&
+    (subscription.status === 'active' || subscription.status === 'trialing');
+
+  return {
+    subscription: subscription ?? null,
+    isPro,
+    status: subscription?.status ?? 'inactive',
+    trialEndsAt: subscription?.trialEnd ?? null,
+    plan: subscription?.plan ?? 'free',
+    isLoading,
+    loading: isLoading,
+    refresh: () => queryClient.invalidateQueries({ queryKey: SUB_KEY }),
+  };
 }
 
 export function useFeatureGate(feature: 'wallet' | 'reminders' | 'dashboard' | 'ai' | 'export' | 'roi'): boolean {

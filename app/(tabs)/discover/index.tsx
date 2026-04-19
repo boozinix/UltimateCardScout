@@ -9,7 +9,6 @@ import { Plane, DollarSign, Gift, Zap, Hotel, ShoppingCart, Fuel, Layers, Calcul
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { promptToAnswers } from '@/lib/nlp';
 import { impactLight, impactMedium } from '@/utils/haptics';
-import { capture, Events } from '@/lib/analytics';
 
 const QUICK_PILLS = [
   { label: 'Travel', query: 'travel rewards card', Icon: Plane },
@@ -39,7 +38,6 @@ export default function DiscoverScreen() {
     const q = query.trim();
     if (!q) return;
     await impactMedium();
-    capture(Events.SEARCH_PERFORMED, { query: q });
     const result = promptToAnswers(q);
     if (!result.ok) {
       setError(result.error);

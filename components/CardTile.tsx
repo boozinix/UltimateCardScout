@@ -8,7 +8,6 @@ import { getMainFeaturesForTile, splitProsCons, parseAnnualFee, getCashbackDispl
 import { getEstimatedBonusValueUsd } from '@/lib/pointValues';
 import { impactLight, impactMedium } from '@/utils/haptics';
 import { formatNumber, formatBonus } from '@/utils/formatters';
-import { capture, Events } from '@/lib/analytics';
 
 const ISSUER_ACCENT: Record<string, string> = {
   chase: '#0F2B5B',
@@ -56,7 +55,6 @@ export function CardTile({ card, rank, scoreBreakdown, narrativeOneliner, onPres
 
   const handleApply = async () => {
     await impactMedium();
-    capture(Events.APPLY_TAPPED, { card_name: card.card_name, issuer: card.issuer });
     if (applicationLink) {
       await Linking.openURL(applicationLink);
     }

@@ -13,7 +13,7 @@ export default function QuizScreen() {
   const router = useRouter();
   const [step, setStep] = useState(0);
 
-  useEffect(() => { capture(Events.QUIZ_STARTED); }, []);
+  useEffect(() => { capture(Events.QUIZ_START, { entry_point: 'discover' }); }, []);
   const [answers, setAnswers] = useState<Answers>({});
   // For ranked question: track order of taps
   const [rankedOrder, setRankedOrder] = useState<string[]>([]);
@@ -67,7 +67,7 @@ export default function QuizScreen() {
   };
 
   const goToResults = (finalAnswers: Answers) => {
-    capture(Events.QUIZ_COMPLETED);
+    capture(Events.QUIZ_COMPLETE, { num_answers: Object.keys(finalAnswers).length });
     const encoded = encodeURIComponent(JSON.stringify(finalAnswers));
     router.push(`/(tabs)/discover/results?answers=${encoded}`);
   };

@@ -9,8 +9,8 @@ const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '', {
 });
 
 const PRICE_IDS: Record<string, string> = {
-  monthly: Deno.env.get('STRIPE_PRICE_MONTHLY') ?? '',
-  annual:  Deno.env.get('STRIPE_PRICE_ANNUAL')  ?? '',
+  monthly: Deno.env.get('STRIPE_PRICE_ID_MONTHLY') ?? '',
+  annual:  Deno.env.get('STRIPE_PRICE_ID_ANNUAL')  ?? '',
 };
 
 const corsHeaders = {
@@ -45,6 +45,11 @@ serve(async (req) => {
     if (!customerId) {
       const customer = await stripe.customers.create({ email: user.email, metadata: { supabase_user_id: user.id } });
       customerId = customer.id;
+      // Store customer ID for future lookups
+      await supabase.from('subscriptions').upsert(
+        { user_id: user.id, stripe_customer_id: customerId, plan: 'free', status: 'incomplete' },
+        { onConflict: 'user_id' },
+      );
     }
 
     const session = await stripe.checkout.sessions.create({

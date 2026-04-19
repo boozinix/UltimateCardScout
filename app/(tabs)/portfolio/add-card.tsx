@@ -90,9 +90,9 @@ export default function AddCardScreen() {
         generateReminders(inserted.id, user.id, appDate).catch(() => {});
       }
     },
-    onSuccess: async () => {
+    onSuccess: async (_data, variables) => {
       await notificationSuccess();
-      capture(Events.CARD_ADDED, { mode });
+      capture(Events.CARD_ADDED, { card_id: variables.cardId, source: mode });
       await queryClient.invalidateQueries({ queryKey: ['user_cards'] });
       router.back();
     },

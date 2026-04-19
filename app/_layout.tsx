@@ -1,8 +1,11 @@
 import '../global.css';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
+import { AppState, Platform } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import * as Sentry from '@sentry/react-native';
+import { capture, Events } from '@/lib/analytics';
 import {
   useFonts,
   Inter_300Light,
@@ -22,12 +25,21 @@ import {
 import * as SplashScreen from 'expo-splash-screen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { colors } from '@/lib/theme';
+import { BreakpointProvider } from '@/contexts/BreakpointContext';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import DevToggle from '@/components/DevToggle';
+
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN ?? '',
+  enabled: !__DEV__,
+  tracesSampleRate: 0.2,
+});
 
 const queryClient = new QueryClient();
 
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const [fontsLoaded] = useFonts({
     Inter_300Light,
     Inter_400Regular,
@@ -42,22 +54,46 @@ export default function RootLayout() {
     PlayfairDisplay_700Bold_Italic,
   });
 
+  const hasFiredAppOpen = useRef(false);
+
   useEffect(() => {
     if (fontsLoaded) SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
+  // app_open: fire once per session on first foreground
+  useEffect(() => {
+    if (!hasFiredAppOpen.current) {
+      capture(Events.APP_OPEN, { platform: Platform.OS });
+      hasFiredAppOpen.current = true;
+    }
+    const listener = AppState.addEventListener('change', (state) => {
+      if (state === 'active' && !hasFiredAppOpen.current) {
+        capture(Events.APP_OPEN, { platform: Platform.OS });
+        hasFiredAppOpen.current = true;
+      }
+    });
+    return () => listener.remove();
+  }, []);
+
   if (!fontsLoaded) return null;
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <StatusBar style="dark" backgroundColor={colors.bg} />
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="onboarding/index" />
-          <Stack.Screen name="(auth)" />
-          <Stack.Screen name="(tabs)" />
-        </Stack>
-      </GestureHandlerRootView>
-    </QueryClientProvider>
+    <ThemeProvider>
+      <BreakpointProvider>
+        <QueryClientProvider client={queryClient}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar style="dark" backgroundColor={colors.bg} />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="onboarding/index" />
+              <Stack.Screen name="(auth)" />
+              <Stack.Screen name="(tabs)" />
+            </Stack>
+            <DevToggle />
+          </GestureHandlerRootView>
+        </QueryClientProvider>
+      </BreakpointProvider>
+    </ThemeProvider>
   );
 }
+
+export default Sentry.wrap(RootLayout);

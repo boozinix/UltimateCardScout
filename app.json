@@ -18,6 +18,7 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.cardscout.app",
       "buildNumber": "1",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "NSUserNotificationsUsageDescription": "CardScout sends reminders before your credit card benefits expire."
       }
@@ -53,7 +54,15 @@
           "defaultChannel": "default"
         }
       ],
-      "expo-font"
+      "expo-font",
+      "expo-apple-authentication",
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "cardscout",
+          "project": "cardscout-mobile"
+        }
+      ]
     ],
     "updates": {
       "url": "https://u.expo.dev/YOUR_EAS_PROJECT_ID"
