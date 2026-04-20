@@ -217,6 +217,18 @@ Last updated: 2026-04-19 (B8 complete — all build agents done)
 - [x] App Store submission = user action item (EAS build + submit commands documented)
 - [x] 133 tests passing — zero regressions
 
+### QA5 — Pre-Launch Regression ✅ COMPLETE (2026-04-19)
+- [x] QA5 report filed (`agents/QA5_REPORT.md`)
+- [x] Zero regressions from B1-B7
+- [x] 133/133 unit tests passing
+- [x] 5 Sev 2 issues found and fixed (`6efe67a`):
+  - Desktop layouts added to ledger, results, portfolio
+  - Dark mode preference persisted to AsyncStorage
+  - Privacy Policy + Terms links made clickable (login + settings)
+- [x] 1 Sev 1 (user action): EAS project ID placeholder — run `eas init`
+- [x] 4 Sev 3 (ship as-is): hardcoded white on dark buttons, version string static, stale comment
+- [x] **Verdict: READY FOR APP STORE SUBMISSION** (after user action items)
+
 ---
 
 ## Product Decisions Locked (2026-04-19)

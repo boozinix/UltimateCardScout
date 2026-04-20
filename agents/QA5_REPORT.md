@@ -1,8 +1,10 @@
 # QA5 Pre-Launch Report — 2026-04-19
 
 ## Overall Verdict
-- [ ] READY FOR APP STORE SUBMISSION
-- [x] NOT READY — 1 Sev 1 and 5 Sev 2 issues remain
+- [x] READY FOR APP STORE SUBMISSION (after user action items)
+- [ ] ~~NOT READY — 1 Sev 1 and 5 Sev 2 issues remain~~
+
+**Update (2026-04-19):** All 5 Sev 2 issues fixed in commit `6efe67a`. Remaining Sev 1 (EAS project ID) is a user action item, not a code bug.
 
 ## Regression from Prior QA
 - QA1 flows: **PASS** — Auth (Apple/Google/magic link), Stripe ($8/mo), tab navigation all intact

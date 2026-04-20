@@ -668,8 +668,21 @@ RESEND_API_KEY=
 - TypeScript compiles clean for all B8 files
 - Web bundle exports clean — all routes compile
 
-### Next Step: QA5 (Pre-Launch Full Regression)
-All 8 build agents (B1-B8) are complete. Run QA5 for full regression testing before App Store submission.
+### QA5 — Pre-Launch Regression — COMPLETE (2026-04-19)
+
+- Zero regressions from B1-B7
+- 133/133 unit tests passing
+- 5 Sev 2 issues found and fixed in `6efe67a`:
+  1. Desktop layouts added to ledger, results, portfolio (useBreakpoint + max-width)
+  2. Dark mode persisted to AsyncStorage (ThemeContext loads on mount)
+  3. Privacy Policy + Terms of Service now clickable links in login + settings
+- 1 Sev 1 (user action only): `YOUR_EAS_PROJECT_ID` placeholder in app.json — run `eas init`
+- 4 Sev 3 (ship as-is): cosmetic only
+- **Verdict: READY FOR APP STORE SUBMISSION** (after user action items in `USER_ACTION_ITEMS.md`)
+
+### All Agents Complete
+B1 → B2 → B3 → B4 → B5+B6 → B7 → B8 → QA5 → Fixes applied.
+Code is complete. Only user action items remain (see `USER_ACTION_ITEMS.md`).
 
 ---
 
