@@ -312,7 +312,7 @@ RESEND_API_KEY=
 
 ---
 
-## Current Phase: Phase 5+6 — COMPLETE (Agent B6)
+## Current Phase: Phase 7+8 — COMPLETE (Agent B7)
 
 ### Phase 0 Tasks (all done)
 - [x] Replace Concierge tab → deleted entirely, 4 tabs: Discover, Vault, Intelligence, Settings
@@ -537,6 +537,22 @@ RESEND_API_KEY=
 
 **Dependencies:**
 - [x] `expo-clipboard` installed (for retention script copy feature)
+- [x] `supabase/functions/ingest-doc/index.ts` — DoC scraper (weekly cron, GPT-4o-mini, fuzzy match, confidence scoring, dedupe)
+- [x] `supabase/functions/ingest-reddit/index.ts` — Reddit scraper (daily, r/CreditCards + r/churning, GPT classification, confidence 0.65)
+- [x] `supabase/functions/auto-apply/index.ts` — Auto-apply cron (hourly, never retention data)
+- [x] `supabase/functions/ingest-email/index.ts` — Email webhook (SendGrid Inbound Parse, issuer whitelist, 20/hr rate limit, GPT classification)
+- [x] `supabase/functions/weekly-summary/index.ts` — Weekly admin email (Sunday 9pm PT, Resend, proposal stats)
+- [x] `supabase/migrations/003_email_aliases.sql` — user_email_aliases table + user_id on data_proposals + RLS
+- [x] `hooks/useDataProposals.ts` — admin proposals CRUD (approve/reject/edit/bulk), counts, labels
+- [x] `hooks/useDealPassport.ts` — deals query, personalization engine, currency matching, fallback data
+- [x] `hooks/useEmailAlias.ts` — alias CRUD, regenerate, stats, 8-char hex generation
+- [x] `app/admin/proposals.tsx` — Admin review queue (admin gate, Tinder-style cards, diff table, edit mode, bulk approve)
+- [x] `app/(tabs)/intelligence/deals.tsx` — Deal Passport (personalized feed, "for your wallet" vs "other", expiry countdown)
+- [x] `app/(tabs)/settings/email-import.tsx` — Email forwarding setup (alias generation, Gmail filter, stats)
+- [x] Updated `lib/applicationTypes.ts` — UserEmailAlias, user_id on DataProposal
+- [x] Updated `app/(tabs)/settings/index.tsx` — added DATA IMPORT section
+- [x] `app/admin/_layout.tsx` + `app/(tabs)/settings/_layout.tsx` — Stack navigators
+- [x] Updated `app/_layout.tsx` — admin route in root Stack
 
 **Notes for B7:**
 - Fee advisor uses `annual_fee_next_due` from Application type — user should set this in the add/edit form
@@ -549,9 +565,53 @@ RESEND_API_KEY=
 - 133 B4 tests still passing — zero regressions
 - TypeScript compiles clean for all B6 files (zero new errors)
 
-### Next Phase: Phase 7+8 — Automation + Deals (Agent B7)
-See `agents/B7_AUTOMATION_DEALS.md` for full task list.
-B7 depends on B6 completing (uses tables/seed data created by B6).
+### Phase 7+8 — Automation + Deals (Agent B7) — COMPLETE (2026-04-19)
+
+**Edge Functions (5):**
+- [x] `supabase/functions/ingest-doc/index.ts` — DoC scraper (weekly): fetches best-bonuses page, GPT-4o-mini extracts card data, fuzzy-matches against catalog, writes to data_proposals with confidence scoring (0.75 new, 0.95 bonus, 0.92 fee)
+- [x] `supabase/functions/ingest-reddit/index.ts` — Reddit scraper (daily): r/CreditCards + r/churning, flair/upvote filtering, GPT classification (6 categories), confidence 0.65 (always manual)
+- [x] `supabase/functions/auto-apply/index.ts` — Auto-apply cron (hourly): applies auto_apply_pending proposals where auto_apply_after < now(), NEVER auto-applies retention data, handles inserts + updates
+- [x] `supabase/functions/ingest-email/index.ts` — Email webhook (SendGrid Inbound Parse): resolves user from alias, whitelists 9 issuer domains, GPT-4o-mini classifies 8 email types, 20/hr rate limit per alias, user-scoped proposals
+- [x] `supabase/functions/weekly-summary/index.ts` — Weekly admin email (Sunday 9pm PT via Resend): pending/auto-applied/rejected counts, breakdown by source, top 10 proposals preview, direct link to admin UI
+
+**Migration (1):**
+- [x] `supabase/migrations/003_email_aliases.sql` — user_email_aliases (id, user_id, alias, created_at) + user_id column on data_proposals + RLS (own-row read/insert/delete) + indexes
+
+**Hooks (3):**
+- [x] `hooks/useDataProposals.ts` — useDataProposals (filtered query), useProposalCounts (badges), useApproveProposal (fetch+apply+mark), useRejectProposal, useEditAndApproveProposal, useBulkApprove, SOURCE_TYPE_LABELS, PROPOSAL_TYPE_LABELS
+- [x] `hooks/useDealPassport.ts` — useDeals (active deals), usePersonalizedDeals (currency matching, balance-based relevance, value-added calc), DEAL_TYPE_LABELS, fallback demo deals
+- [x] `hooks/useEmailAlias.ts` — useEmailAlias (current), useEmailImportStats (total/applied/pending/last), useCreateEmailAlias (8-char hex), useRegenerateAlias (delete+create), EMAIL_DOMAIN, GMAIL_FILTER_RULE
+
+**Screens (3):**
+- [x] `app/admin/proposals.tsx` — Admin review queue: admin gate (ADMIN_USER_ID), summary stat badges (pending/auto_apply_pending/auto_applied/rejected), source+status filters, Tinder-style card navigation (prev/next), changes diff table, edit mode with inline text inputs, approve/reject/edit actions, bulk approve high-confidence, source link, auto-apply countdown
+- [x] `app/(tabs)/intelligence/deals.tsx` — Deal Passport: personalized "FOR YOUR WALLET" (transfer bonuses for held currencies, elevated signups for unheld cards) vs "OTHER DEALS" (collapsible), deal type filter chips, household member filter, urgency badges (days left), value-added display for transfer bonuses, source links, fallback demo data
+- [x] `app/(tabs)/settings/email-import.tsx` — Email Import setup: generate unique alias (u_8hex@in.cardscout.app), copy-to-clipboard with checkmark feedback, Gmail filter rule display + copy, 4-step setup instructions, import stats (received/applied/pending/last), regenerate with confirmation
+
+**Infrastructure:**
+- [x] `app/admin/_layout.tsx` — Stack navigator for admin screens
+- [x] `app/(tabs)/settings/_layout.tsx` — Stack navigator for settings sub-screens
+- [x] Updated `app/_layout.tsx` — added admin route to root Stack
+- [x] Updated `app/(tabs)/settings/index.tsx` — added DATA IMPORT section with "Email Forwarding" link
+- [x] Updated `lib/applicationTypes.ts` — added UserEmailAlias interface, added user_id to DataProposal
+
+**Notes for B8:**
+- Admin screen is gated by `EXPO_PUBLIC_ADMIN_USER_ID` env var — set this in `.env.local`. If empty, all users can access admin (dev mode).
+- SendGrid Inbound Parse needs MX record setup + webhook URL pointing to the `ingest-email` Edge Function. Document in USER_ACTION_ITEMS.md.
+- Deal passport has 5 fallback demo deals when Supabase is unreachable — covers transfer bonus, elevated signup, limited offer, community report types.
+- `usePersonalizedDeals` uses `useDeals()` internally — personalization runs client-side against user's balances + applications.
+- Pipeline cron schedules (DoC: Mon 6am PT, Reddit: daily 7am PT, auto-apply: hourly, summary: Sun 9pm PT) are configured in Supabase Dashboard → Edge Functions → Schedules. Not in code.
+- Rate limiting in `ingest-email` is in-memory (Map) — resets on cold start. Sufficient for V1.
+- Retention data proposals are NEVER auto-applied (enforced in both `auto-apply` and `ingest-email`).
+- Reddit proposals always get confidence 0.65 (always manual review per spec).
+- All new hooks have local fallback data for offline/demo usage.
+- Settings now has a `_layout.tsx` Stack navigator — future settings sub-screens auto-register.
+- 133 tests passing — zero regressions from B7.
+- TypeScript compiles clean for all B7 files (zero new errors, Deno Edge Function errors expected and pre-existing).
+- Web bundle exports clean — all 3 new routes compile and are included.
+
+### Next Phase: Phase 9-12 — Polish + Launch (Agent B8)
+See `agents/B8_POLISH_LAUNCH.md` for full task list.
+B8 depends on B7 completing (automation pipeline must be working).
 
 ---
 

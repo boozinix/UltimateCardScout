@@ -1,5 +1,5 @@
 # Progress Tracker
-Last updated: 2026-04-19 (B6 complete)
+Last updated: 2026-04-19 (B7 complete)
 
 ## Phase 0 — Design System
 - [x] Lock all design decisions (name, voice, accent, canvas, nav, components)
@@ -180,15 +180,24 @@ Last updated: 2026-04-19 (B6 complete)
 - [x] Pro gate: fee advisor = blurred overlay, spend optimizer = fully locked
 - [x] 133 tests passing — zero regressions
 
-### Phase 7+8 — Automation + Deals (Agent B7)
-- [ ] Edge Function: `ingest-doc` (weekly DoC scraper)
-- [ ] Edge Function: `ingest-reddit` (daily)
-- [ ] Edge Function: `ingest-email` (email forwarding)
-- [ ] Admin review screen (`/admin/proposals`)
-- [ ] Auto-apply cron (high confidence >0.9)
-- [ ] Weekly summary email
-- [ ] Deal passport screen (personalized feed)
-- [ ] Email import setup screen in Settings
+### Phase 7+8 — Automation + Deals (Agent B7) ✅ COMPLETE (2026-04-19)
+- [x] Edge Function: `ingest-doc` (weekly DoC scraper — GPT-4o-mini extraction, fuzzy match, confidence scoring)
+- [x] Edge Function: `ingest-reddit` (daily — r/CreditCards + r/churning, GPT classification, always manual review)
+- [x] Edge Function: `ingest-email` (SendGrid webhook, issuer domain whitelist, 20/hr rate limit, GPT classification)
+- [x] Edge Function: `auto-apply` (hourly cron, applies auto_apply_pending proposals, never auto-applies retention)
+- [x] Edge Function: `weekly-summary` (Sunday 9pm PT, Resend admin email with proposal stats)
+- [x] Admin review screen (`/admin/proposals` — Tinder-style, approve/reject/edit, bulk approve, source filters)
+- [x] Deal passport screen (personalized "for your wallet" vs "other", expiry countdown, transfer bonus value calc)
+- [x] Email import setup screen (`/(tabs)/settings/email-import` — alias generation, copy button, Gmail filter instructions, stats)
+- [x] Migration `003_email_aliases.sql` (user_email_aliases table + user_id on data_proposals)
+- [x] `hooks/useDataProposals.ts` — CRUD, approve/reject/edit/bulk, counts, source labels
+- [x] `hooks/useDealPassport.ts` — deals query, personalization engine, currency matching, fallback data
+- [x] `hooks/useEmailAlias.ts` — alias CRUD, regenerate, import stats
+- [x] Updated `lib/applicationTypes.ts` — UserEmailAlias type, user_id on DataProposal
+- [x] Settings screen updated with "Email Forwarding" link under DATA IMPORT section
+- [x] Admin route added to root _layout.tsx Stack
+- [x] Settings _layout.tsx Stack navigator for sub-screen routing
+- [x] 133 tests passing — zero regressions
 
 ### Phase 9-12 — Polish + Launch (Agent B8)
 - [ ] Onboarding v2 (value-first: card selection → instant value → auth)

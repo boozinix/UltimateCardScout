@@ -304,6 +304,14 @@ export interface DataProposal {
   reviewed_at: string | null;
   auto_apply_after: string | null;
   applied_at: string | null;
+  user_id: string | null; // null = global (DoC/Reddit), set = user-scoped (email)
+  created_at: string;
+}
+
+export interface UserEmailAlias {
+  id: string;
+  user_id: string;
+  alias: string;
   created_at: string;
 }
 

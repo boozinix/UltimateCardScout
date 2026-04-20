@@ -87,6 +87,7 @@ function RootLayout() {
               <Stack.Screen name="onboarding/index" />
               <Stack.Screen name="(auth)" />
               <Stack.Screen name="(tabs)" />
+              <Stack.Screen name="admin" />
             </Stack>
             <DevToggle />
           </GestureHandlerRootView>

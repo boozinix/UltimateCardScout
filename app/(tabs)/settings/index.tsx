@@ -140,6 +140,15 @@ export default function SettingsScreen() {
         </Pressable>
       </View>
 
+      {/* Data Import */}
+      <View style={styles.section}>
+        <Text style={styles.sectionLabel}>DATA IMPORT</Text>
+        <Pressable style={styles.row} onPress={() => router.push('/(tabs)/settings/email-import')}>
+          <Text style={styles.rowLabel}>Email Forwarding</Text>
+          <Text style={styles.rowSub}>Auto-import card emails from your issuers</Text>
+        </Pressable>
+      </View>
+
       {/* About */}
       <View style={styles.section}>
         <Text style={styles.sectionLabel}>ABOUT</Text>
