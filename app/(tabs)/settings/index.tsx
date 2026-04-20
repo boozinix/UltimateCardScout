@@ -8,6 +8,7 @@ import { supabase } from '@/lib/supabase';
 import { colors, spacing, fontSerif, fontSans, radius } from '@/lib/theme';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
+import { useTheme, type ThemeMode } from '@/contexts/ThemeContext';
 import { PaywallModal } from '@/components/PaywallModal';
 import { exportCalendar } from '@/utils/icsExport';
 import { requestNotificationPermissions, cancelAllReminderNotifications } from '@/utils/notifications';
@@ -19,6 +20,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { subscription, isPro, loading } = useSubscription();
   const { isDesktop } = useBreakpoint();
+  const { mode: themeMode, setMode: setThemeMode } = useTheme();
 
   const [showPaywall, setShowPaywall] = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(false);
@@ -126,6 +128,33 @@ export default function SettingsScreen() {
             <Text style={[styles.rowLabel, { color: colors.warn }]}>Cancels at period end</Text>
           </View>
         )}
+      </View>
+
+      {/* Appearance */}
+      <View style={styles.section}>
+        <Text style={styles.sectionLabel}>APPEARANCE</Text>
+        {(['light', 'dark', 'system'] as ThemeMode[]).map((m) => (
+          <Pressable
+            key={m}
+            style={[styles.row, styles.rowSwitch]}
+            onPress={() => setThemeMode(m)}
+          >
+            <Text style={styles.rowLabel}>
+              {m === 'light' ? 'Light' : m === 'dark' ? 'Dark' : 'System'}
+            </Text>
+            <View style={{
+              width: 20, height: 20, borderRadius: 10,
+              borderWidth: 2,
+              borderColor: themeMode === m ? colors.accent : colors.border,
+              backgroundColor: themeMode === m ? colors.accent : 'transparent',
+              alignItems: 'center', justifyContent: 'center',
+            }}>
+              {themeMode === m && (
+                <View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: '#fff' }} />
+              )}
+            </View>
+          </Pressable>
+        ))}
       </View>
 
       {/* Reminders */}

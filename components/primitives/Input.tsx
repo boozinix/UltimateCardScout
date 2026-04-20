@@ -47,9 +47,9 @@ export function Input({
     : 'default';
 
   return (
-    <View style={containerStyle}>
+    <View style={containerStyle} accessibilityRole="none">
       {label && (
-        <Text variant="label" color="muted" style={{ marginBottom: 6, fontSize: 11 }}>
+        <Text variant="label" color="muted" style={{ marginBottom: 6, fontSize: 11 }} accessibilityRole="text">
           {label}
         </Text>
       )}

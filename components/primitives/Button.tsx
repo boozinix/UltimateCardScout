@@ -58,6 +58,9 @@ export function Button({
         onPress();
       }}
       disabled={disabled || loading}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      accessibilityState={{ disabled: disabled || loading }}
       style={({ pressed, hovered }) => [
         {
           height: SIZE_HEIGHT[size],

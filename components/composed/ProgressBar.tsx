@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, ViewStyle } from 'react-native';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withSpring,
+} from 'react-native-reanimated';
 import { useTheme } from '@/contexts/ThemeContext';
-import { radius } from '@/lib/theme';
+import { radius, motion } from '@/lib/theme';
 import { Text } from '@/components/primitives/Text';
 
 interface Props {
@@ -24,6 +29,19 @@ export function ProgressBar({
   const { colors } = useTheme();
   const pct = total > 0 ? Math.min(current / total, 1) : 0;
 
+  const animatedWidth = useSharedValue(0);
+
+  useEffect(() => {
+    animatedWidth.value = withSpring(pct, {
+      damping: motion.progressBar.damping,
+      stiffness: motion.progressBar.stiffness,
+    });
+  }, [pct]);
+
+  const animStyle = useAnimatedStyle(() => ({
+    width: `${animatedWidth.value * 100}%` as any,
+  }));
+
   function getColor(): string {
     if (variant !== 'auto') {
       const map: Record<string, string> = {
@@ -41,7 +59,7 @@ export function ProgressBar({
   }
 
   return (
-    <View style={style}>
+    <View style={style} accessibilityRole="progressbar" accessibilityValue={{ min: 0, max: total, now: current }}>
       <View
         style={{
           height,
@@ -50,13 +68,15 @@ export function ProgressBar({
           overflow: 'hidden',
         }}
       >
-        <View
-          style={{
-            height: '100%',
-            width: `${pct * 100}%`,
-            backgroundColor: getColor(),
-            borderRadius: height / 2,
-          }}
+        <Animated.View
+          style={[
+            {
+              height: '100%',
+              backgroundColor: getColor(),
+              borderRadius: height / 2,
+            },
+            animStyle,
+          ]}
         />
       </View>
 

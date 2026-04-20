@@ -111,6 +111,16 @@ export const fontSans = {
 // The type of any colors object (light or dark)
 export type AppColors = typeof lightColors;
 
+// ─── MOTION TOKENS ──────────────────────────────────────────────────────────
+export const motion = {
+  tabSwitch:   { duration: 150, easing: 'ease-out' },
+  screenPush:  { duration: 250, easing: 'ease-in-out' },
+  modalSpring: { damping: 20, stiffness: 300 },
+  progressBar: { duration: 400, damping: 15, stiffness: 120 },
+  countUp:     { duration: 600, easing: 'ease-out' },
+  cardTilt:    { damping: 12, stiffness: 200 },
+} as const;
+
 // ─── HELPERS ─────────────────────────────────────────────────────────────────
 export type GradientKey = keyof typeof lightColors.gradients;
 

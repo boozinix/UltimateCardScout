@@ -91,6 +91,8 @@ export function ListItem({
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         onPress();
       }}
+      accessibilityRole="button"
+      accessibilityLabel={title}
       style={({ pressed, hovered }) => ({
         opacity: pressed ? 0.7 : 1,
         backgroundColor: (hovered as boolean) ? colors.sidebar : 'transparent',
