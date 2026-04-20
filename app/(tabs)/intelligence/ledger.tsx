@@ -5,6 +5,7 @@ import { Plus, FileUp, FileText } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { spacing, radius, fontSans, fontSerif } from '@/lib/theme';
 import { Text } from '@/components/primitives/Text';
 import { Badge } from '@/components/primitives/Badge';
@@ -40,6 +41,7 @@ export default function LedgerScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { colors } = useTheme();
+  const { isDesktop } = useBreakpoint();
   const { data: apps, isLoading } = useApplications();
   const { data: members } = useHousehold();
 
@@ -176,7 +178,10 @@ export default function LedgerScreen() {
         data={filtered}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{ padding: spacing.screen, paddingBottom: 100 }}
+        contentContainerStyle={[
+          { padding: spacing.screen, paddingBottom: 100 },
+          isDesktop && { maxWidth: 1200, alignSelf: 'center' as const, width: '100%' as any },
+        ]}
         ListEmptyComponent={
           !isLoading ? (
             <EmptyState

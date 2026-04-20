@@ -192,7 +192,15 @@ export default function LoginScreen() {
           <Text style={styles.guestLabel}>Explore without an account →</Text>
         </Pressable>
 
-        <Text style={styles.legal}>By continuing, you agree to our Terms of Service and Privacy Policy.</Text>
+        <Text style={styles.legal}>
+          By continuing, you agree to our{' '}
+          <Text style={styles.legalLink} onPress={() => Linking.openURL('https://cardscout.app/terms')}>
+            Terms of Service
+          </Text>{' '}and{' '}
+          <Text style={styles.legalLink} onPress={() => Linking.openURL('https://cardscout.app/privacy')}>
+            Privacy Policy
+          </Text>.
+        </Text>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -237,6 +245,7 @@ const styles = StyleSheet.create({
   },
   submitLabel: { fontFamily: fontSans.semiBold, fontSize: 12, color: '#FFFFFF', letterSpacing: 1.5 },
   legal: { fontFamily: fontSans.regular, fontSize: 11, color: colors.muted, textAlign: 'center', lineHeight: 16 },
+  legalLink: { color: colors.accent, textDecorationLine: 'underline' },
   guestBtn: { alignItems: 'center', paddingVertical: 16, marginBottom: 16 },
   guestLabel: { fontFamily: fontSans.medium, fontSize: 13, color: colors.accent },
 });

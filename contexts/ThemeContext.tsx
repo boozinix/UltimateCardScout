@@ -7,16 +7,18 @@
  * Mode options:
  *   'system' — follows OS preference (default)
  *   'light'  — always light
- *   'dark'   — always dark (UI toggle added later)
+ *   'dark'   — always dark
  *
- * NOTE: Preference is in-memory only for now.
- * TODO: Persist to AsyncStorage or Supabase user prefs when user settings UI is built.
+ * Preference persisted to AsyncStorage.
  */
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lightColors, darkColors, AppColors } from '@/lib/theme';
 
 export type ThemeMode = 'system' | 'light' | 'dark';
+
+const THEME_KEY = 'cardscout_theme_mode';
 
 interface ThemeContextValue {
   isDark: boolean;
@@ -34,7 +36,22 @@ const ThemeContext = createContext<ThemeContextValue>({
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const systemScheme = useColorScheme(); // 'light' | 'dark' | null
-  const [mode, setMode] = useState<ThemeMode>('system');
+  const [mode, setModeState] = useState<ThemeMode>('system');
+
+  // Load persisted preference on mount
+  useEffect(() => {
+    AsyncStorage.getItem(THEME_KEY).then((saved) => {
+      if (saved === 'light' || saved === 'dark' || saved === 'system') {
+        setModeState(saved);
+      }
+    }).catch(() => {});
+  }, []);
+
+  // Persist on change
+  const setMode = (newMode: ThemeMode) => {
+    setModeState(newMode);
+    AsyncStorage.setItem(THEME_KEY, newMode).catch(() => {});
+  };
 
   const isDark =
     mode === 'dark' ? true

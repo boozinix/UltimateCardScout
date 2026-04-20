@@ -197,6 +197,12 @@ export default function SettingsScreen() {
         >
           <Text style={styles.rowLabel}>Send Feedback</Text>
         </Pressable>
+        <Pressable style={styles.row} onPress={() => Linking.openURL('https://cardscout.app/privacy')}>
+          <Text style={styles.rowLabel}>Privacy Policy</Text>
+        </Pressable>
+        <Pressable style={styles.row} onPress={() => Linking.openURL('https://cardscout.app/terms')}>
+          <Text style={styles.rowLabel}>Terms of Service</Text>
+        </Pressable>
       </View>
 
       <PaywallModal visible={showPaywall} onClose={() => setShowPaywall(false)} feature="Calendar export" />

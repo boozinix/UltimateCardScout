@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { CreditCard, Plus, BarChart3, ChevronRight } from 'lucide-react-native';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { supabase } from '@/lib/supabase';
 import { FREE_CARD_LIMIT } from '@/lib/subscription';
 import { useFeatureGate } from '@/hooks/useSubscription';
@@ -30,6 +31,7 @@ type UserCard = {
 export default function VaultScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { isDesktop } = useBreakpoint();
   const queryClient = useQueryClient();
   const [showPaywall, setShowPaywall] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -105,7 +107,12 @@ export default function VaultScreen() {
         <FlatList
           data={userCards}
           keyExtractor={(c) => c.id}
-          contentContainerStyle={styles.listContent}
+          numColumns={isDesktop ? 2 : 1}
+          key={isDesktop ? 'desktop-2col' : 'mobile-1col'}
+          contentContainerStyle={[
+            styles.listContent,
+            isDesktop && { maxWidth: 1200, alignSelf: 'center' as const, width: '100%' as any },
+          ]}
           showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />

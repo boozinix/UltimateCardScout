@@ -5,6 +5,7 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { colors, spacing, radius, fontSerif, fontSans } from '@/lib/theme';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { useCards } from '@/hooks/useCards';
 import { scoreCard, getNarrativeOneliner, getScoreBreakdown, type Answers } from '@/lib/scoring';
 import { CardTile } from '@/components/CardTile';
@@ -14,6 +15,7 @@ const FILTERS = ['All', 'Personal', 'Business', 'No fee', 'Travel', 'Cashback'];
 export default function ResultsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
+  const { isDesktop } = useBreakpoint();
   const { answers: answersParam } = useLocalSearchParams<{ answers: string }>();
   const [activeFilter, setActiveFilter] = useState('All');
 
@@ -112,7 +114,10 @@ export default function ResultsScreen() {
         <FlatList
           data={filtered}
           keyExtractor={(r) => r.card.card_name + r.card.issuer}
-          contentContainerStyle={styles.listContent}
+          contentContainerStyle={[
+            styles.listContent,
+            isDesktop && { maxWidth: 1200, alignSelf: 'center' as const, width: '100%' as any },
+          ]}
           showsVerticalScrollIndicator={false}
           renderItem={({ item, index }) => (
             <CardTile
