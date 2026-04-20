@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import { supabase } from '@/lib/supabase';
 import { colors, spacing, fontSerif, fontSans, radius } from '@/lib/theme';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { PaywallModal } from '@/components/PaywallModal';
 import { exportCalendar } from '@/utils/icsExport';
 import { requestNotificationPermissions, cancelAllReminderNotifications } from '@/utils/notifications';
@@ -17,6 +18,7 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { subscription, isPro, loading } = useSubscription();
+  const { isDesktop } = useBreakpoint();
 
   const [showPaywall, setShowPaywall] = useState(false);
   const [notifEnabled, setNotifEnabled] = useState(false);
@@ -70,7 +72,11 @@ export default function SettingsScreen() {
   return (
     <ScrollView
       style={styles.bg}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + spacing.lg, paddingBottom: insets.bottom + spacing.xl }]}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: insets.top + spacing.lg, paddingBottom: insets.bottom + spacing.xl },
+        isDesktop && { maxWidth: 600, alignSelf: 'center' as const, width: '100%' as any },
+      ]}
     >
       <Text style={styles.heading}>Settings</Text>
 

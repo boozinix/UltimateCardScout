@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ScrollView, View, StyleSheet } from 'react-native';
 import { Zap, Lock } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { Text } from '@/components/primitives/Text';
 import { Badge } from '@/components/primitives/Badge';

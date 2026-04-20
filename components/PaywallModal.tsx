@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Pressable, StyleSheet, Modal, ScrollView } from 'react-native';
 import { spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { impactMedium } from '@/utils/haptics';
 import { createCheckoutSession, PRICING_MONTHLY_USD, PRICING_ANNUAL_USD } from '@/lib/subscription';
 import { capture, Events } from '@/lib/analytics';
@@ -30,7 +31,8 @@ const ANNUAL_SAVINGS_PCT = Math.round(
 
 export function PaywallModal({ visible, onClose, feature }: PaywallModalProps) {
   const { colors } = useTheme();
-  const s = makeStyles(colors);
+  const { isDesktop } = useBreakpoint();
+  const s = makeStyles(colors, isDesktop);
 
   React.useEffect(() => {
     if (visible) capture(Events.PAYWALL_VIEWED, { trigger: feature });
@@ -48,10 +50,10 @@ export function PaywallModal({ visible, onClose, feature }: PaywallModalProps) {
   };
 
   return (
-    <Modal visible={visible} animationType="slide" transparent presentationStyle="overFullScreen">
-      <View style={s.overlay}>
-        <View style={s.sheet}>
-          <View style={s.handle} />
+    <Modal visible={visible} animationType={isDesktop ? 'fade' : 'slide'} transparent presentationStyle="overFullScreen">
+      <Pressable style={s.overlay} onPress={isDesktop ? onClose : undefined}>
+        <Pressable style={s.sheet} onPress={(e) => e.stopPropagation()}>
+          {!isDesktop && <View style={s.handle} />}
 
           <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={s.eyebrow}>CARDSCOUT PRO</Text>
@@ -91,27 +93,32 @@ export function PaywallModal({ visible, onClose, feature }: PaywallModalProps) {
           <Pressable style={s.closeBtn} onPress={onClose} hitSlop={12}>
             <Text style={s.closeBtnText}>Not now</Text>
           </Pressable>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 }
 
-function makeStyles(colors: ReturnType<typeof useTheme>['colors']) {
+function makeStyles(colors: ReturnType<typeof useTheme>['colors'], isDesktop: boolean) {
   return StyleSheet.create({
     overlay: {
       flex: 1,
       backgroundColor: 'rgba(0,0,0,0.5)',
-      justifyContent: 'flex-end',
+      justifyContent: isDesktop ? 'center' : 'flex-end',
+      alignItems: isDesktop ? 'center' : 'stretch',
     },
     sheet: {
       backgroundColor: colors.surface,
       borderTopLeftRadius: 24,
       borderTopRightRadius: 24,
+      borderBottomLeftRadius: isDesktop ? 24 : 0,
+      borderBottomRightRadius: isDesktop ? 24 : 0,
       paddingHorizontal: spacing.screen,
-      paddingTop: spacing.sm,
+      paddingTop: isDesktop ? spacing.lg : spacing.sm,
       paddingBottom: spacing.xl,
-      maxHeight: '90%',
+      maxHeight: isDesktop ? '80%' : '90%',
+      maxWidth: isDesktop ? 500 : undefined,
+      width: isDesktop ? '100%' : undefined,
     },
     handle: {
       width: 40, height: 4,

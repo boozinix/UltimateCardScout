@@ -4,6 +4,7 @@ import { Compass, Wallet, TrendingUp, Settings, BarChart3 } from 'lucide-react-n
 import { spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useBreakpoint } from '@/hooks/useBreakpoint';
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts';
 
 const NAV_ITEMS = [
   { name: 'discover',      label: 'Discover',      Icon: Compass    },
@@ -66,6 +67,7 @@ export default function TabsLayout() {
   const { isDesktop } = useBreakpoint();
   const { colors } = useTheme();
   const s = makeStyles(colors);
+  useKeyboardShortcuts();
 
   if (isDesktop) {
     return (

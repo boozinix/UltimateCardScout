@@ -58,7 +58,7 @@ export function Button({
         onPress();
       }}
       disabled={disabled || loading}
-      style={({ pressed }) => [
+      style={({ pressed, hovered }) => [
         {
           height: SIZE_HEIGHT[size],
           paddingHorizontal: SIZE_PX[size],
@@ -70,9 +70,10 @@ export function Button({
           gap: 8,
           borderWidth: v.border ? 1 : 0,
           borderColor: v.border,
-          opacity: pressed || disabled ? 0.5 : 1,
+          opacity: pressed || disabled ? 0.5 : (hovered as boolean) ? 0.85 : 1,
           alignSelf: fullWidth ? 'stretch' : 'flex-start',
-        },
+          cursor: disabled ? 'not-allowed' : 'pointer',
+        } as any,
         style,
       ]}
     >

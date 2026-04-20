@@ -91,7 +91,11 @@ export function ListItem({
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
         onPress();
       }}
-      style={({ pressed }) => ({ opacity: pressed ? 0.7 : 1 })}
+      style={({ pressed, hovered }) => ({
+        opacity: pressed ? 0.7 : 1,
+        backgroundColor: (hovered as boolean) ? colors.sidebar : 'transparent',
+        borderRadius: radius.md,
+      } as any)}
     >
       {content}
     </Pressable>

@@ -5,6 +5,7 @@ import {
 } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 import { spacing, radius, fontSerif, fontSans } from '@/lib/theme';
 import { Text } from '@/components/primitives/Text';
 import { Button } from '@/components/primitives/Button';
@@ -37,6 +38,7 @@ const RANK_MEDALS = ['\uD83E\uDD47', '\uD83E\uDD48', '\uD83E\uDD49'];
 
 export default function SpendOptimizerScreen() {
   const { colors } = useTheme();
+  const { isDesktop } = useBreakpoint();
   const { isPro } = useSubscription();
   const { data: apps = [] } = useApplications();
   const { data: members = [] } = useHousehold();
