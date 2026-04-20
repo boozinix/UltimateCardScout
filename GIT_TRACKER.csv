@@ -12,3 +12,4 @@ save_number,datetime,branch,commit_hash,changes_summary
 11,2026-04-19 20:30,main,0bc8696,B8 Chunk 4: Launch prep — USER_ACTION_ITEMS updated (Edge Functions + cron + SendGrid + App Store); all trackers finalized; all 8 build agents complete
 12,2026-04-19 20:35,main,b771fe3,QA5 pre-launch report: 0 regressions; 1 Sev 1 (user action) + 5 Sev 2 issues; 4 Sev 3; 133 tests passing
 13,2026-04-19 20:40,main,6efe67a,Fix 5 QA5 Sev 2 issues: desktop layouts (ledger+results+portfolio); theme persistence (AsyncStorage); privacy/terms clickable links
+14,2026-04-20 00:00,main,429a797,Bug fixes: Supabase card normalization (useCards); quiz capped to 2 priorities; results filter pills fixed; sidebar light theme; household modal dismiss + skip auth; redesign specs (3 files) + launch checklist

@@ -170,6 +170,8 @@ const styles = StyleSheet.create({
     color: colors.muted,
   },
   filters: {
+    flexGrow: 0,
+    flexShrink: 0,
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
   },

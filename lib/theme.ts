@@ -8,7 +8,7 @@
 // ─── LIGHT THEME ────────────────────────────────────────────────────────────
 export const lightColors = {
   bg:       '#FAFAF9',
-  sidebar:  '#F2EFE9',
+  sidebar:  '#F8F7F5',
   surface:  '#FFFFFF',
   border:   '#E2DDD6',
   text:     '#1C1917',

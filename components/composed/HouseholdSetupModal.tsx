@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Modal, Pressable, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
-import { Users, User } from 'lucide-react-native';
+import { Users, User, X } from 'lucide-react-native';
 import * as Haptics from 'expo-haptics';
 import { useTheme } from '@/contexts/ThemeContext';
 import { spacing, radius, fontSerif } from '@/lib/theme';
@@ -43,25 +43,30 @@ export function HouseholdSetupModal({ visible, onDismiss }: Props) {
     setSaving(true);
     try {
       const primaryName = name1.trim() || DEFAULT_MEMBER_NAMES[0];
-      await createMember.mutateAsync({ name: primaryName, role: 'primary' });
-
-      if (includePartner) {
-        const partnerName = name2.trim() || DEFAULT_MEMBER_NAMES[1];
-        await createMember.mutateAsync({ name: partnerName, role: 'partner' });
+      try {
+        await createMember.mutateAsync({ name: primaryName, role: 'primary' });
+        if (includePartner) {
+          const partnerName = name2.trim() || DEFAULT_MEMBER_NAMES[1];
+          await createMember.mutateAsync({ name: partnerName, role: 'partner' });
+        }
+      } catch {
+        // Not authenticated — skip DB write, still mark setup complete locally
       }
 
       await markComplete.mutateAsync();
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       onDismiss();
     } catch {
-      // Hook errors bubble via React Query — just re-enable
+      // Fallback — force dismiss so user isn't stuck
+      await markComplete.mutateAsync();
+      onDismiss();
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <Modal visible={visible} transparent animationType="fade">
+    <Modal visible={visible} transparent animationType="fade" onRequestClose={onDismiss}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{
@@ -72,7 +77,31 @@ export function HouseholdSetupModal({ visible, onDismiss }: Props) {
           padding: spacing.lg,
         }}
       >
+        {/* Backdrop press to dismiss */}
+        <Pressable
+          style={StyleSheet.absoluteFill}
+          onPress={onDismiss}
+        />
         <Surface variant="card" padding="lg" radius="lg" border style={{ width: '100%', maxWidth: 400 }}>
+          {/* Close button */}
+          <Pressable
+            onPress={onDismiss}
+            hitSlop={8}
+            style={{
+              position: 'absolute',
+              top: 12,
+              right: 12,
+              zIndex: 1,
+              width: 32,
+              height: 32,
+              borderRadius: 16,
+              backgroundColor: colors.surfaceAlt ?? colors.surface,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <X size={16} color={colors.muted} strokeWidth={2} />
+          </Pressable>
           <View style={{ alignItems: 'center', marginBottom: spacing.lg }}>
             <View
               style={{

@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { ScrollView, View, Pressable, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useRouter, useFocusEffect } from 'expo-router';
 import {
   FileText, Zap, PieChart, CalendarClock,
   CreditCard, Ticket, Lock, Plus,
@@ -82,10 +82,19 @@ export default function IntelligenceHubScreen() {
   const { data: apps, isLoading } = useApplications();
   const { data: setupComplete } = useHouseholdSetupComplete();
 
-  const [showHouseholdSetup, setShowHouseholdSetup] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
+  const [isFocused, setIsFocused] = useState(true);
+
+  // Hide the modal whenever the user navigates away from this tab
+  useFocusEffect(
+    useCallback(() => {
+      setIsFocused(true);
+      return () => setIsFocused(false);
+    }, [])
+  );
 
   // Show household modal on first visit if not complete
-  const shouldShowSetup = setupComplete === false;
+  const shouldShowSetup = setupComplete === false && !dismissed && isFocused;
 
   const { data: portfolio } = usePortfolioTotal();
 
@@ -234,8 +243,8 @@ export default function IntelligenceHubScreen() {
 
       {/* Household setup modal — first visit */}
       <HouseholdSetupModal
-        visible={shouldShowSetup && !showHouseholdSetup}
-        onDismiss={() => setShowHouseholdSetup(true)}
+        visible={shouldShowSetup}
+        onDismiss={() => setDismissed(true)}
       />
     </>
   );

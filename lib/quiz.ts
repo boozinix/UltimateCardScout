@@ -14,7 +14,8 @@ export type WizardQuestion = {
 export const wizardQuestions: WizardQuestion[] = [
   {
     id: 'primary_goal',
-    question: 'Rank what you want this card to be best at',
+    question: 'What matters most to you in a card?',
+    helper: 'Pick your top 2 priorities — we\'ll use them to find your best match.',
     type: 'ranked',
     options: [
       { value: 'Cashback', label: '💰 Cashback' },

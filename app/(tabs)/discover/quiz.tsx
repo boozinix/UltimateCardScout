@@ -23,8 +23,9 @@ export default function QuizScreen() {
   const isRanked = question.type === 'ranked';
   const isLast = step === total - 1;
 
+  const REQUIRED_RANKS = 2;
   const canAdvance = isRanked
-    ? rankedOrder.length === question.options.length
+    ? rankedOrder.length === REQUIRED_RANKS
     : answers[question.id] !== undefined;
 
   const handleRankedTap = async (value: string) => {
@@ -34,6 +35,8 @@ export default function QuizScreen() {
         // Deselect — remove from list
         return prev.filter((v) => v !== value);
       }
+      // Cap at 2 selections
+      if (prev.length >= REQUIRED_RANKS) return prev;
       return [...prev, value];
     });
   };
@@ -104,7 +107,7 @@ export default function QuizScreen() {
         ) : null}
         {isRanked && (
           <Text style={styles.rankHint}>
-            Tap in order of priority (1st most important → 4th)
+            Tap your #1 priority first, then your #2
           </Text>
         )}
 
