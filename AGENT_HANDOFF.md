@@ -312,7 +312,7 @@ RESEND_API_KEY=
 
 ---
 
-## Current Phase: Phase 7+8 — COMPLETE (Agent B7)
+## Current Phase: Phase 9-12 — COMPLETE (Agent B8) — ALL BUILD AGENTS DONE
 
 ### Phase 0 Tasks (all done)
 - [x] Replace Concierge tab → deleted entirely, 4 tabs: Discover, Vault, Intelligence, Settings
@@ -553,6 +553,20 @@ RESEND_API_KEY=
 - [x] Updated `app/(tabs)/settings/index.tsx` — added DATA IMPORT section
 - [x] `app/admin/_layout.tsx` + `app/(tabs)/settings/_layout.tsx` — Stack navigators
 - [x] Updated `app/_layout.tsx` — admin route in root Stack
+- [x] `app/onboarding/index.tsx` — v2: 5-screen value-first flow (card select → value reveal → auth → notifications → Pro upsell)
+- [x] `components/composed/DesktopContainer.tsx` — 1200px max-width wrapper
+- [x] `components/composed/TwoColumn.tsx` — two-column desktop layout
+- [x] `components/composed/CardArt.tsx` — issuer gradient card art (3 sizes)
+- [x] `hooks/useKeyboardShortcuts.ts` — web keyboard shortcuts (?/n/1-4)
+- [x] Updated `components/PaywallModal.tsx` — centered dialog on desktop
+- [x] Updated `components/primitives/Button.tsx` — hover state + accessibility
+- [x] Updated `components/composed/ListItem.tsx` — hover state + accessibility
+- [x] Updated `components/composed/ProgressBar.tsx` — Reanimated spring animation + a11y
+- [x] Updated `components/composed/StatCard.tsx` — fade-in animation + a11y
+- [x] Updated `components/primitives/Input.tsx` — accessibility roles
+- [x] Updated `app/(tabs)/settings/index.tsx` — dark mode toggle + 600px centered desktop
+- [x] Updated `lib/theme.ts` — motion tokens
+- [x] Updated `USER_ACTION_ITEMS.md` — Edge Function deploy, cron schedules, SendGrid, App Store metadata
 
 **Notes for B7:**
 - Fee advisor uses `annual_fee_next_due` from Application type — user should set this in the add/edit form
@@ -609,9 +623,53 @@ RESEND_API_KEY=
 - TypeScript compiles clean for all B7 files (zero new errors, Deno Edge Function errors expected and pre-existing).
 - Web bundle exports clean — all 3 new routes compile and are included.
 
-### Next Phase: Phase 9-12 — Polish + Launch (Agent B8)
-See `agents/B8_POLISH_LAUNCH.md` for full task list.
-B8 depends on B7 completing (automation pipeline must be working).
+### Phase 9-12 — Polish + Launch (Agent B8) — COMPLETE (2026-04-19)
+
+**Onboarding v2 (Chunk 1):**
+- [x] `app/onboarding/index.tsx` — replaced 3-slide carousel with 5-screen value-first flow:
+  - Screen 1: Card selection grid (top 20 cards, search, multi-select, mini card art, haptics)
+  - Screen 2: WealthRing value reveal (per-card breakdown, estimated annual value, category segments)
+  - Screen 3: Auth (Apple Sign-In, Google Sign-In, magic link — reuses existing auth logic)
+  - Screen 4: Notification permission request
+  - Screen 5: Pro upsell (conditional — only shows if 3+ cards selected, annual/monthly toggle)
+  - Smart flow: skips value reveal if no cards selected, skips Pro upsell if < 3 cards
+
+**Desktop Layouts (Chunk 2):**
+- [x] `components/composed/DesktopContainer.tsx` — 1200px max-width centered wrapper (no-op on mobile)
+- [x] `components/composed/TwoColumn.tsx` — fixed sidebar + flex content (stacks vertically on mobile)
+- [x] PaywallModal: centered dialog with backdrop dismiss on desktop, bottom sheet on mobile
+- [x] Button hover: opacity 0.85 via Pressable hovered callback
+- [x] ListItem hover: sidebar background highlight
+- [x] `hooks/useKeyboardShortcuts.ts` — web-only: ? help, / focus search, n new app, 1-4 tab switch
+- [x] Keyboard shortcuts wired into `app/(tabs)/_layout.tsx`
+- [x] Settings: 600px max-width centered on desktop
+
+**Visual Polish (Chunk 3):**
+- [x] `components/composed/CardArt.tsx` — issuer gradient background (from theme), EMV chip, network badge (Visa/MC/Amex/Discover), 3 sizes (sm/md/lg), standard card ratio
+- [x] `components/composed/ProgressBar.tsx` — Reanimated spring animation on fill (damping: 15, stiffness: 120)
+- [x] `components/composed/StatCard.tsx` — fade-in animation on value change (600ms ease-out)
+- [x] `lib/theme.ts` — motion tokens: tabSwitch, screenPush, modalSpring, progressBar, countUp, cardTilt
+- [x] Dark mode toggle in Settings: Light / Dark / System radio buttons, wired to ThemeContext.setMode()
+- [x] Accessibility: Button (role+label+state), ListItem (role+label), ProgressBar (progressbar role+value), StatCard (summary role+label), Input (role), CardArt (label)
+
+**Launch Prep (Chunk 4):**
+- [x] DevToggle verified DEV-only (`if (!__DEV__) return null`)
+- [x] `USER_ACTION_ITEMS.md` updated with: all 9 Edge Function deploy commands, cron schedule configs, SendGrid Inbound Parse setup, App Store metadata, pre-launch checklist
+- [x] All trackers updated
+
+**Notes for QA5:**
+- Onboarding uses `useCards()` which falls back to CSV — works offline/demo
+- Value estimation is approximate (uses `estimated_bonus_value_usd`, `cashback_rate_effective`, lounge/GE credits)
+- CardArt uses `expo-linear-gradient` for issuer gradients
+- Keyboard shortcuts only fire on web (Platform.OS !== 'web' → early return), ignore input fields
+- Dark mode toggle updates in-memory only for now (no AsyncStorage persistence yet)
+- Reanimated animations work on web via `react-native-reanimated` web support
+- All 133 tests passing — zero regressions
+- TypeScript compiles clean for all B8 files
+- Web bundle exports clean — all routes compile
+
+### Next Step: QA5 (Pre-Launch Full Regression)
+All 8 build agents (B1-B8) are complete. Run QA5 for full regression testing before App Store submission.
 
 ---
 

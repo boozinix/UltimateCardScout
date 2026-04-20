@@ -1,5 +1,5 @@
 # Progress Tracker
-Last updated: 2026-04-19 (B7 complete)
+Last updated: 2026-04-19 (B8 complete — all build agents done)
 
 ## Phase 0 — Design System
 - [x] Lock all design decisions (name, voice, accent, canvas, nav, components)
@@ -199,16 +199,23 @@ Last updated: 2026-04-19 (B7 complete)
 - [x] Settings _layout.tsx Stack navigator for sub-screen routing
 - [x] 133 tests passing — zero regressions
 
-### Phase 9-12 — Polish + Launch (Agent B8)
-- [ ] Onboarding v2 (value-first: card selection → instant value → auth)
-- [ ] Desktop layouts (two-column for all screens)
-- [ ] PaywallModal → centered dialog on desktop
-- [ ] Hover states + keyboard shortcuts
-- [ ] Card art (per-issuer gradients)
-- [ ] Animations (Reanimated 3)
-- [ ] Dark mode toggle (V2)
-- [ ] Accessibility pass
-- [ ] App Store / Play Store submission
+### Phase 9-12 — Polish + Launch (Agent B8) ✅ COMPLETE (2026-04-19)
+- [x] Onboarding v2 (5-screen value-first: card selection grid → WealthRing value reveal → auth → notifications → conditional Pro upsell)
+- [x] Desktop layout components (DesktopContainer 1200px max-width, TwoColumn sidebar+content)
+- [x] PaywallModal → centered dialog with backdrop dismiss on desktop
+- [x] Hover states (Button opacity, ListItem background highlight via Pressable hovered callback)
+- [x] Keyboard shortcuts (web: ? help, / search, n new app, 1-4 tabs)
+- [x] Settings narrow centered (600px max on desktop)
+- [x] CardArt component (issuer gradients, chip, network badge, 3 sizes: sm/md/lg)
+- [x] Reanimated spring ProgressBar fill animation
+- [x] StatCard fade-in animation on value change
+- [x] Motion tokens in lib/theme.ts (tabSwitch, screenPush, modalSpring, progressBar, countUp, cardTilt)
+- [x] Dark mode toggle in Settings (Light / Dark / System — radio buttons)
+- [x] Accessibility: Button role+label+state, ListItem role+label, ProgressBar progressbar role+value, StatCard summary role+label, Input role
+- [x] DevToggle verified DEV-only (`__DEV__` gated)
+- [x] USER_ACTION_ITEMS.md updated with: Edge Function deployment, cron schedules, SendGrid Inbound Parse, App Store metadata, pre-launch checklist
+- [x] App Store submission = user action item (EAS build + submit commands documented)
+- [x] 133 tests passing — zero regressions
 
 ---
 

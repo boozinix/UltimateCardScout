@@ -1,5 +1,5 @@
 # User Action Items — CardScout UnifiedApp
-Last updated: 2026-04-18
+Last updated: 2026-04-19
 
 These are tasks only YOU can complete. No AI agent can do these for you.
 Once each item is done, update its status and resume AI coding work.
@@ -90,20 +90,57 @@ Once each item is done, update its status and resume AI coding work.
 
 ---
 
-## 7. Deploy Supabase Edge Functions (required for: AI extraction, Stripe, emails, Concierge)
+## 7. Deploy Supabase Edge Functions (required for: AI extraction, Stripe, emails, automation)
 
 After all secrets are set:
 - [ ] Install Supabase CLI: `npm install -g supabase`
 - [ ] Login: `supabase login`
 - [ ] Link to your project: `supabase link --project-ref your-project-ref`
+- [ ] Run migrations: `supabase db push` (applies 001, 002, 003)
+- [ ] Run seed files:
+  ```bash
+  supabase db execute --file supabase/seed-points-valuations.sql
+  supabase db execute --file supabase/seed-retention-scripts.sql
+  supabase db execute --file supabase/seed-downgrade-paths.sql
+  supabase db execute --file supabase/seed-card-categories.sql
+  ```
 - [ ] Deploy all functions:
   ```bash
   supabase functions deploy scrape-card
   supabase functions deploy create-checkout
   supabase functions deploy stripe-webhook
   supabase functions deploy send-email
-  # (ask-concierge will be added by AI agent — deploy it once coded)
+  supabase functions deploy ingest-doc
+  supabase functions deploy ingest-reddit
+  supabase functions deploy ingest-email
+  supabase functions deploy auto-apply
+  supabase functions deploy weekly-summary
   ```
+- [ ] Set Edge Function secrets:
+  ```
+  OPENAI_API_KEY=sk-...
+  RESEND_API_KEY=re_...
+  ADMIN_EMAIL=your-email@example.com
+  APP_URL=https://cardscout.app
+  ADMIN_USER_ID=your-supabase-user-id
+  ```
+- [ ] Configure cron schedules in Supabase Dashboard → Edge Functions:
+  - `ingest-doc`: Monday 6:00 AM PT (`0 13 * * 1` UTC)
+  - `ingest-reddit`: Daily 7:00 AM PT (`0 14 * * *` UTC)
+  - `auto-apply`: Hourly (`0 * * * *`)
+  - `weekly-summary`: Sunday 9:00 PM PT (`0 4 * * 1` UTC — Monday 4 AM UTC)
+
+---
+
+## 7b. SendGrid Inbound Parse (required for: email forwarding feature)
+
+- [ ] Sign up for SendGrid at https://sendgrid.com
+- [ ] Set up Inbound Parse: Settings → Inbound Parse → Add Host & URL
+  - Hostname: `in.cardscout.app`
+  - URL: `https://your-project.supabase.co/functions/v1/ingest-email`
+- [ ] Add MX record to your DNS for `in.cardscout.app`:
+  - Type: MX, Host: `in`, Value: `mx.sendgrid.net`, Priority: 10
+- [ ] Test by forwarding a credit card email to a generated alias
 
 ---
 
@@ -134,6 +171,40 @@ After all secrets are set:
 - [ ] Add all `EXPO_PUBLIC_*` env vars in Vercel dashboard → Project Settings → Environment Variables
 - [ ] Add your Vercel URL to Supabase allowed redirect URLs
 - [ ] Add your Vercel URL as Stripe webhook endpoint
+
+---
+
+## 11. App Store Metadata (required for: App Store / Play Store submission)
+
+- [ ] App name: "CardScout"
+- [ ] Subtitle: "Credit Card Intelligence"
+- [ ] Description: Focus on value prop — replaces churner's spreadsheet, tracks velocity/5/24, catches fee deadlines, optimizes spend
+- [ ] Keywords: credit card tracker, churning, 5/24, rewards optimizer, credit card manager
+- [ ] Screenshots needed (capture from running app):
+  - 6.7" iPhone 15 Pro Max
+  - 6.1" iPhone 15
+  - iPad
+  - Android phone
+  - Show: Velocity Dashboard, Points Portfolio, Spend Optimizer, Fee Advisor
+- [ ] Privacy policy page on cardscout.app (required by Apple/Google)
+- [ ] Data collection disclosure: email, card data (manually entered), analytics
+- [ ] No third-party data sharing, no Plaid, no bank credentials
+
+---
+
+## 12. Pre-Launch Checklist
+
+- [ ] All `EXPO_PUBLIC_*` env vars set for production
+- [ ] Sentry DSN configured: `EXPO_PUBLIC_SENTRY_DSN=...`
+- [ ] PostHog key configured for production
+- [ ] Stripe products in LIVE mode (not test)
+- [ ] `ADMIN_USER_ID` set to your Supabase user ID
+- [ ] Run QA5 agent (full regression)
+- [ ] Verify DevToggle is invisible in production build (it is — `__DEV__` gated)
+- [ ] `eas build --platform ios --profile production`
+- [ ] `eas build --platform android --profile production`
+- [ ] `eas submit --platform ios --latest`
+- [ ] `eas submit --platform android --latest`
 
 ---
 
