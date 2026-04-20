@@ -18,7 +18,7 @@ const STALE_MS = 5 * 60 * 1000;
 // Fetch server-side CPP valuations (fallback to local constants)
 // ============================================================
 
-function useValuations() {
+export function useValuations() {
   return useQuery({
     queryKey: [...VALUATIONS_KEY],
     queryFn: async (): Promise<Record<string, number>> => {
@@ -42,7 +42,7 @@ function useValuations() {
 }
 
 /** Resolve CPP: server-side valuations override local constants */
-function resolveCpp(
+export function resolveCpp(
   currency: RewardsCurrency,
   serverValuations: Record<string, number>,
 ): number {

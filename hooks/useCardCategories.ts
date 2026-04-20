@@ -55,6 +55,7 @@ export interface RankedCard {
 /**
  * Rank user's cards for a given spend category.
  * Ranks by dollar value (multiplier x cpp), not raw earn rate.
+ * Cards without an explicit bonus entry are shown at 1x base rate.
  */
 export function rankCards(
   userCardNames: string[],
@@ -73,32 +74,61 @@ export function rankCards(
     return catMatch && nameMatch;
   });
 
-  return matching
-    .map((cc) => {
-      const currency = cc.rewards_currency as RewardsCurrency | null;
-      const cpp = currency
-        ? (pointsValuations[currency] ?? CURRENCY_CPP[currency] ?? 1.0)
-        : 1.0;
-      const valuePerDollar = (cc.multiplier * cpp) / 100;
-      const isNearCap = cc.cap_amount != null && amount != null
-        ? amount > cc.cap_amount * 0.8
-        : false;
+  // Track which cards have explicit bonus entries
+  const matchedNamesLower = new Set(matching.map((cc) => cc.card_name.toLowerCase()));
+
+  // Build bonus card results
+  const bonusCards: RankedCard[] = matching.map((cc) => {
+    const currency = cc.rewards_currency as RewardsCurrency | null;
+    const cpp = currency
+      ? (pointsValuations[currency] ?? CURRENCY_CPP[currency] ?? 1.0)
+      : 1.0;
+    const valuePerDollar = (cc.multiplier * cpp) / 100;
+    const isNearCap = cc.cap_amount != null && amount != null
+      ? amount > cc.cap_amount * 0.8
+      : false;
+
+    return {
+      card_name: cc.card_name,
+      card_issuer: cc.card_issuer,
+      multiplier: cc.multiplier,
+      cpp,
+      valuePerDollar,
+      totalValue: amount ? amount * valuePerDollar : null,
+      isNearCap,
+      capInfo: cc.cap_amount
+        ? `Cap: $${cc.cap_amount.toLocaleString()}/${cc.cap_period ?? 'period'}`
+        : null,
+      rewards_currency: currency,
+    };
+  });
+
+  // Add base-rate (1x) cards for user cards without an explicit entry
+  const baseRateCards: RankedCard[] = userCardNames
+    .filter((name) => !matchedNamesLower.has(name.toLowerCase()))
+    .map((name) => {
+      // Look up this card's currency from any category entry
+      const anyEntry = allCategories.find(
+        (cc) => cc.card_name.toLowerCase() === name.toLowerCase(),
+      );
+      const currency = (anyEntry?.rewards_currency ?? 'cash') as RewardsCurrency;
+      const cpp = pointsValuations[currency] ?? CURRENCY_CPP[currency] ?? 1.0;
+      const valuePerDollar = (1 * cpp) / 100; // 1x base rate
 
       return {
-        card_name: cc.card_name,
-        card_issuer: cc.card_issuer,
-        multiplier: cc.multiplier,
+        card_name: name,
+        card_issuer: anyEntry?.card_issuer ?? 'other',
+        multiplier: 1,
         cpp,
         valuePerDollar,
         totalValue: amount ? amount * valuePerDollar : null,
-        isNearCap,
-        capInfo: cc.cap_amount
-          ? `Cap: $${cc.cap_amount.toLocaleString()}/${cc.cap_period ?? 'period'}`
-          : null,
+        isNearCap: false,
+        capInfo: null,
         rewards_currency: currency,
       };
-    })
-    .sort((a, b) => b.valuePerDollar - a.valuePerDollar);
+    });
+
+  return [...bonusCards, ...baseRateCards].sort((a, b) => b.valuePerDollar - a.valuePerDollar);
 }
 
 // ============================================================

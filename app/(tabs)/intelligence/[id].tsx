@@ -6,7 +6,7 @@ import {
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import {
   ArrowLeft, Edit3, Trash2, Calendar, CreditCard,
-  Building2, User, FileText, Target, DollarSign,
+  Building2, User, FileText, Target, DollarSign, Phone,
 } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
@@ -24,10 +24,12 @@ import { SpendProgress } from '@/components/composed/SpendProgress';
 import {
   useApplication, useUpdateApplication, useDeleteApplication,
 } from '@/hooks/useApplications';
+import { useRetentionOutcomes } from '@/hooks/useRetention';
 import {
   ISSUER_LABELS, APPLICATION_STATUS_LABELS, BUREAU_LABELS,
-  CURRENCY_LABELS,
+  CURRENCY_LABELS, RETENTION_OUTCOME_LABELS,
   type ApplicationStatus,
+  type RetentionOutcome,
 } from '@/lib/applicationTypes';
 
 // ─── Status badge mapping ────────────────────────────────────────────────────
@@ -71,6 +73,7 @@ export default function ApplicationDetailScreen() {
   const { data: app, isLoading } = useApplication(id!);
   const updateApp = useUpdateApplication();
   const deleteApp = useDeleteApplication();
+  const { data: retentionOutcomes = [] } = useRetentionOutcomes(id!);
 
   const [editing, setEditing] = useState(false);
 
@@ -263,6 +266,66 @@ export default function ApplicationDetailScreen() {
             </Text>
             <Text variant="bodySmall">{app.notes}</Text>
           </Surface>
+        )}
+
+        {/* Retention history */}
+        {!editing && retentionOutcomes.length > 0 && (
+          <View style={{ marginBottom: spacing.lg }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 10 }}>
+              <Phone size={14} color={colors.accent} strokeWidth={2} />
+              <Text variant="label" style={{ fontSize: 11, color: colors.accent }}>
+                RETENTION HISTORY
+              </Text>
+            </View>
+            <View style={{ gap: 8 }}>
+              {retentionOutcomes.map((outcome: RetentionOutcome) => {
+                const badgeVariant =
+                  outcome.outcome === 'fee_waived' || outcome.outcome === 'points_offer' || outcome.outcome === 'credit_offer'
+                    ? 'success'
+                    : outcome.outcome === 'cancelled'
+                      ? 'danger'
+                      : 'neutral';
+                return (
+                  <Surface key={outcome.id} variant="card" border padding="md" radius="md">
+                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                      <Badge
+                        label={RETENTION_OUTCOME_LABELS[outcome.outcome]}
+                        variant={badgeVariant}
+                        size="sm"
+                        dot
+                      />
+                      <Text variant="caption" color="muted">
+                        {outcome.called_at}
+                      </Text>
+                    </View>
+                    {outcome.points_offered != null && (
+                      <Text variant="bodySmall">
+                        Points offered: {outcome.points_offered.toLocaleString()}
+                        {outcome.accepted != null && (outcome.accepted ? ' — Accepted' : ' — Declined')}
+                      </Text>
+                    )}
+                    {outcome.credit_offered != null && (
+                      <Text variant="bodySmall">
+                        Credit offered: ${outcome.credit_offered.toLocaleString()}
+                        {outcome.accepted != null && (outcome.accepted ? ' — Accepted' : ' — Declined')}
+                      </Text>
+                    )}
+                    {outcome.outcome === 'fee_waived' && (
+                      <Text variant="bodySmall">
+                        Fee waived{outcome.fee_amount ? ` ($${outcome.fee_amount})` : ''}
+                        {outcome.accepted != null && (outcome.accepted ? ' — Accepted' : ' — Declined')}
+                      </Text>
+                    )}
+                    {outcome.notes && (
+                      <Text variant="caption" color="muted" style={{ marginTop: 4 }}>
+                        {outcome.notes}
+                      </Text>
+                    )}
+                  </Surface>
+                );
+              })}
+            </View>
+          </View>
         )}
 
         {/* Edit mode */}

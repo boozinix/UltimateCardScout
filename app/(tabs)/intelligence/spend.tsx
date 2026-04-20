@@ -17,6 +17,7 @@ import { PaywallModal } from '@/components/PaywallModal';
 import { useApplications } from '@/hooks/useApplications';
 import { useHousehold } from '@/hooks/useHousehold';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useValuations, resolveCpp } from '@/hooks/usePointsBalances';
 import {
   useCardCategories,
   rankCards,
@@ -40,6 +41,7 @@ export default function SpendOptimizerScreen() {
   const { data: apps = [] } = useApplications();
   const { data: members = [] } = useHousehold();
   const { data: allCategories = [] } = useCardCategories();
+  const { data: serverCpp } = useValuations();
 
   const [selectedMemberId, setSelectedMemberId] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -59,14 +61,20 @@ export default function SpendOptimizerScreen() {
       .map((a) => a.card_name_override ?? a.card_name);
   }, [apps, selectedMemberId]);
 
-  // Build valuations map (use local constants as baseline)
+  // Build valuations map — DB values override local constants (matches portfolio)
   const valuationsMap = useMemo(() => {
     const map: Record<string, number> = {};
     for (const [key, val] of Object.entries(CURRENCY_CPP)) {
       map[key] = val;
     }
+    // Override with DB values using resolveCpp logic
+    if (serverCpp) {
+      for (const key of Object.keys(CURRENCY_CPP) as RewardsCurrency[]) {
+        map[key] = resolveCpp(key, serverCpp);
+      }
+    }
     return map;
-  }, []);
+  }, [serverCpp]);
 
   // Parse amount
   const parsedAmount = useMemo(() => {
