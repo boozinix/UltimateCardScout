@@ -6,4 +6,4 @@ save_number,datetime,branch,commit_hash,changes_summary
 5,2026-04-19 17:00,main,1e0655f,Agents B2-B6: ledger data+UI (7 tables + 5 screens + 11 components); velocity engine (14 rules + 133 tests); spend tracker + portfolio; fee advisor + spend optimizer
 6,2026-04-19 17:10,main,e6dc586,QA4 fixes: retention outcome history on detail screen; spend optimizer uses DB CPP valuations; base-rate cards shown in optimizer
 7,2026-04-19 17:45,main,f205a29,Agent B7: automation pipeline (5 Edge Functions: DoC/Reddit scrapers + auto-apply + email ingest + weekly summary); admin review queue; deal passport; email import settings; 3 hooks; migration 003
-8,2026-04-19 17:55,main,PENDING,B8 Chunk 1: Onboarding v2 — 5-screen value-first flow (card selection grid + WealthRing value reveal + auth + notifications + conditional Pro upsell)
+8,2026-04-19 17:55,main,5a28838,B8 Chunk 1: Onboarding v2 — 5-screen value-first flow (card selection grid + WealthRing value reveal + auth + notifications + conditional Pro upsell)
